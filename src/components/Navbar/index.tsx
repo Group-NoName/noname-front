@@ -13,13 +13,13 @@ function Navbar() {
                     <img src={logo_uol} alt="" />
                 </div>
                 <div className="search-bar">
-                    <Input
+                    {/* <Input
                         fontSize={25}
                         placeHolder={'Buscar'}
                         width={100}
                         height={100}
                         borderRadius={25}
-                    />
+                    /> */}
                 </div>
                 <div className="iconSettings">
                     <div className="iconPerfil">

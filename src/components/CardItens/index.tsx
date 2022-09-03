@@ -1,29 +1,43 @@
 import { DOMAttributes } from "react";
 import * as S from "./styles"
+import { useNavigate } from 'react-router-dom';
+import { ViewIcon } from '@chakra-ui/icons'
+import Button from "../Button";
+
 interface ICard extends DOMAttributes<HTMLButtonElement> {
-    width: number | string;
-    height: number | string;
-    backgroundUrl: string;
-    direction1: string;
-    direction2: string;
     name: string;
+    imageURL: string;
+    produtoID: string;
+    preco: number;
+    descricao: string;
 }
-function CardIten({ name, width, height, backgroundUrl, direction1, direction2 }: ICard) {
+function CardIten({ name, imageURL, produtoID, preco, descricao}: ICard) {
+
+    const navigate = useNavigate();
     return (
         <>
-            <S.Card width={width} height={height} >
-                <S.Image backgroundUrl={backgroundUrl} direction1={direction1} direction2={direction2}>
-                    <S.Content>
-                       {/*  <h1>
+            <S.Card >
+                <S.Image>
+                    <img src={imageURL} alt="" className="image"/>  
+                </S.Image>
+                <S.Content>
+                        <h1>
                             {name}
                         </h1>
-                        <h2>Pacote: NetFlex</h2>
-                        <h2>Preço: NetFlex</h2>
-                        <h2>Telas: 5 Telas</h2>
-                        <h2>Nota: 4.6</h2>
-                        <a>Veja Mais</a> */}
+                        <h2>
+                            R${preco}
+                        </h2><br/>
+                        <span>
+                            Descrição:
+                            <p>{descricao}</p>
+                        </span><br/>
+                        <div className="btn">
+                            <Button onClick={() => { navigate(`/produto`); } } color={"#ffff"} width={"5"} height={"2"} fontSize={"18"} backgroundColor={"#ff0000"} text={"Veja mais"}>
+                                Veja mais
+                            </Button> 
+                        </div>
+                        
                     </S.Content>
-                </S.Image>
             </S.Card>
         </>
     )
