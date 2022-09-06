@@ -6,34 +6,29 @@ export const NavBar = styled.nav`
     display: flex;
     min-height: 8vh;
 }
-.teste{
-    width: 25px;
-    float: right;
-    margin-top: -1em;
-}
 .logo img{
-    height: 3em;
+    height: 3vw;
 }
 .logo{
-    margin: 1em;
+    margin: 1.2em 1em 0em 1em;
 }
 .search-bar{
     height: 2em;
     width: 50%;
-    margin: auto 5em;
+    margin: 1em 0em 0em 0em;
 }
 button .btn-burguer, .btn-cross{
-    font-size: 4em;
+    font-size: 3.5vw;
     color: white;
 }
 .btn{
     background: none;
     border: none;
-    margin: 1em 0em 1em 3em;
+    margin: 1em 0em 1em 1em;
 }
 .iconSettings{
     margin: auto ;
-    font-size: 3em;
+    font-size: 3.5vw;
     justify-content: space-around ;
     display: flex;
     width: 50%;

@@ -13,20 +13,19 @@ function Navbar() {
                     <img src={logo_uol} alt="" />
                 </div>
                 <div className="search-bar">
-                    {/* <Input
-                        fontSize={25}
+                    <Input
+                        fontSize={2}
                         placeHolder={'Buscar'}
-                        width={100}
-                        height={100}
-                        borderRadius={25}
-                    /> */}
+                        width={50}
+                        height={3}
+                        borderRadius={20}
+                    />
                 </div>
                 <div className="iconSettings">
                     <div className="iconPerfil">
                         <HiUserCircle />
                         <div className="blockContent">
-                            <p>Olá, Faça login </p>
-                            <p>ou cadastre-se</p>
+                            <p>Olá, Faça login <br/> ou cadastre-se</p>
                         </div>
                     </div>
                     <div className="HeartIcon">
