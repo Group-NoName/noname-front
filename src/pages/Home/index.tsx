@@ -32,7 +32,7 @@ function Home() {
             <div>
               <a onClick={() => viewProduto(i.id)}>
                 <CardIten imageURL={`${i.image}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} descricao={i.descricao}
-              /></a>
+                /></a>
             </div>
           )
         })}

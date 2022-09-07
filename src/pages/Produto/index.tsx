@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import { useCallback, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Button from '../../components/Button';
 import CardIten from '../../components/CardItens';
 import Navbar from '../../components/Navbar';
 import Iproduto from '../../interfaces/produto';
@@ -41,12 +42,18 @@ function Produto() {
                     {produto?.descricao}
                   </div>
                   <div className='produtoPrice'>
+                    <div className='price'></div>
+                    <div className='produtopricebuttom'>
+                      <Button color={''} width={''} height={''} fontSize={''} backgroundColor={''} text={''}/>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className='produtosAdicionais'>
-              </div>
-              <div className='produtosRelacionados'>
+              <div className='produtosLists'>
+                <div className='produtosAdicionais'>
+                </div>
+                <div className='produtosRelacionados'>
+                </div>
               </div>
       </S.Container>
     </>
