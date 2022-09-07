@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 import { useCallback, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import CardIten from '../../components/CardItens';
 import Navbar from '../../components/Navbar';
 import Iproduto from '../../interfaces/produto';
@@ -8,27 +9,25 @@ import * as S from './styles';
 
 function Produto() {
 
-    const [produtos, setProduto] = useState<Iproduto[]>([])
-    useEffect (() => {getAllProdutos()})
-    async function getAllProdutos() {
-        const response = await api.get<Iproduto[]> ('/produto/produtos')
-        setProduto(response.data)
-    }
+  const { id } = useParams();
 
-    return (
-        <>
-        <Navbar/>
-        <S.Container>
-        
-        {produtos.map(i => {
-          return(
-            <div>
-            </div>
-          )  
-        })}
-      </S.Container>
-        </>
-    )
+  const [produto, setProduto] = useState<Iproduto>()
+
+  useEffect(() => { getProduto() }, [id]);
+
+  async function getProduto() {
+    const response = await api.get<Iproduto>(`/produto/produtos/${id}`)
+    setProduto(response.data)
   }
-  
-  export default Produto;
+
+  return (
+    <>
+      <Navbar />
+      <S.Container>
+        {produto?.id}
+      </S.Container>
+    </>
+  )
+}
+
+export default Produto;
