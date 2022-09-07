@@ -27,11 +27,11 @@ function Home() {
       <Navbar />
       <S.Container>
 
-        {produtos.map(i => {
+        {produtos && produtos.map(i => {
           return (
             <div>
               <a onClick={() => viewProduto(i.id)}>
-                <CardIten imageURL={`${i.imageURL}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} descricao={i.descricao}
+                <CardIten imageURL={`${i.image}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} descricao={i.descricao}
               /></a>
             </div>
           )

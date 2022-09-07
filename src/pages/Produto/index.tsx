@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { useCallback, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CardIten from '../../components/CardItens';
 import Navbar from '../../components/Navbar';
 import Iproduto from '../../interfaces/produto';
@@ -20,11 +20,34 @@ function Produto() {
     setProduto(response.data)
   }
 
+  const navigate = useNavigate();
+
   return (
     <>
       <Navbar />
       <S.Container>
-        {produto?.id}
+        <h1>teste</h1>
+              <div className='produtoContent'>
+                <div className='imgLateral'>
+                  {produto?.image.map(i => {
+                    return(<></>)})}
+                    <h1>teste</h1>
+                </div>
+                <div className='imgCentral'>
+                  {produto?.image[0].name}
+                </div>
+                <div className='produtoInformation'>
+                  <div className='produtoDescricao'>
+                    {produto?.descricao}
+                  </div>
+                  <div className='produtoPrice'>
+                  </div>
+                </div>
+              </div>
+              <div className='produtosAdicionais'>
+              </div>
+              <div className='produtosRelacionados'>
+              </div>
       </S.Container>
     </>
   )
