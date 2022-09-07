@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 import { useCallback, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CardIten from '../../components/CardItens';
 import Navbar from '../../components/Navbar';
 import Iproduto from '../../interfaces/produto';
@@ -14,6 +15,12 @@ function Home() {
     const response = await api.get<Iproduto[]> ('/produto/produtos')
     setProduto(response.data)
   }
+
+  const navigate = useNavigate();
+
+  function viewProduto(id:string){
+    navigate(`produto/${id}`)
+}
   
     return (
       <>
@@ -23,7 +30,9 @@ function Home() {
         {produtos.map(i => {
           return(
             <div>
-              <CardIten imageURL={`${i.imageURL}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} descricao={i.descricao} />
+              <a href="">
+                <CardIten onClick={() => viewProduto(i.id) } imageURL={`${i.imageURL}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} descricao={i.descricao} 
+              /></a>         
             </div>
           )  
         })}

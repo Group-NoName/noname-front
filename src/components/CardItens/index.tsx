@@ -14,6 +14,7 @@ interface ICard extends DOMAttributes<HTMLButtonElement> {
 function CardIten({ name, imageURL, produtoID, preco, descricao}: ICard) {
 
     const navigate = useNavigate();
+
     return (
         <>
             <S.Card >
@@ -32,7 +33,7 @@ function CardIten({ name, imageURL, produtoID, preco, descricao}: ICard) {
                             <p>{descricao}</p>
                         </span><br/>
                         <div className="btn">
-                            <Button onClick={() => { navigate(`/produto`); } } color={"#ffff"} width={"5"} height={"2"} fontSize={"18"} backgroundColor={"#ff0000"} text={"Veja mais"}>
+                            <Button color={"#ffff"} width={"5"} height={"2"} fontSize={"18"} backgroundColor={"#ff0000"} text={"Veja mais"}>
                                 Veja mais
                             </Button> 
                         </div>

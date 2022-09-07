@@ -7,7 +7,7 @@ function Routes() {
       // <BrowserRouter>
       <RoutesWrapper>
         <Route path="/" element={<Home />} />
-        <Route path="/produto" element={<Produto />} />
+        <Route path="/produto/:id" element={<Produto />} />
       </RoutesWrapper>
       // </BrowserRouter>
     );
