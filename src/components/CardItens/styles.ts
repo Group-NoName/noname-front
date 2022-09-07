@@ -1,4 +1,4 @@
-import { Button, Flex } from "@chakra-ui/react"
+import {  Flex } from "@chakra-ui/react"
 import styled from "@emotion/styled"
 
 
@@ -6,7 +6,7 @@ export const Card = styled(Flex)`
     border: 2px solid blue;
     border-radius: 18px; 
     display: flex;
-    width: 95%;
+    margin: 0 1vw;
     
 
 `

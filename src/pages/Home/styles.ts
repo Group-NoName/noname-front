@@ -5,5 +5,4 @@ export const Container = styled(Flex)`
     margin-top: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
 `;
