@@ -23,28 +23,48 @@ function Produto() {
 
   const navigate = useNavigate();
 
+  const [produtos, setProdutos] = useState<Iproduto[]>([])
+  useEffect(() => { getAllProdutos() })
+  async function getAllProdutos() {
+    const response = await api.get<Iproduto[]>('/produto/produtos')
+    setProdutos(response.data)
+  }
+
+  function viewProduto(id: string) {
+    navigate(`produto/${id}`)
+  }
+
+
   return (
     <>
       <Navbar />
       <S.Container>
-        <h1>teste</h1>
               <div className='produtoContent'>
                 <div className='imgLateral'>
-                  {produto?.image.map(i => {
-                    return(<></>)})}
-                    <h1>teste</h1>
+                  {produto?.images.map(i => {
+                    return(
+                    <>
+                    <div className="imgsLateral">
+                      <img className='tamanho' src={`${i.url}`} alt="" />
+                    </div>
+                    </>)})}
                 </div>
                 <div className='imgCentral'>
-                  {produto?.image[0].name}
+                  <div className="posicao">
+                    <img className='tamanho' src={produto?.images[0].url} alt="" />
+                  </div>
                 </div>
                 <div className='produtoInformation'>
                   <div className='produtoDescricao'>
-                    {produto?.descricao}
+                    <h1>{produto?.nome}</h1>
+                    <p>{produto?.descricao}</p>
                   </div>
                   <div className='produtoPrice'>
-                    <div className='price'></div>
+                    <div className='price'>
+                      <h2>R$ {produto?.preco}</h2>
+                    </div>
                     <div className='produtopricebuttom'>
-                      <Button color={''} width={''} height={''} fontSize={''} backgroundColor={''} text={''}/>
+                      <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Comprar'}/>
                     </div>
                   </div>
                 </div>
@@ -53,6 +73,17 @@ function Produto() {
                 <div className='produtosAdicionais'>
                 </div>
                 <div className='produtosRelacionados'>
+                  <h2>Produtos Relacionados</h2>
+                  <div className='posicao'>
+                    {produtos && produtos.map(i => {
+                    return (
+                      <>
+                        <a onClick={() => viewProduto(i.id)}>
+                          <CardIten imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} width={18} height={60} />
+                        </a>
+                      </>
+                    )})}
+                  </div>
                 </div>
               </div>
       </S.Container>

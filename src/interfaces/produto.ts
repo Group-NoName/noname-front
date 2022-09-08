@@ -3,10 +3,10 @@ interface Iproduto {
     nome: string,
     descricao: string,
     preco: number,
-    image: image[]  
+    images: image[]  
 }
 interface image {
-    name: string
+    url: string
 }
 
 export default Iproduto

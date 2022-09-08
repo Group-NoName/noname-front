@@ -9,32 +9,32 @@ interface ICard extends DOMAttributes<HTMLButtonElement> {
     imageURL: string;
     produtoID: string;
     preco: number;
-    descricao: string;
+    descricao?: string;
+    width: number;
+    height: number;
 }
-function CardIten({ name, imageURL, produtoID, preco, descricao}: ICard) {
+function CardIten({ name, imageURL, produtoID, preco, descricao, width, height}: ICard) {
 
     const navigate = useNavigate();
 
     return (
         <>
-            <S.Card >
+            <S.Card width={width} height={height}>
                 <S.Image>
                     <img src={imageURL} alt="" className="image"/>  
                 </S.Image>
                 <S.Content>
-                        <h1>
-                            {name}
-                        </h1>
                         <h2>
+                            {name}
+                        </h2>
+                        <h3>
                             R${preco}
-                        </h2><br/>
+                        </h3><br/>
                         <span>
-                            Descrição:
                             <p>{descricao}</p>
                         </span><br/>
                         <div className="btn">
                             <Button color={"#ffff"} width={"5"} height={"2"} fontSize={"18"} backgroundColor={"#ff0000"} text={"Veja mais"}>
-                                Veja mais
                             </Button> 
                         </div>
                         

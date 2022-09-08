@@ -31,8 +31,8 @@ function Home() {
           return (
             <div>
               <a onClick={() => viewProduto(i.id)}>
-                <CardIten imageURL={`${i.image}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} descricao={i.descricao}
-                /></a>
+                <CardIten imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} descricao={`Descrição: ${i.descricao}`} width={20} height={90}/>
+              </a>
             </div>
           )
         })}

@@ -1,45 +1,64 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  border: 1px solid red;
   min-height: 89vh;
+  margin-top: 0.5em;
 
   .produtoContent{
-    margin: auto;
-    border: 1px solid;
+    margin: auto; 
     width: 90vw;
     height: 55vh;
     display: flex;
-    .imgLateral{
-        border: 1px solid red;
+    .imgLateral{ 
         width: 15%;
+        .tamanho{
+          width: 8vw;
+          border: 0.5px solid pink;
+          border-radius: 8px;
+        }
+        .imgsLateral{
+          text-align: center;
+        }
     }
-    .imgCentral{
-        border: 1px solid blue;
+    .imgCentral{ 
         width: 40%;
+        .posicao{
+          text-align: center;
+        }
+        .tamanho{
+          width: 25vw;
+        }
     }
     .produtoInformation{
-        border: 1px solid green;
         width: 45%;
 
         .produtoDescricao{
-          border: 1px solid red;
-          height: 80%
+          height: 80%;
+          h1{
+            padding: 1vw;
+          }
+          p{
+            padding: 1vw;
+          }
         }
-
         .produtoPrice{
-          border: 1px solid blue;
           height: 20%;
-          display: flex; 
+          display: flex;
+          
+          h2{
+            font-size: 3vw;
+            text-align: center;
+            color: #3a4ad9;
+            
+          }
           .price{
             width: 50%;
             height: 100%;
-            border: 1px solid;
           }
           .produtopricebuttom{
             width: 50%;
             height: 100%;
-            border: 1px solid red;
+            text-align: center;
           }
         }
     }
@@ -48,7 +67,6 @@ export const Container = styled.div`
   .produtosLists{
     margin: auto;
     width: 90vw;
-    border: 1px solid green;
     height: 40vh;
 
     .produtosAdicionais{
@@ -58,7 +76,16 @@ export const Container = styled.div`
 
     .produtosRelacionados{
       height: 50%;
-      border: 1px solid;
+
+      .posicao{
+        display: flex;
+        width: 100vw; 
+
+        a{
+          display: flex;
+          flex-direction: row;
+        }
+      }
     }
   }
 
