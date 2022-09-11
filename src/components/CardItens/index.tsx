@@ -34,10 +34,16 @@ function CardIten({ name, imageURL, produtoID, preco, descricao, width, height}:
                             <p>{descricao}</p>
                         </span><br/>
                         <div className="btn">
-                            <Button color={"#ffff"} width={"5"} height={"2"} fontSize={"18"} backgroundColor={"#ff0000"} text={"Veja mais"}>
+                            <Button 
+                                color={"#ffff"} 
+                                width={"5"} 
+                                height={"2"} 
+                                fontSize={"18"} 
+                                backgroundColor={"#ff0000"} 
+                                text={"Veja mais"}  
+                                onClick={() => navigate(`/produto/${produtoID}`)}>
                             </Button> 
                         </div>
-                        
                     </S.Content>
             </S.Card>
         </>
