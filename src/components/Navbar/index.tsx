@@ -2,7 +2,9 @@ import * as S from './styles'
 import logo_uol from '../../assets/logo-uol.png'
 import { HiMenu, HiHeart, HiShoppingCart, HiUserCircle } from "react-icons/hi";
 import { Input } from '../../components/Input'
+import { useNavigate } from 'react-router-dom';
 function Navbar() {
+    const navigate = useNavigate()
     return (
         <S.NavBar>
             <div className="nav">
@@ -10,7 +12,9 @@ function Navbar() {
                     <HiMenu className='btn-burguer' />
                 </button>
                 <div className="logo">
-                    <img src={logo_uol} alt="" />
+                    <a onClick={() => navigate("/")}>
+                        <img src={logo_uol} alt="" />
+                    </a>
                 </div>
                 <div className="search-bar">
                     <Input

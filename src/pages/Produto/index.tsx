@@ -77,11 +77,7 @@ function Produto() {
                   <div className='posicao'>
                     {produtos && produtos.map(i => {
                     return (
-                      <>
-                        <a onClick={() => viewProduto(i.id)}>
                           <CardIten imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} width={18} height={60} />
-                        </a>
-                      </>
                     )})}
                   </div>
                 </div>
