@@ -3,6 +3,7 @@ import Home from '../pages/Home';
 import Produto from '../pages/Produto';
 import HomeProduto from '../pages/Admin/Produtos/Home'
 import CadastroProduto from '../pages/Admin/Produtos/Cadastro'
+import HomeAdmin from '../pages/Admin/Home/index';
 
 function Routes() {
     return (
@@ -11,9 +12,10 @@ function Routes() {
         <Route path="/" element={<Home />} />
         <Route path="/produto/:id" element={<Produto />} />
         <Route path="admin" >
+          <Route index element={<HomeAdmin/>}/> 
           <Route path="produtos">
             <Route index element={ <HomeProduto/> } />
-            <Route path="cadastro" element={<CadastroProduto/>} />
+            <Route path="cadastro" element={<CadastroProduto/>} /> 
           </Route>
         </Route>
       </RoutesWrapper>

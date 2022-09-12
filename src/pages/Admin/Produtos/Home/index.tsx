@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
+import SideBarAdm from "../../../../components/SideBarAdm"
 import Iproduto from "../../../../interfaces/produto"
 import { api } from "../../../../service/api"
+import * as S from './styles'
 
 function Home(){
     const [produtos, setProduto] = useState<Iproduto[]>([])
@@ -10,33 +12,35 @@ function Home(){
       setProduto(response.data)
     }
     return(
-        <div>
-            <header>
-                {/* Aqui vai ser NavBar ADM */}
-            </header>
-            <main>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome: </th>
-                            <th>Preço: </th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {produtos && produtos.map(i => {
-                        return(
-                            <tr key={i.id}>
-                                <td>{i.nome}</td>
-                                <td>{i.preco}</td>
-                                <td></td>
-                            </tr>
-                        )
-                    })}
-                    </tbody>
-                </table>
-            </main>
-        </div>
+        <S.Home>
+            <section>
+                <main>
+                    <SideBarAdm/>
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome: </th>
+                                    <th>Preço: </th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {produtos && produtos.map(i => {
+                                return(
+                                    <tr key={i.id}>
+                                        <td>{i.nome}</td>
+                                        <td>{i.preco}</td>
+                                        <td></td>
+                                    </tr>
+                                )
+                            })}
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </section>
+        </S.Home>
     )
 }
 export default Home;
