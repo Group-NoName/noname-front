@@ -4,11 +4,13 @@ export const Cadastro = styled.div`
 main{
     display: flex;
 }
+.Form{
+    margin: 45px auto;
+}
 .nome{
     width: 50vw;
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
     input{
         width: 100%;
     }
@@ -18,16 +20,34 @@ main{
     height: 30vh;
     display: flex;
     flex-direction: column;
-    border: 1px solid blue;
     textarea{
         height: 100%;
+        resize: none;
     }
 }
 .position{
-    width: 25vw;
-    height: 30vh;
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
+    .imgs{      
+        width: 25vw;
+        height: 30vh;
+        .img1,
+        .img2,
+        .img3{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    .preco{
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        gap: 12px;
+        input{
+            width: 15vw;
+        }
+    }
 }
 
 `
