@@ -3,7 +3,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/Button';
 import CardIten from '../../components/CardItens';
-import Navbar from '../../components/Navbar';
+import Nav_ from '../../components/Nav';
 import Iproduto from '../../interfaces/produto';
 import { api } from '../../service/api';
 import * as S from './styles';
@@ -37,7 +37,7 @@ function Produto() {
 
   return (
     <>
-      <Navbar />
+      <Nav_/>
       <S.Container>
               <div className='produtoContent'>
                 <div className='imgLateral'>

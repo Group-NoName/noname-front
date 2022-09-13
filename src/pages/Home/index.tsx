@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { useCallback, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CardIten from '../../components/CardItens';
-import Navbar from '../../components/Navbar';
+import Nav_ from '../../components/Nav';
 import Iproduto from '../../interfaces/produto';
 import { api } from '../../service/api';
 import * as S from './styles';
@@ -24,7 +24,7 @@ function Home() {
 
   return (
     <>
-      <Navbar />
+      <Nav_/>
       <S.Container>
 
         {produtos && produtos.map(i => {
