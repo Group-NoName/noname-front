@@ -2,7 +2,6 @@ import { AxiosError } from 'axios';
 import { useCallback, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/Button';
-import CardIten from '../../components/CardItens';
 import CardProds from '../../components/CardProds';
 import Nav_ from '../../components/Nav';
 import Iproduto from '../../interfaces/produto';

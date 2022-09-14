@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios';
 import { useCallback, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import CardIten from '../../components/CardItens';
 import CardProds from '../../components/CardProds';
 import Nav_ from '../../components/Nav';
 import Iproduto from '../../interfaces/produto';
