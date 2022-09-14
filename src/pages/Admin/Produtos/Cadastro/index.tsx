@@ -51,6 +51,7 @@ function cadastro() {
     const {
         register,
         handleSubmit,
+        formState: { errors }
     } = useForm<CadastroProduto>({
         mode: 'onBlur',
     });
@@ -67,6 +68,8 @@ function cadastro() {
                                 <input
                                     type="text"
                                     value={produto?.nome}
+                                    required
+                                    placeholder="Produto X"
                                     {...register('nome')}
                                 />
                             </div>
@@ -74,6 +77,8 @@ function cadastro() {
                                 <label htmlFor="descricao">Descrição</label>
                                 <textarea
                                     {...register('descricao')}
+                                    placeholder="Descrição que o produto irá ter"
+                                    required
                                     value={produto?.descricao}
                                 />
                             </div>
@@ -83,6 +88,8 @@ function cadastro() {
                                         <label htmlFor="url">Img1</label>
                                         <input
                                             type="text"
+                                            required
+                                            placeholder="https://exemple.com/image1.jpg"
                                             {...register('images.0.url')}
                                         />
                                     </div>
@@ -90,6 +97,8 @@ function cadastro() {
                                         <label htmlFor="url">Img2</label>
                                         <input
                                             type="text"
+                                            required
+                                            placeholder="https://exemple.com/image2.jpg"
                                             {...register('images.1.url')}
                                         />
                                     </div>
@@ -97,6 +106,8 @@ function cadastro() {
                                         <label htmlFor="url">Img3</label>
                                         <input
                                             type="text"
+                                            required
+                                            placeholder="https://exemple.com/image3.jpg"
                                             {...register('images.2.url')}
                                         />
                                     </div>
@@ -105,7 +116,9 @@ function cadastro() {
                                     <label htmlFor="preco">Preço</label>
                                     <input
                                         type="number"
+                                        required
                                         {...register('preco')}
+                                        placeholder="R$ 00.00"
                                         value={produto?.preco}
                                     />
                                     <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Cadastrar'} type="submit" />
