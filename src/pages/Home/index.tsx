@@ -32,7 +32,7 @@ function Home() {
           <div className="produtosmap">
             {produtos && produtos.map(i => {
               return (
-                  <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+                <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
               )
             })}
           </div>
