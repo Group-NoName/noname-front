@@ -26,8 +26,8 @@ function SideBarAdm(){
                         <div className="c">
                             <h1>Categorias</h1>
                             <ul>
-                                <Link className="Link" to={''}><AiFillPlusSquare/><li>Adicionar categoria</li>  </Link>
-                                <Link className="Link" to={''}><AiFillEye/><li>Visualizar categorias</li></Link>
+                                <Link className="Link" to={'/admin/categorias/cadastro'}><AiFillPlusSquare/><li>Adicionar categoria</li>  </Link>
+                                <Link className="Link" to={'/admin/categorias'}><AiFillEye/><li>Visualizar categorias</li></Link>
                                 
                             </ul>
                         </div>
