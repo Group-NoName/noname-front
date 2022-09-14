@@ -7,7 +7,7 @@ function Home(){
             <section>
                 <main>
                     <SideBarAdm/>
-                    <h1>tet</h1>
+                    <h1>teth</h1>
                 </main>
             </section>
         </S.Home>
