@@ -5,8 +5,9 @@ import {
     Tr,
     Th,
     Td,
-  } from '@chakra-ui/react'
-import { useEffect, useState } from "react"
+} from '@chakra-ui/react'
+import { useCallback, useEffect, useState } from "react"
+import { useNavigate } from 'react-router-dom'
 import SideBarAdm from "../../../../components/SideBarAdm"
 import Iproduto from "../../../../interfaces/produto"
 import { api } from "../../../../service/api"
@@ -19,6 +20,18 @@ function Home() {
         const response = await api.get<Iproduto[]>('/produto/produtos')
         setProduto(response.data)
     }
+
+    const deleteProduto = useCallback(
+        async (id: string) => {
+            await api.delete(`/produto/excluir/${id}`)
+                .then(() => {
+                }).catch(err => {
+                    console.log(err);
+                })
+        }, []
+    )
+    const navigate = useNavigate()
+
     return (
         <S.Home>
             <section>
@@ -29,7 +42,8 @@ function Home() {
                             <Thead>
                                 <Tr>
                                     <Th>Nome:</Th>
-                                    <Th isNumeric>Preço:</Th>   
+                                    <Th isNumeric>Preço:</Th>
+                                    <Th>Ações:</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -37,11 +51,16 @@ function Home() {
                                     return (
                                         <Tr key={i.id}>
                                             <Td>{i.nome}</Td>
-                                            <Td>{i.preco}</Td>                                            
+                                            <Td>{i.preco}</Td>
+                                            <Td>
+                                                <a onClick={() => navigate(`/admin/produtos/editar/${i.id}`)}> Editar </a>
+                                                |<a onClick={() => navigate(`/admin/produtos/visualizar/${i.id}`)}>Visualizar</a>
+                                                | <a onClick={() => deleteProduto(i.id)}> Excluir</a>
+                                            </Td>
                                         </Tr>
                                     )
                                 })}
-                            </Tbody>             
+                            </Tbody>
                         </Table>
                     </div>
                 </main>
