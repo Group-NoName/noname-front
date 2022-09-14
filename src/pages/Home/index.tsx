@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { useCallback, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CardIten from '../../components/CardItens';
+import CardProds from '../../components/CardProds';
 import Nav_ from '../../components/Nav';
 import Iproduto from '../../interfaces/produto';
 import { api } from '../../service/api';
@@ -26,16 +27,16 @@ function Home() {
     <>
       <Nav_/>
       <S.Container>
-
-        {produtos && produtos.map(i => {
-          return (
-            <div>
-              <a onClick={() => viewProduto(i.id)}>
-                <CardIten imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} descricao={`Descrição: ${i.descricao}`} width={20} height={90}/>
-              </a>
-            </div>
-          )
-        })}
+        <div className="produtosprincipais">
+          <h1>Principais Produtos</h1>
+          <div className="produtosmap">
+            {produtos && produtos.map(i => {
+              return (
+                  <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+              )
+            })}
+          </div>
+        </div>
       </S.Container>
     </>
   );

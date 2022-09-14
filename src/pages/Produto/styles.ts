@@ -1,16 +1,26 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
   min-height: 89vh;
   margin-top: 0.5em;
 
   .produtoContent{
-    margin: auto; 
     width: 90vw;
     height: 55vh;
     display: flex;
+    
     .imgLateral{ 
-        width: 15%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      width: 15%;
         .tamanho{
           width: 8vw;
           border: 0.5px solid pink;
@@ -21,6 +31,9 @@ export const Container = styled.div`
         }
     }
     .imgCentral{ 
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 40%;
         .posicao{
           text-align: center;
@@ -31,33 +44,38 @@ export const Container = styled.div`
     }
     .produtoInformation{
         width: 45%;
+        border: 1px solid ;
+        border-radius: 20px;
 
         .produtoDescricao{
           height: 80%;
+          
           h1{
             padding: 1vw;
+            border-bottom: 1px solid;
           }
           p{
             padding: 1vw;
           }
         }
         .produtoPrice{
-          height: 20%;
           display: flex;
+          padding: 10px;
+          align-items: center;
+          justify-content: space-between;
+          border-top: 1px solid;
           
-          h2{
-            font-size: 3vw;
-            text-align: center;
-            color: #3a4ad9;
-            
-          }
           .price{
-            width: 50%;
-            height: 100%;
+              
+            h2{
+              display: flex;
+              font-size: 3vw;
+              text-align: center;
+              color: #3a4ad9;
+            }
           }
           .produtopricebuttom{
-            width: 50%;
-            height: 100%;
+            display: flex;
             text-align: center;
           }
         }
@@ -65,20 +83,30 @@ export const Container = styled.div`
   }
 
   .produtosLists{
-    margin: auto;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
     width: 90vw;
-    height: 40vh;
-
+    overflow: hidden;
+    
     .produtosAdicionais{
-      height: 50%;
       border: 1px solid;
+      
+    }
+
+    h2{
+      margin: auto;
     }
 
     .produtosRelacionados{
-      height: 50%;
-
+      display: flex;
+      
       .posicao{
         display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
         width: 100vw; 
 
         a{

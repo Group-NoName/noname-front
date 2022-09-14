@@ -77,7 +77,7 @@ function editar() {
                                 <label htmlFor="nome">Nome</label>
                                 <input
                                     type="text"
-                                    placeholder={produto?.nome}
+                                    defaultValue={produto?.nome}
                                     required
                                     {...register('nome')}
                                 />

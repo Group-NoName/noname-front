@@ -3,6 +3,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/Button';
 import CardIten from '../../components/CardItens';
+import CardProds from '../../components/CardProds';
 import Nav_ from '../../components/Nav';
 import Iproduto from '../../interfaces/produto';
 import { api } from '../../service/api';
@@ -72,12 +73,12 @@ function Produto() {
               <div className='produtosLists'>
                 <div className='produtosAdicionais'>
                 </div>
-                <div className='produtosRelacionados'>
                   <h2>Produtos Relacionados</h2>
+                <div className='produtosRelacionados'>
                   <div className='posicao'>
                     {produtos && produtos.map(i => {
                     return (
-                          <CardIten imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} width={18} height={60} />
+                      <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
                     )})}
                   </div>
                 </div>

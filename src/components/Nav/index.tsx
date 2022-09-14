@@ -29,11 +29,11 @@ function Nav_() {
                                     <Navbar.Brand>Home</Navbar.Brand>
                                 </Link>
                             </Nav.Link>
-                            <Nav.Link>
-                                <Link className='link' to={''}>
+                            {/* <Nav.Link>
+                                <Link  className='link' to={'/'}>
                                     <Navbar.Brand>Produtos</Navbar.Brand>
                                 </Link>
-                            </Nav.Link>
+                            </Nav.Link> */}
                             {/*   
                             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
