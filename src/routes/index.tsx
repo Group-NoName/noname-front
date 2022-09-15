@@ -9,6 +9,9 @@ import EditarProduto from '../pages/Admin/Produtos/Editar'
 import CadastroCategoria from '../pages/Admin/Categorias/Cadastro'
 import HomeCategoria from '../pages/Admin/Categorias/Home'
 import EditarCategoria from '../pages/Admin/Categorias/Editar'
+import HomeTags from '../pages/Admin/Tags/Home'
+import CadastroTags from '../pages/Admin/Tags/Cadastro'
+import EditarTags from '../pages/Admin/Tags/Editar'
 
 function Routes() {
     return (
@@ -29,6 +32,11 @@ function Routes() {
             <Route path="cadastro" element={<CadastroCategoria/>} />       
             <Route path="editar/:id" element={<EditarCategoria/>} />
           </Route>
+          <Route path="tags">
+            <Route index element={ <HomeTags/> } />
+            <Route path="cadastro" element={<CadastroTags/>} />       
+            <Route path="editar/:id" element={<EditarTags/>} />
+          </Route>  
         </Route>
       </RoutesWrapper>
       // </BrowserRouter>
