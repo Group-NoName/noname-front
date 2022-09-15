@@ -10,7 +10,8 @@ export const Container = styled.div`
     .main,
     .header,
     .produtos,
-    .categorias{
+    .categorias,
+    .tags{
         align-items: center;
         justify-content: center;
 
@@ -48,12 +49,14 @@ export const Container = styled.div`
     }
 
     .produtos,
-    .categorias{
+    .categorias,
+    .tags{
         display: flex;
         min-height: 50vh; 
 
         .p,
-        .c{
+        .c,
+        .t{
             display: flex;
             flex-direction: column;
             gap: 25px;
