@@ -7,6 +7,7 @@ import { api } from "../../../../service/api";
 import * as S from './styles'
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import Button from "../../../../components/Button";
+import Nav_Admin from "../../../../components/Nav_Admin";
 
 function Visualizar() {
     const [produto, setProduto] = useState<Iproduto>()
@@ -41,39 +42,41 @@ function Visualizar() {
     )
 
     return (
-        <S.Home>
-            <main>
-                <SideBarAdm />
-                <div className="mainContent">
-                    <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
-                    <div className="left-content">
-                        <div className="content">
-                            <h1>{produto?.nome}</h1>
-                            <h3>R$ {produto?.preco}</h3>
-                            <div className="description">
-                                <p>{produto?.descricao}</p>
-                            </div>
-                            <div>
-                                <h2>Tags</h2>
-                                {produto?.tags.map(i => {
-                                    return (
-                                        <>
-                                            <h3>{i.nome}</h3>
-                                            <Button color={"black"} width={"5"} height={"2"} fontSize={"20"} backgroundColor={"#fff"} text={"Remover"} onClick={() => deleteRelacao(String(i.id), String(produto.id))} />
-                                        </>
-                                    )
-                                })}
+        <section>
+            <Nav_Admin/>
+            <S.Home>
+                <main>
+                    <div className="mainContent">
+                        <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
+                        <div className="left-content">
+                            <div className="content">
+                                <h1>{produto?.nome}</h1>
+                                <h3>R$ {produto?.preco}</h3>
+                                <div className="description">
+                                    <p>{produto?.descricao}</p>
+                                </div>
+                                <div>
+                                    <h2>Tags</h2>
+                                    {produto?.tags.map(i => {
+                                        return (
+                                            <>
+                                                <h3>{i.nome}</h3>
+                                                <Button color={"black"} width={"5"} height={"2"} fontSize={"20"} backgroundColor={"#fff"} text={"Remover"} onClick={() => deleteRelacao(String(i.id), String(produto.id))} />
+                                            </>
+                                        )
+                                    })}
+                                </div>
                             </div>
                         </div>
+                        <div className="right-content">
+                            <img src={`${produto?.images[0].url}`} alt="" />
+                            <Button color={"black"} width={"5"} height={"2"} fontSize={"20"} backgroundColor={"#fff"} text={"Editar"} onClick={() => navigate(`/admin/produtos/editar/${produto?.id}`)} />
+                            <Button color={"#fff"} width={"5"} height={"2"} fontSize={"20"} backgroundColor={"red"} text={"Excluir"} onClick={() => deleteProduto(String(produto?.id))} />
+                        </div>
                     </div>
-                    <div className="right-content">
-                        <img src={`${produto?.images[0].url}`} alt="" />
-                        <Button color={"black"} width={"5"} height={"2"} fontSize={"20"} backgroundColor={"#fff"} text={"Editar"} onClick={() => navigate(`/admin/produtos/editar/${produto?.id}`)} />
-                        <Button color={"#fff"} width={"5"} height={"2"} fontSize={"20"} backgroundColor={"red"} text={"Excluir"} onClick={() => deleteProduto(String(produto?.id))} />
-                    </div>
-                </div>
-            </main>
-        </S.Home>
+                </main>
+            </S.Home>
+        </section>
     )
 }
 export default Visualizar;

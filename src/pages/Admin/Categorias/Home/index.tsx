@@ -1,17 +1,11 @@
-import {
-    Table,
-    Thead,
-    Tbody,
-    Tr,
-    Th,
-    Td,
-} from '@chakra-ui/react'
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
-import SideBarAdm from "../../../../components/SideBarAdm"
+import Nav_Admin from '../../../../components/Nav_Admin'
 import ICategoria from '../../../../interfaces/categoria'
 import { api } from "../../../../service/api"
 import * as S from './styles'
+import Table from 'react-bootstrap/Table';
+import { Button } from "react-bootstrap"
 
 function Home() {
     const [categorias, setCategorias] = useState<ICategoria[]>([])
@@ -33,35 +27,37 @@ function Home() {
     const navigate = useNavigate()
 
     return (
-        <S.Home>
-            <main>
-                <SideBarAdm />
-                <div className="Form">
-                        <Table variant='simple' colorScheme='teal'>
-                            <Thead>
-                                <Tr>
-                                    <Th>Nome:</Th>
-                                    <Th>Ações:</Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
+        <section>
+            <Nav_Admin/>
+            <S.Home>
+                <main>
+                    <div className="Form">
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 {categorias && categorias.map(i => {
                                     return (
-                                        <Tr key={i.id}>
-                                            <Td>{i.nome}</Td>
-                                            <Td>
-                                                <a onClick={() => navigate(`/admin/categorias/editar/${i.id}`)}> Editar </a>
-                                                |<a onClick={() => navigate(`/admin/categorias/visualizar/${i.id}`)}>Visualizar</a>
-                                                | <a onClick={() => deletarCategoria(i.id)}> Excluir</a>
-                                            </Td>
-                                        </Tr>
+                                        <tr key={i.id}>
+                                            <td>{i.nome}</td>
+                                            <td className="tdbuttons">
+                                                <Button variant="outline-primary" onClick={() => navigate(`/admin/categorias/editar/${i.id}`)}>Editar</Button>{' '}
+                                                <Button variant="outline-success" onClick={() => navigate(`/admin/categorias/visualizar/${i.id}`)}>Visualizar</Button>
+                                                <Button variant="outline-danger" onClick={() => deletarCategoria(i.id)}>Deletar</Button>{' '}
+                                            </td>
+                                        </tr>
                                     )
                                 })}
-                            </Tbody>
+                            </tbody>
                         </Table>
                     </div>
-            </main>
-        </S.Home>
+                </main>
+            </S.Home>   
+        </section>
     )
 }
 export default Home;

@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../components/Button";
+import Nav_Admin from "../../../../components/Nav_Admin";
 import SideBarAdm from "../../../../components/SideBarAdm";
 import { api } from "../../../../service/api";
 import * as S from './styles'
@@ -57,10 +58,10 @@ function cadastro() {
     });
 
     return (
-        <S.Cadastro>
-            <section>
+        <section>
+            <Nav_Admin/>
+                <S.Cadastro>
                 <main>
-                    <SideBarAdm />
                     <div className="Form">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="nome">
@@ -127,8 +128,8 @@ function cadastro() {
                         </form>
                     </div>
                 </main>
-            </section>
-        </S.Cadastro>
+            </S.Cadastro>
+        </section>
     )
 }
 export default cadastro;

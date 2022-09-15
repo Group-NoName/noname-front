@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../../components/Button";
-import SideBarAdm from "../../../../components/SideBarAdm";
+import Nav_Admin from "../../../../components/Nav_Admin";
 import Iproduto from "../../../../interfaces/produto";
 import tags from "../../../../interfaces/tags"
 import { api } from "../../../../service/api";
@@ -94,10 +94,10 @@ function editar() {
     });
 
     return (
-        <S.Editar>
-            <section>
+        <section>
+            <Nav_Admin/>
+            <S.Editar>
                 <main>
-                    <SideBarAdm />
                     <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
                     <div className="Form">
                         <form onSubmit={handleSubmit(onSubmit)}>
@@ -175,8 +175,8 @@ function editar() {
                         </form>
                     </div>
                 </main>
-            </section >
-        </S.Editar >
+            </S.Editar >
+        </section >
     )
 }
 export default editar;

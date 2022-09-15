@@ -11,15 +11,10 @@ main{
     Table{
         margin: 0 auto auto;
         width: 100%;
-    }
-    Tr{
-        text-align: left;
-    }
-    Th{
-        border: 1px solid blue;  
-    }
-    td{
-        border: 1px solid green;
+        .tdbuttons{
+            display: flex;
+            gap: 5px;
+        }
     }
 }
 `

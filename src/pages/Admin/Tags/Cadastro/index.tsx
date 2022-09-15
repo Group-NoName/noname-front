@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../../components/Button';
-import SideBarAdm from '../../../../components/SideBarAdm'
+import Nav_Admin from '../../../../components/Nav_Admin';
 import { api } from '../../../../service/api';
 import * as S from './styles'
 
@@ -43,24 +43,25 @@ function cadastroTag() {
     });
 
     return (
-        <S.Cadastro>
-            <section>
-                <main>
-                    <SideBarAdm />
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <label htmlFor="nome">Nome</label>
-                        <input
-                            type="text"
-                            value={tag?.nome}
-                            required
-                            placeholder="Tag X"
-                            {...register('nome')}
-                        />
-                        <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Cadastrar'} type="submit" />
-                    </form>
-                </main>
-            </section>
-        </S.Cadastro>
+        <section>
+            <Nav_Admin/>
+            <S.Cadastro>
+                    <main>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <label htmlFor="nome">Nome</label>
+                            <input
+                                type="text"
+                                value={tag?.nome}
+                                required
+                                placeholder="Tag X"
+                                {...register('nome')}
+                            />
+                            <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Cadastrar'} type="submit" />
+                        </form>
+                    </main>
+                
+            </S.Cadastro>
+        </section>
     )
 }
 export default cadastroTag

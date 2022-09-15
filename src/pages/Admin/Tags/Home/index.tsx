@@ -1,10 +1,10 @@
-import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../../../service/api';
-import SideBarAdm from '../../../../components/SideBarAdm'
 import tags from "../../../../interfaces/tags"
 import * as S from './styles'
+import Nav_Admin from '../../../../components/Nav_Admin';
+import { Button, Table } from 'react-bootstrap';
 
 
 function homeTag() {
@@ -25,35 +25,37 @@ function homeTag() {
         }, []
     )
     return (
-        <S.Home>
-            <main>
-                <SideBarAdm />
-                <div className="Form">
-                    <Table variant='simple' colorScheme='teal'>
-                        <Thead>
-                            <Tr>
-                                <Th>Nome:</Th>
-                                <Th>Ações:</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            {tags && tags.map(i => {
-                                return (
-                                    <Tr key={i.id}>
-                                        <Td>{i.nome}</Td>
-                                        <Td>
-                                            <a onClick={() => navigate(`/admin/tags/editar/${i.id}`)}> Editar </a>
-                                            |<a onClick={() => navigate(`/admin/tags/visualizar/${i.id}`)}>Visualizar</a>
-                                            | <a onClick={() => deleteTags(i.id)}> Excluir</a>
-                                        </Td>
-                                    </Tr>
-                                )
-                            })}
-                        </Tbody>
-                    </Table>
-                </div>
-            </main>
-        </S.Home>
+        <section>
+            <Nav_Admin/>
+            <S.Home>
+                <main>
+                    <div className="Form">
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {tags && tags.map(i => {
+                                    return (
+                                        <tr key={i.id}>
+                                            <td>{i.nome}</td>
+                                            <td className="tdbuttons">
+                                                <Button variant="outline-primary" onClick={() => navigate(`/admin/tags/editar/${i.id}`)}>Editar</Button>{' '}
+                                                <Button variant="outline-success" onClick={() => navigate(`/admin/tags/visualizar/${i.id}`)}>Visualizar</Button>
+                                                <Button variant="outline-danger" onClick={() => deleteTags(i.id)}>Deletar</Button>{' '}
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </Table>
+                    </div>
+                </main>
+            </S.Home>
+        </section>
     )
 }
 export default homeTag
