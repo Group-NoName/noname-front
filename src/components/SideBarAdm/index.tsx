@@ -32,6 +32,17 @@ function SideBarAdm(){
                             </ul>
                         </div>
                     </div>
+                    <div className="tags">
+                        <div className='t'>
+                            <h1>Tags</h1>
+                            <ul>
+                                
+                                <Link className="Link" to={'/admin/tags/cadastro'}><AiFillPlusSquare/><li>Adicionar tags</li></Link>
+                                <Link className="Link" to={'/admin/tags'}><AiFillEye/><li>Visualizar tags</li></Link>
+                                
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </section>
         </S.Container>
