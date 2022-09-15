@@ -13,20 +13,30 @@ function Produto() {
   const { id } = useParams();
 
   const [produto, setProduto] = useState<Iproduto>()
+  
+  const [produtos, setProdutos] = useState<Iproduto[]>([])
+  
+  const [produtosTag, setProdutosTag] = useState<Iproduto[]>([])
 
-  useEffect(() => { getProduto() }, [id]);
+  const navigate = useNavigate();
+
+  useEffect(() => { getProduto(), getProdutosSemelhantes() }, [id]);
 
   async function getProduto() {
     const response = await api.get<Iproduto>(`/produto/produtos/${id}`)
     setProduto(response.data)
   }
 
-  const navigate = useNavigate();
+  
 
-  const [produtos, setProdutos] = useState<Iproduto[]>([])
   useEffect(() => { getAllProdutos() })
   async function getAllProdutos() {
     const response = await api.get<Iproduto[]>('/produto/produtos')
+    setProdutos(response.data)
+  }
+
+  async function getProdutosSemelhantes() {
+    const response = await api.get<Iproduto[]>(`/produtos-semelhantes/${id}`)
     setProdutos(response.data)
   }
 
