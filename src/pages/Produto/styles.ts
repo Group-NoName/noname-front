@@ -90,8 +90,7 @@ export const Container = styled.div`
     overflow: hidden;
     
     .produtosAdicionais{
-      border: 1px solid;
-      
+      border: 1px solid black;
     }
 
     h2{

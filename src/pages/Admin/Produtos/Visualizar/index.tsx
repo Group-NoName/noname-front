@@ -1,7 +1,6 @@
 // Tela do admin que vai pegar os produtos especificos
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import SideBarAdm from "../../../../components/SideBarAdm"
 import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
 import * as S from './styles'
@@ -43,7 +42,7 @@ function Visualizar() {
 
     return (
         <section>
-            <Nav_Admin/>
+            <Nav_Admin />
             <S.Home>
                 <main>
                     <div className="mainContent">
@@ -60,8 +59,11 @@ function Visualizar() {
                                     {produto?.tags.map(i => {
                                         return (
                                             <>
-                                                <h3>{i.nome}</h3>
+                                                <h1 key={i.id}>
+                                                    {i.nome}
+                                                </h1>
                                                 <Button color={"black"} width={"5"} height={"2"} fontSize={"20"} backgroundColor={"#fff"} text={"Remover"} onClick={() => deleteRelacao(String(i.id), String(produto.id))} />
+
                                             </>
                                         )
                                     })}
@@ -76,7 +78,7 @@ function Visualizar() {
                     </div>
                 </main>
             </S.Home>
-        </section>
+        </section >
     )
 }
 export default Visualizar;

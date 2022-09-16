@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react"
 import { Button, Table } from "react-bootstrap"
 import { useNavigate } from 'react-router-dom'
 import Nav_Admin from "../../../../components/Nav_Admin"
-import SideBarAdm from "../../../../components/SideBarAdm"
 import Iproduto from "../../../../interfaces/produto"
 import { api } from "../../../../service/api"
 import * as S from './styles'

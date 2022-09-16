@@ -55,8 +55,6 @@ function editar() {
                     { url: data.images[2].url }
                 ]
             }).then(({ data }) => {
-                console.log(data);
-                alert("Produto Editado!")
                 navigate(`/admin/produtos/visualizar/${id}`)
             }).catch(error => {
                 console.log(error);
@@ -69,8 +67,6 @@ function editar() {
             await api.put<CadastroProduto>(`/produto/adicionar-tag/${id}`, {
                 tags: data.tags[0].id.map(i => ({ id: i }))
             }).then(({ data }) => {
-                console.log(data);
-                alert("Tag adicionada ao produto")
             }).catch(error => {
                 console.log(error);
                 alert(error)
@@ -93,9 +89,31 @@ function editar() {
         mode: 'onBlur',
     });
 
+    let listavazia: any = []
+    let listavaziaTags: any = []
+    produto?.tags.forEach(i => {
+        let nomeTag = i.nome
+        listavazia.push({
+            nome: nomeTag
+        })
+    })
+    tags.forEach(i => {
+        let nomeTag = i.nome
+        listavaziaTags.push({
+            nome: nomeTag
+        })
+    })
+    /* for (let x = 0; x < listavaziaTags.length; x++) {
+        if (listavazia.nome == listavaziaTags.nome) {
+            console.log(listavazia[x].nome)
+        } else {
+            console.log(listavaziaTags[x].nome)
+        }
+    } */
+
     return (
         <section>
-            <Nav_Admin/>
+            <Nav_Admin />
             <S.Editar>
                 <main>
                     <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
@@ -161,12 +179,10 @@ function editar() {
                                     />
                                     {tags && tags.map(tags => {
                                         return (
-                                            < div >
-                                                <label key={tags.id}>
-                                                    {tags.nome}
-                                                    <input type="checkbox" value={tags.id} id={tags.id} {...register('tags.0.id')} />
-                                                </label>
-                                            </div>
+                                            <label key={tags.id}>
+                                                {tags.nome}
+                                                <input type="checkbox" value={tags.id} id={tags.id} {...register('tags.0.id')} />
+                                            </label>
                                         )
                                     })}
                                     <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Cadastrar'} type="submit" />
