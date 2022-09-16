@@ -17,7 +17,7 @@ function Home() {
 
     const deletarCategoria = useCallback(
         async (id: string) => {
-            await api.delete(`/categoria/categorias/${id}`)
+            await api.delete(`/categoria/excluir/${id}`)
                 .then(() => {
                 }).catch(err => {
                     console.log(err);

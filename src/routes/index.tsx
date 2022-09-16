@@ -8,9 +8,11 @@ import VisualizarProduto from '../pages/Admin/Produtos/Visualizar'
 import EditarProduto from '../pages/Admin/Produtos/Editar'
 import CadastroCategoria from '../pages/Admin/Categorias/Cadastro'
 import HomeCategoria from '../pages/Admin/Categorias/Home'
+import VisualizarCategoria from '../pages/Admin/Categorias/Visualizar'
 import EditarCategoria from '../pages/Admin/Categorias/Editar'
 import HomeTags from '../pages/Admin/Tags/Home'
 import CadastroTags from '../pages/Admin/Tags/Cadastro'
+import VisualizarTag from '../pages/Admin/Tags/Visualizar'
 import EditarTags from '../pages/Admin/Tags/Editar'
 
 function Routes() {
@@ -29,12 +31,14 @@ function Routes() {
           </Route>
           <Route path="categorias">
             <Route index element={ <HomeCategoria/> } />
-            <Route path="cadastro" element={<CadastroCategoria/>} />       
+            <Route path="cadastro" element={<CadastroCategoria/>} />
+            <Route path="visualizar/:id" element={<VisualizarCategoria/>} />       
             <Route path="editar/:id" element={<EditarCategoria/>} />
           </Route>
           <Route path="tags">
             <Route index element={ <HomeTags/> } />
-            <Route path="cadastro" element={<CadastroTags/>} />       
+            <Route path="cadastro" element={<CadastroTags/>} />
+            <Route path="visualizar/:id" element={<VisualizarTag/>} />       
             <Route path="editar/:id" element={<EditarTags/>} />
           </Route>  
         </Route>
