@@ -38,7 +38,6 @@ function editar() {
                 produtos: [{ id: data.produtoid }]
             }).then(({ data }) => {
                 console.log(data);
-                alert("Produto Editado!")
                 navigate(`/admin/categorias`)
             }).catch(error => {
                 console.log(error);

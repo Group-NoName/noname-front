@@ -17,7 +17,7 @@ function cadastro() {
 
     const cadastroCategoria = useCallback(
         async (data: CadastroCategoria) => {
-            await api.post<CadastroCategoria>('/categoria/categorias', {
+            await api.post<CadastroCategoria>('/categoria/cadastro', {
                 nome: data.nome,
             }).then(({ data }) => {
                 console.log(data);
