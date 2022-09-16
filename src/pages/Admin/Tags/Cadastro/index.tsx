@@ -48,14 +48,16 @@ function cadastroTag() {
             <S.Cadastro>
                     <main>
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <label htmlFor="nome">Nome</label>
-                            <input
-                                type="text"
-                                value={tag?.nome}
-                                required
-                                placeholder="Tag X"
-                                {...register('nome')}
-                            />
+                            <div className="nome">
+                                <label htmlFor="nome">Nome</label>
+                                <input
+                                    type="text"
+                                    value={tag?.nome}
+                                    required
+                                    placeholder="Tag X"
+                                    {...register('nome')}
+                                />
+                            </div>
                             <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Cadastrar'} type="submit" />
                         </form>
                     </main>

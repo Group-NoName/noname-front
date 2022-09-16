@@ -53,14 +53,14 @@ function editarTag() {
             <S.Editar>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="nome">
-                        <label htmlFor="nome">Nome</label>
+                        <label htmlFor="nome">Nome:</label>
                         <input
                             type="text"
                             defaultValue={tag?.nome}
                             {...register('nome')}
                         />
                     </div>
-                    <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Cadastrar'} type="submit" />
+                    <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Editar'} type="submit" />
                 </form>
             </S.Editar >
         </section>

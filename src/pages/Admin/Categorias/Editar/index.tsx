@@ -2,6 +2,7 @@ import { Select } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+import Form from 'react-bootstrap/Form';
 import Button from '../../../../components/Button';
 import Nav_Admin from '../../../../components/Nav_Admin';
 import ICategoria from '../../../../interfaces/categoria';
@@ -74,8 +75,7 @@ function editar() {
                                     {...register('nomeCategoria')}
                                 />
                             </div>
-                            <Select
-                                {...register('produtoid')}>
+                            <Form.Select aria-label="Default select example" {...register('produtoid')}>
                                 {produtos && produtos.map((produto) => {
                                     return (
                                         <option key={produto.id} value={produto.id}>
@@ -83,8 +83,8 @@ function editar() {
                                         </option>
                                     )
                                 })}
-                            </Select>
-                            <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Cadastrar'} type="submit" />
+                            </Form.Select>
+                            <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Editar'} type="submit" />
                         </form>
                     </div>
                 </main>
