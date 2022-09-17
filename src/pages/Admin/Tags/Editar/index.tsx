@@ -22,7 +22,7 @@ function editarTag() {
     const navigate = useNavigate()
     const editarTag = useCallback(
         async (data: editarTag) => {
-            await api.put<editarTag>(`/tags/editar/${id}`, {
+            await api.put<editarTag>(`/tags/atualizar/${id}`, {
                 nome: data.nome,
             }).then(({ data }) => {
                 console.log(data);
@@ -36,7 +36,7 @@ function editarTag() {
     const onSubmit = useCallback(
         async (data: editarTag) => {
             editarTag(data)
-            
+
         }, [],
     );
 

@@ -21,7 +21,17 @@ function visualizarTag() {
             navigate(`/admin/tags/`)
         }, []
     )
-    
+    const deleteRelacao = useCallback(
+        async (idTags: string, idProd: string) => {
+            await api.delete(`/tags/tag-produtos/${idTags}/${idProd}`)
+                .then(() => {
+                    navigate(0)
+                }).catch(err => {
+                    console.log(err);
+                })
+        }, []
+    )
+
 
     return (
         <section>
@@ -30,6 +40,22 @@ function visualizarTag() {
                 <h1>{tag?.nome}</h1>
                 <Link to={`/admin/tags/editar/${tag?.id}`}>Editar</Link>
                 <Button onClick={() => deletarTag(String(tag?.id))}>Remover</Button>
+                <h1>Produtos relacionados</h1>
+                {tag && tag.produtos.map(item => {
+                    if (item == null) {
+                        return (
+                            <h1></h1>
+                        )
+                    } else {
+                        return (
+                            <>
+                                <p>{item?.nome}</p>
+                                <Button onClick={() => deleteRelacao(String(tag.id), String(item?.id))}>Remover</Button>
+                                <Link to={`/admin/produtos/visualizar/${item?.id}`}>Visualizar</Link>
+                            </>
+                        )
+                    }
+                })}
             </S.Visualizar>
         </section>
     )
