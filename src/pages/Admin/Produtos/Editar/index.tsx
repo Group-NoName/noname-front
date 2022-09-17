@@ -67,6 +67,8 @@ function editar() {
             await api.put<CadastroProduto>(`/produto/adicionar-tag/${id}`, {
                 tags: data.tags[0].id.map(i => ({ id: i }))
             }).then(({ data }) => {
+                navigate(`/admin/produtos/visualizar/${id}`)
+                alert("Tag adicionada")
             }).catch(error => {
                 console.log(error);
                 alert(error)
@@ -77,6 +79,10 @@ function editar() {
     const onSubmit = useCallback(
         async (data: CadastroProduto) => {
             editarProduto(data);
+        }, []
+    );
+    const onSubmitTags = useCallback(
+        async (data: CadastroProduto) => {
             adicionarTag(data);
         }, []
     );
@@ -89,28 +95,6 @@ function editar() {
         mode: 'onBlur',
     });
 
-    let listavazia: any = []
-    let listavaziaTags: any = []
-    produto?.tags.forEach(i => {
-        let nomeTag = i.nome
-        listavazia.push({
-            nome: nomeTag
-        })
-    })
-    tags.forEach(i => {
-        let nomeTag = i.nome
-        listavaziaTags.push({
-            nome: nomeTag
-        })
-    })
-    /* for (let x = 0; x < listavaziaTags.length; x++) {
-        if (listavazia.nome == listavaziaTags.nome) {
-            console.log(listavazia[x].nome)
-        } else {
-            console.log(listavaziaTags[x].nome)
-        }
-    } */
-
     return (
         <section>
             <Nav_Admin />
@@ -118,6 +102,17 @@ function editar() {
                 <main>
                     <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
                     <div className="Form">
+                        <form onSubmit={handleSubmit(onSubmitTags)}>
+                            {tags && tags.map(tags => {
+                                return (
+                                    <label key={tags.id}>
+                                        {tags.nome}
+                                        <input type="checkbox" value={tags.id} id={tags.id} {...register('tags.0.id')} />
+                                    </label>
+                                )
+                            })}
+                            <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Adicionar tags'} type="submit" />
+                        </form>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="nome">
                                 <label htmlFor="nome">Nome</label>
@@ -177,14 +172,6 @@ function editar() {
                                         {...register('preco')}
                                         defaultValue={produto?.preco}
                                     />
-                                    {tags && tags.map(tags => {
-                                        return (
-                                            <label key={tags.id}>
-                                                {tags.nome}
-                                                <input type="checkbox" value={tags.id} id={tags.id} {...register('tags.0.id')} />
-                                            </label>
-                                        )
-                                    })}
                                     <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Cadastrar'} type="submit" />
                                 </div>
                             </div>
