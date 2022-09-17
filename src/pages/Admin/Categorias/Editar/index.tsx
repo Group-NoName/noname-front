@@ -11,8 +11,10 @@ import { api } from '../../../../service/api';
 import * as S from './styles'
 
 interface IUpdateCategoria {
-    produtoid: string
-    nomeCategoria: string
+    nomeCategoria: string,
+    produtoId: Array<{
+        id: string[]
+    }>
 }
 
 function editar() {
@@ -32,11 +34,23 @@ function editar() {
         getProdutos(response.data)
     }
 
+    const atualizar = useCallback(
+        async (data: IUpdateCategoria) => {
+            await api.put<IUpdateCategoria>(`/categoria/atualizar/${id}`, {
+                nome: data.nomeCategoria
+            }).then(({ data }) => {
+                console.log(data);
+                navigate(`/admin/categorias`)
+            }).catch(error => {
+                console.log(error);
+                alert(error)
+            });
+        }, []
+    )
     const editarCategoria = useCallback(
         async (data: IUpdateCategoria) => {
             await api.put<IUpdateCategoria>(`/categoria/categorias-produtos/${id}`, {
-                nome: data.nomeCategoria,
-                produtos: [{ id: data.produtoid }]
+                produtos: data.produtoId[0].id.map(i => ({ id: i }))
             }).then(({ data }) => {
                 console.log(data);
                 navigate(`/admin/categorias`)
@@ -49,6 +63,7 @@ function editar() {
     const onSubmit = useCallback(
         async (data: IUpdateCategoria) => {
             editarCategoria(data)
+            atualizar(data)
         }, [],
     );
 
@@ -62,7 +77,7 @@ function editar() {
 
     return (
         <section>
-            <Nav_Admin/>
+            <Nav_Admin />
             <S.Editar>
                 <main>
                     <div className="contentMain">
@@ -75,15 +90,17 @@ function editar() {
                                     {...register('nomeCategoria')}
                                 />
                             </div>
-                            <Form.Select aria-label="Default select example" {...register('produtoid')}>
+                            <Form aria-label="Default select example">
                                 {produtos && produtos.map((produto) => {
                                     return (
-                                        <option key={produto.id} value={produto.id}>
-                                            {produto.nome}
-                                        </option>
+                                        <Form.Check
+                                            key={produto.id}
+                                            label={produto?.nome}
+                                            value={produto.id}
+                                            {...register('produtoId.0.id')} />
                                     )
                                 })}
-                            </Form.Select>
+                            </Form>
                             <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Editar'} type="submit" />
                         </form>
                     </div>
