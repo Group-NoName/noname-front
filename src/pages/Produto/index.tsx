@@ -54,7 +54,9 @@ function Produto() {
               return (
                 <>
                   <div className="imgsLateral">
-                    <img className='tamanho' src={`${i.url}`} alt="" />
+                    <div className="imgs">
+                      <img className='tamanho' src={`${i.url}`} alt="" />
+                    </div>
                   </div>
                 </>)
             })}
@@ -66,15 +68,19 @@ function Produto() {
           </div>
           <div className='produtoInformation'>
             <div className='produtoDescricao'>
-              <h1>{produto?.nome}</h1>
-              <p>{produto?.descricao}</p>
-            </div>
-            <div className='produtoPrice'>
-              <div className='price'>
-                <h2>R$ {produto?.preco}</h2>
+              <div className="nome">
+                <h1>{produto?.nome}</h1>  
               </div>
-              <div className='produtopricebuttom'>
-                <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Comprar'} />
+              <div className="desc">
+                <p>{produto?.descricao}</p>
+              </div>
+              <div className='produtoPrice'>
+                <div className='price'>
+                  <h2>R$ {produto?.preco}</h2>
+                </div>
+                <div className='produtopricebuttom'>
+                  <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Comprar'} />
+                </div>
               </div>
             </div>
           </div>
@@ -84,7 +90,10 @@ function Produto() {
             {produtosTag && produtosTag.map(i => {
               return (
                 <>
-                  <h1>{i.nome} + {i.tags.length} </h1>
+                <div className="cards">
+                  <h1>{i.nome} + {i.tags.length}</h1>
+                  <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+                </div>
                 </>
               )
             })}

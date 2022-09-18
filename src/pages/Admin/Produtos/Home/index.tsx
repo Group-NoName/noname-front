@@ -5,6 +5,7 @@ import Nav_Admin from "../../../../components/Nav_Admin"
 import Iproduto from "../../../../interfaces/produto"
 import { api } from "../../../../service/api"
 import * as S from './styles'
+import * as H from "../../Home"
 
 function Home() {
     const [produtos, setProduto] = useState<Iproduto[]>([])
@@ -27,7 +28,7 @@ function Home() {
 
     return (
         <section>
-            <Nav_Admin/>
+            <H.default/>
             <S.Home>
                 <main>
                     <div className="Form">

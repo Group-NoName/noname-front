@@ -17,7 +17,9 @@ function CardProds({ name, imageURL, produtoID, preco}: ICard) {
     <S.Container>
         <Card style={{ width: '18rem', height: '25rem' }}>
             <div className="imgstyle">
-                <Card.Img className="img" variant="top" src={imageURL}/>
+                <div className="imgs">
+                    <img src={imageURL} className='img'/>
+                </div>
             </div>
         <Card.Body>
             <Card.Title className='name'>{name}</Card.Title>

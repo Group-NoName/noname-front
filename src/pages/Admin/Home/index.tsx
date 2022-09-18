@@ -1,17 +1,14 @@
 import Nav_Admin from "../../../components/Nav_Admin";
+import { Helmet } from 'react-helmet';
 import * as S from "./styles"
 
 function Home(){
     return (
         <>
+            <Helmet>
+                <title>Admin</title>
+            </Helmet>
             <Nav_Admin/>
-            <S.Home>
-                <section>
-                    <main>
-                        <h1>teth</h1>
-                    </main>
-                </section>
-            </S.Home>
         </>
     )
 }

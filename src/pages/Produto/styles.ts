@@ -21,14 +21,25 @@ export const Container = styled.div`
       justify-content: center;
       gap: 15px;
       width: 15%;
-        .tamanho{
-          width: 8vw;
-          border: 0.5px solid pink;
-          border-radius: 8px;
+
+      .imgsLateral{
+        text-align: center;
+        width: 150px;
+        height: 110px;
+        border: 1px solid pink;
+        border-radius: 20px;
+        
+        .imgs{
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          .tamanho{
+            object-fit: cover;
+          }
         }
-        .imgsLateral{
-          text-align: center;
-        }
+      }
     }
     .imgCentral{ 
         display: flex;
@@ -36,47 +47,68 @@ export const Container = styled.div`
         justify-content: center;
         width: 40%;
         .posicao{
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          width: 80%;
+          height: 80%;
           text-align: center;
-        }
-        .tamanho{
-          width: 25vw;
+          border: 1px solid pink;
+          border-radius: 20px;
+          padding: 14px;
+          
+          .tamanho{
+            object-fit: cover;
+          }
         }
     }
     .produtoInformation{
         width: 45%;
-        border: 1px solid ;
+        border: 1px solid pink;
         border-radius: 20px;
 
         .produtoDescricao{
           height: 80%;
           
-          h1{
-            padding: 1vw;
-            border-bottom: 1px solid;
+          .nome{
+            width: 100%;
+            height: 25%;
+            border-bottom: 1px solid pink;
+            h1{
+              padding: 1vw;
+              font-size: 100%;
+            }
           }
-          p{
-            padding: 1vw;
+          .desc{
+            width: 100%;
+            height: 70%;
+            margin: auto;
+            border-bottom: 1px solid pink;
+            p{
+              padding: 1vw;
+              font-size: 15px;
+            }
           }
         }
         .produtoPrice{
+          margin-top: 10px;
+          width: 100%;
+          height: 20%;
           display: flex;
           padding: 10px;
-          align-items: center;
-          justify-content: space-between;
-          border-top: 1px solid;
+          justify-content: space-between;          
           
           .price{
-              
+            align-items: center;
+            justify-content: center;
             h2{
-              display: flex;
-              font-size: 3vw;
               text-align: center;
               color: #3a4ad9;
             }
           }
           .produtopricebuttom{
             display: flex;
-            text-align: center;
+            align-items: center;
           }
         }
     }
