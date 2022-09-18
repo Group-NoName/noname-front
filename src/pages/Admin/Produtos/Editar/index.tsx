@@ -172,7 +172,7 @@ function editar() {
                                         {...register('preco')}
                                         defaultValue={produto?.preco}
                                     />
-                                    <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Cadastrar'} type="submit" />
+                                    <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Editar'} type="submit" />
                                 </div>
                             </div>
                         </form>

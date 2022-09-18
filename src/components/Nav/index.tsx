@@ -24,11 +24,11 @@ function Nav_() {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
                             
-                            <Nav.Link>
+                            
                                 <Link className='link' to={'/'}>
                                     <Navbar.Brand>Home</Navbar.Brand>
                                 </Link>
-                            </Nav.Link>
+                            
                             {/* <Nav.Link>
                                 <Link  className='link' to={'/'}>
                                     <Navbar.Brand>Produtos</Navbar.Brand>
@@ -49,7 +49,7 @@ function Nav_() {
                             */}
                         </Nav>
                         <Nav>
-                            <Navbar.Brand>
+                            {/* <Navbar.Brand>
                                 <Link className='link' to={''}>
                                     <Favoritos />
                                     <Navbar.Brand className='descrição'>Favoritos</Navbar.Brand>
@@ -66,7 +66,7 @@ function Nav_() {
                                     <Perfil />
                                     <Navbar.Brand className='descrição'>Conta</Navbar.Brand>
                                 </Link>
-                            </Navbar.Brand>
+                            </Navbar.Brand> */}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

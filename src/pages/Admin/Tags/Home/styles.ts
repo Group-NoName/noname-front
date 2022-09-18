@@ -12,8 +12,10 @@ main{
         margin: 0 auto auto;
         width: 100%;
         .tdbuttons{
-            display: flex;
-            gap: 5px;
+            .buttons{
+                display: flex;
+                gap: 5px;
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 // Tela do admin que vai pegar os produtos especificos
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
 import * as S from './styles'
@@ -56,16 +56,20 @@ function Visualizar() {
                                 </div>
                                 <div>
                                     <h2>Tags</h2>
-                                    {produto?.tags.map(i => {
-                                        return (
-                                            <>
-                                                <h1 key={i.id}>
-                                                    {i.nome}
-                                                </h1>
-                                                <Button color={"black"} width={"5"} height={"2"} fontSize={"20"} backgroundColor={"#fff"} text={"Remover"} onClick={() => deleteRelacao(String(i.id), String(produto.id))} />
-
-                                            </>
-                                        )
+                                    {produto && produto?.tags.map(item => {
+                                        if (item == null) {
+                                            return (
+                                                <h1></h1>
+                                            )
+                                        } else {
+                                            return (
+                                                <>
+                                                    <p>{item?.nome}</p>
+                                                    <Button onClick={() => deleteRelacao(String(item.id), String(item?.id))} color={""} width={""} height={""} fontSize={""} backgroundColor={""} text={""}>Remover</Button>
+                                                    <Link to={`/admin/produtos/visualizar/${item?.id}`}>Visualizar</Link>
+                                                </>
+                                            )
+                                        }
                                     })}
                                 </div>
                             </div>

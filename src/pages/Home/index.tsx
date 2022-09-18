@@ -12,7 +12,7 @@ function Home() {
   const [produtos, setProduto] = useState<Iproduto[]>([])
   useEffect(() => { getAllProdutos() })
   async function getAllProdutos() {
-    const response = await api.get<Iproduto[]>('/produto/produtos')
+    const response = await api.get<Iproduto[]>('/produto/produtos-quantia/10')
     setProduto(response.data)
   }
 
@@ -26,8 +26,8 @@ function Home() {
     <>
       <Nav_/>
       <S.Container>
-        <div className="produtosprincipais">
-          <h1>Principais Produtos</h1>
+        <div className="produtosrecentes">
+          <h1>Produtos Recentes</h1>
           <div className="produtosmap">
             {produtos && produtos.map(i => {
               return (

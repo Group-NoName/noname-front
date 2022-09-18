@@ -6,7 +6,7 @@ export const Container = styled(Flex)`
     display: flex;
     flex-direction: row;
 
-    .produtosprincipais{
+    .produtosrecentes{
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;

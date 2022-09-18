@@ -56,7 +56,7 @@ function cadastro() {
                                     type="text"
                                     value={categorias?.nome}
                                     required
-                                    placeholder="Produto X"
+                                    placeholder="Categoria X"
                                     {...register('nome')}
                                 />
                             </div>

@@ -46,9 +46,11 @@ function Home() {
                                             <td>{i.nome}</td>
                                             <td>{i.preco}</td>
                                             <td className="tdbuttons">
-                                                <Button variant="outline-primary" onClick={() => navigate(`/admin/produtos/editar/${i.id}`)}>Editar</Button>{' '}
-                                                <Button variant="outline-success" onClick={() => navigate(`/admin/produtos/visualizar/${i.id}`)}>Visualizar</Button>
-                                                <Button variant="outline-danger" onClick={() => deleteProduto(i.id)}>Deletar</Button>{' '}
+                                                <div className="buttons">
+                                                    <Button variant="outline-primary" onClick={() => navigate(`/admin/produtos/editar/${i.id}`)}>Editar</Button>{' '}
+                                                    <Button variant="outline-success" onClick={() => navigate(`/admin/produtos/visualizar/${i.id}`)}>Visualizar</Button>
+                                                    <Button variant="outline-danger" onClick={() => deleteProduto(i.id)}>Deletar</Button>{' '}
+                                                </div>
                                             </td>
                                         </tr>
                                     )
