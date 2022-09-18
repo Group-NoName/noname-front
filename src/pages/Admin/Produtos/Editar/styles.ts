@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const Editar = styled.div`
 main{
     display: flex;
+    flex-direction: column;
 }
 .Form{
     margin: 45px auto;
@@ -56,6 +57,13 @@ main{
 
 img{
     width: 5vw;
+}
+
+.formTags{
+    width: 50vw;
+    margin: 15px auto;
+    display: flex;
+    flex-direction: column;
 }
 
 `

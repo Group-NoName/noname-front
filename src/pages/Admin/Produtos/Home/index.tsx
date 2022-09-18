@@ -5,7 +5,6 @@ import Nav_Admin from "../../../../components/Nav_Admin"
 import Iproduto from "../../../../interfaces/produto"
 import { api } from "../../../../service/api"
 import * as S from './styles'
-import * as H from "../../Home"
 
 function Home() {
     const [produtos, setProduto] = useState<Iproduto[]>([])
@@ -19,8 +18,9 @@ function Home() {
         async (id: string) => {
             await api.delete(`/produto/excluir/${id}`)
                 .then(() => {
+                    alert("Produto Deletado")
                 }).catch(err => {
-                    console.log(err);
+                    alert(`Produto não foi deletado! Erro:${err}`)
                 })
         }, []
     )
@@ -28,7 +28,7 @@ function Home() {
 
     return (
         <section>
-            <H.default/>
+            <Nav_Admin/>
             <S.Home>
                 <main>
                     <div className="Form">

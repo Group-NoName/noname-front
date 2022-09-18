@@ -55,9 +55,9 @@ function editar() {
                     { url: data.images[2].url }
                 ]
             }).then(({ data }) => {
+                alert("Produto Editado!")
                 navigate(`/admin/produtos/visualizar/${id}`)
             }).catch(error => {
-                console.log(error);
                 alert(error)
             });
         }, [])
@@ -70,7 +70,6 @@ function editar() {
                 navigate(`/admin/produtos/visualizar/${id}`)
                 alert("Tag adicionada")
             }).catch(error => {
-                console.log(error);
                 alert(error)
             });
         }, []
@@ -102,17 +101,7 @@ function editar() {
                 <main>
                     <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
                     <div className="Form">
-                        <form onSubmit={handleSubmit(onSubmitTags)}>
-                            {tags && tags.map(tags => {
-                                return (
-                                    <label key={tags.id}>
-                                        {tags.nome}
-                                        <input type="checkbox" value={tags.id} id={tags.id} {...register('tags.0.id')} />
-                                    </label>
-                                )
-                            })}
-                            <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Adicionar tags'} type="submit" />
-                        </form>
+                        
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="nome">
                                 <label htmlFor="nome">Nome</label>
@@ -168,6 +157,7 @@ function editar() {
                                     <label htmlFor="preco">Preço</label>
                                     <input
                                         type="number"
+                                        step="0.01"
                                         required
                                         {...register('preco')}
                                         defaultValue={produto?.preco}
@@ -176,7 +166,18 @@ function editar() {
                                 </div>
                             </div>
                         </form>
-                    </div>
+                    </div>           
+                    <form className='formTags' onSubmit={handleSubmit(onSubmitTags)}>
+                        {tags && tags.map(tags => {
+                            return (
+                                <label key={tags.id}>
+                                    <input type="checkbox" value={tags.id} id={tags.id} {...register('tags.0.id')} />
+                                    {tags.nome}
+                                </label>
+                            )
+                        })}
+                        <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Adicionar tags'} type="submit" />
+                    </form>
                 </main>
             </S.Editar >
         </section >

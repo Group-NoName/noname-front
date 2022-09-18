@@ -25,10 +25,9 @@ function editarTag() {
             await api.put<editarTag>(`/tags/atualizar/${id}`, {
                 nome: data.nome,
             }).then(({ data }) => {
-                console.log(data);
+                alert("Tag Editada!")
                 navigate(`/admin/tags`)
             }).catch(error => {
-                console.log(error);
                 alert(error)
             });
         }, [])

@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../components/Button";
 import Nav_Admin from "../../../../components/Nav_Admin";
-import SideBarAdm from "../../../../components/SideBarAdm";
 import { api } from "../../../../service/api";
 import * as S from './styles'
 
@@ -34,11 +33,9 @@ function cadastro() {
                     { url: data.images[2].url }
                 ],
             }).then(({ data }) => {
-                console.log(data);
                 alert("Produto Cadastrado!")
                 navigate("/admin/produtos")
             }).catch(error => {
-                console.log(error);
                 alert(error)
             });
         }, [])
@@ -117,6 +114,7 @@ function cadastro() {
                                     <label htmlFor="preco">Preço</label>
                                     <input
                                         type="number"
+                                        step="0.01"
                                         required
                                         {...register('preco')}
                                         placeholder="R$ 00.00"

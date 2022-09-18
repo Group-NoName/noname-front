@@ -5,8 +5,8 @@ import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
 import * as S from './styles'
 import { AiOutlineArrowLeft } from 'react-icons/ai';
-import Button from "../../../../components/Button";
 import Nav_Admin from "../../../../components/Nav_Admin";
+import { Button } from "react-bootstrap";
 
 function Visualizar() {
     const [produto, setProduto] = useState<Iproduto>()
@@ -32,11 +32,12 @@ function Visualizar() {
     const deleteRelacao = useCallback(
         async (idTags: string, idProd: string) => {
             await api.delete(`/tags/tag-produtos/${idTags}/${idProd}`)
-                .then(() => {
+                .then(({ data }) => {
+                    alert("Tag removida!")
                     navigate(0)
-                }).catch(err => {
-                    console.log(err);
-                })
+                }).catch(error => {
+                    alert(`Tag não foi removida! Erro: ${error}`)
+                });
         }, []
     )
 
@@ -54,30 +55,34 @@ function Visualizar() {
                                 <div className="description">
                                     <p>{produto?.descricao}</p>
                                 </div>
-                                <div>
+                                <div className="tags">
                                     <h2>Tags</h2>
-                                    {produto && produto?.tags.map(item => {
-                                        if (item == null) {
-                                            return (
-                                                <h1></h1>
-                                            )
-                                        } else {
-                                            return (
-                                                <>
-                                                    <p>{item?.nome}</p>
-                                                    <Button onClick={() => deleteRelacao(String(item.id), String(item?.id))} color={""} width={""} height={""} fontSize={""} backgroundColor={""} text={""}>Remover</Button>
-                                                    <Link to={`/admin/produtos/visualizar/${item?.id}`}>Visualizar</Link>
-                                                </>
-                                            )
-                                        }
-                                    })}
+                                    <div className="tagscards">
+                                        {produto && produto?.tags.map(item => {
+                                            if (item == null) {
+                                                return (
+                                                    <h1></h1>
+                                                )
+                                            } else {
+                                                return (
+                                                    <>
+                                                        <div className="tag" key={item.id}>
+                                                            <p>{item?.nome}</p>
+                                                            <Button variant="danger" onClick={() => deleteRelacao(String(item.id), String(produto.id))}>Remover</Button>
+                                                            <Link to={`/admin/produtos/visualizar/${item?.id}`}><Button variant="primary">Visualizar</Button></Link>
+                                                        </div>
+                                                    </>
+                                                )
+                                            }
+                                        })}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="right-content">
                             <img src={`${produto?.images[0].url}`} alt="" />
-                            <Button color={"black"} width={"5"} height={"2"} fontSize={"20"} backgroundColor={"#fff"} text={"Editar"} onClick={() => navigate(`/admin/produtos/editar/${produto?.id}`)} />
-                            <Button color={"#fff"} width={"5"} height={"2"} fontSize={"20"} backgroundColor={"red"} text={"Excluir"} onClick={() => deleteProduto(String(produto?.id))} />
+                            <Button variant="outline-primary" onClick={() => navigate(`/admin/produtos/editar/${produto?.id}`)}>Editar</Button>
+                            <Button variant="outline-danger" onClick={() => deleteProduto(String(produto?.id))}>Deletar</Button>
                         </div>
                     </div>
                 </main>

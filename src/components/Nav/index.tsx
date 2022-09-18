@@ -28,12 +28,10 @@ function Nav_() {
                                 <Link className='link' to={'/'}>
                                     <Navbar.Brand>Home</Navbar.Brand>
                                 </Link>
-                            
-                            {/* <Nav.Link>
-                                <Link  className='link' to={'/'}>
+                                <Link  className='link' to={'/produtos'}>
                                     <Navbar.Brand>Produtos</Navbar.Brand>
                                 </Link>
-                            </Nav.Link> */}
+                                 
                             {/*   
                             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

@@ -35,7 +35,7 @@ function Produto() {
   }
 
   async function getProdutosSemelhantes() {
-    const response = await api.get<Iproduto[]>(`/produto/produtos-semelhantes/${id}`)
+    const response = await api.get<Iproduto[]>(`/produto/produtos-semelhantes/${id}/5`)
     setProdutosTag(response.data)
   }
 
@@ -87,23 +87,29 @@ function Produto() {
         </div>
         <div className='produtosLists'>
           <div className='produtosAdicionais'>
-            {produtosTag && produtosTag.map(i => {
-              return (
-                <>
-                <div className="cards">
-                  <h1>{i.nome} + {i.tags.length}</h1>
-                  <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
-                </div>
-                </>
-              )
-            })}
+            <h2>Produtos Semelhantes</h2>
+            <div className="cards">
+              {produtosTag && produtosTag.map(i => {
+                if(!(i.tags.length == 0)){
+                  return (
+                    <>
+                    <div className="card" key={i.id}>
+                      <CardProds  imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} tags={`Pontos: ${i.tags.length}`}/>
+                    </div>
+                    </>
+                  )
+                }
+              })}
+            </div>
           </div>
-          <h2>Produtos Relacionados</h2>
           <div className='produtosRelacionados'>
+          <h2>Produtos Relacionados</h2>
             <div className='posicao'>
               {produtos && produtos.map(i => {
                 return (
-                  <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+                  <div key={i.id}>
+                    <CardProds  imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+                  </div>
                 )
               })}
             </div>

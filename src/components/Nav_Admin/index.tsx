@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/icons/logo';
 import * as S from './styles';
@@ -9,6 +10,9 @@ import * as S from './styles';
 function Nav_Admin() {
   return (
     <S.Nav_Admin>
+        <Helmet>
+                <title>Admin</title>
+        </Helmet>
         <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
             <Container>
                 <Link  to={'/admin'}>

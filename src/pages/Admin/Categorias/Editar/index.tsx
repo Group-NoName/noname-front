@@ -39,10 +39,9 @@ function editar() {
             await api.put<IUpdateCategoria>(`/categoria/atualizar/${id}`, {
                 nome: data.nomeCategoria
             }).then(({ data }) => {
-                console.log(data);
+                alert("Categoria Editada!")
                 navigate(`/admin/categorias`)
             }).catch(error => {
-                console.log(error);
                 alert(error)
             });
         }, []
@@ -52,10 +51,9 @@ function editar() {
             await api.put<IUpdateCategoria>(`/categoria/categorias-produtos/${id}`, {
                 produtos: data.produtoId[0].id.map(i => ({ id: i }))
             }).then(({ data }) => {
-                console.log(data);
+                alert("Produtos adicionados!")
                 navigate(`/admin/categorias`)
             }).catch(error => {
-                console.log(error);
                 alert(error)
             });
         }, [])

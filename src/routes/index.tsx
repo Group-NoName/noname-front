@@ -14,12 +14,14 @@ import HomeTags from '../pages/Admin/Tags/Home'
 import CadastroTags from '../pages/Admin/Tags/Cadastro'
 import VisualizarTag from '../pages/Admin/Tags/Visualizar'
 import EditarTags from '../pages/Admin/Tags/Editar'
+import Produtos from '../pages/Produtos';
 
 function Routes() {
     return (
       // <BrowserRouter>
       <RoutesWrapper>
         <Route path="/" element={<Home />} />
+        <Route path="/produtos" element={<Produtos />} />
         <Route path="/produto/:id" element={<Produto />} />
         <Route path="admin" >
           <Route index element={<HomeAdmin/>}/> 

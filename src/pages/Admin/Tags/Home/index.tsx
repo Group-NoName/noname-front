@@ -19,8 +19,9 @@ function homeTag() {
         async (id: string) => {
             await api.delete(`/tags/excluir/${id}`)
                 .then(() => {
+                    alert("Tag deletada!")
                 }).catch(err => {
-                    console.log(err);
+                    alert(`Tag não foi deletada! Erro: ${err}`)
                 })
         }, []
     )

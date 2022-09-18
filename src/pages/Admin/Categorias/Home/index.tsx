@@ -19,8 +19,9 @@ function Home() {
         async (id: string) => {
             await api.delete(`/categoria/excluir/${id}`)
                 .then(() => {
+                    alert("Categoria deletada!")
                 }).catch(err => {
-                    console.log(err);
+                    alert(`Categoria não foi deletada! ${err}`)
                 })
         }, []
     )

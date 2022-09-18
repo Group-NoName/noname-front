@@ -22,6 +22,14 @@ export const Container = styled.div`
 }
 
 .name{
-    
+    width: 100%;
+    height: 90px;
+    font-size: 18px;
+}
+
+.preco{
+    width: 100%;
+    height: 20px;
+    font-size: 15px;
 }
 `

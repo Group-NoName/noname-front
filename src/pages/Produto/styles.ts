@@ -6,6 +6,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100vw;
+  overflow-x: hidden;
   min-height: 89vh;
   margin-top: 0.5em;
 
@@ -28,13 +29,13 @@ export const Container = styled.div`
         height: 110px;
         border: 1px solid pink;
         border-radius: 20px;
+        overflow: hidden;
         
         .imgs{
           display: flex;
           justify-content: center;
           width: 100%;
           height: 100%;
-          overflow: hidden;
           .tamanho{
             object-fit: cover;
           }
@@ -55,7 +56,7 @@ export const Container = styled.div`
           text-align: center;
           border: 1px solid pink;
           border-radius: 20px;
-          padding: 14px;
+
           
           .tamanho{
             object-fit: cover;
@@ -118,11 +119,35 @@ export const Container = styled.div`
     margin-top: 15px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 90vw;
     overflow: hidden;
     
     .produtosAdicionais{
-      border: 1px solid black;
+      width: 90vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .cards{
+        margin: 25px auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 15px;
+
+        .card{
+          
+          h1{
+            font-size: 25px;
+            text-align: center;
+          }
+        }
+      }
     }
 
     h2{
@@ -131,14 +156,18 @@ export const Container = styled.div`
 
     .produtosRelacionados{
       display: flex;
+      flex-direction: column;
+      width: 90vw;
+      margin-top: 30px;
       
       .posicao{
+        margin: 25px auto;
         display: flex;
         gap: 15px;
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        width: 100vw; 
+        width: 100%; 
 
         a{
           display: flex;
@@ -148,5 +177,26 @@ export const Container = styled.div`
     }
   }
 
+  @media(max-width: 765px){
+
+    .produtoContent{
+      width: 100vw;
+      height: 100%;
+      flex-direction: column;
+    .imgLateral{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+    }
+    .imgCentral{ 
+      width: 100%;
+      height: 350px;
+    }
+    .produtoInformation{
+      margin: auto;
+      width: 90%;
+    }
+  }
+  }
   `
 ;
