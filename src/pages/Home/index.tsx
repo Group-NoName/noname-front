@@ -12,7 +12,7 @@ function Home() {
   const [produtos, setProduto] = useState<Iproduto[]>([])
   useEffect(() => { getAllProdutos() })
   async function getAllProdutos() {
-    const response = await api.get<Iproduto[]>('/produto/produtos-quantia/10')
+    const response = await api.get<Iproduto[]>('/produto/produtos-quantia/5')
     setProduto(response.data)
   }
 

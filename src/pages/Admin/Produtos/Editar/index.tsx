@@ -45,6 +45,7 @@ function editar() {
 
     const editarProduto = useCallback(
         async (data: CadastroProduto) => {
+            
             await api.put<CadastroProduto>(`/produto/atualizar/${id}`, {
                 nome: data.nome,
                 descricao: data.descricao,
@@ -78,6 +79,7 @@ function editar() {
     const onSubmit = useCallback(
         async (data: CadastroProduto) => {
             editarProduto(data);
+            console.log(`vini puta ${data.descricao}`);
         }, []
     );
     const onSubmitTags = useCallback(
@@ -89,7 +91,7 @@ function editar() {
     const {
         register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors },
     } = useForm<CadastroProduto>({
         mode: 'onBlur',
     });
@@ -130,7 +132,7 @@ function editar() {
                                             defaultValue={produto?.images[0].url}
                                             {...register('images.0.url')}
                                         />
-                                        <img src={produto?.images[0].url} alt="" />
+{/*                                         <img src={produto?.images[0].url} alt="" /> */}
                                     </div>
                                     <div className="img2">
                                         <label htmlFor="url">Img2</label>
@@ -140,7 +142,7 @@ function editar() {
                                             defaultValue={produto?.images[1].url}
                                             {...register('images.1.url')}
                                         />
-                                        <img src={produto?.images[1].url} alt="" />
+                                        {/* <img src={produto?.images[1].url} alt="" /> */}
                                     </div>
                                     <div className="img3">
                                         <label htmlFor="url">Img3</label>
@@ -150,7 +152,7 @@ function editar() {
                                             defaultValue={produto?.images[2].url}
                                             {...register('images.2.url')}
                                         />
-                                        <img src={produto?.images[2].url} alt="" />
+                                        {/* <img src={produto?.images[2].url} alt="" /> */}
                                     </div>
                                 </div>
                                 <div className="preco">
@@ -168,14 +170,16 @@ function editar() {
                         </form>
                     </div>           
                     <form className='formTags' onSubmit={handleSubmit(onSubmitTags)}>
-                        {tags && tags.map(tags => {
-                            return (
-                                <label key={tags.id}>
-                                    <input type="checkbox" value={tags.id} id={tags.id} {...register('tags.0.id')} />
-                                    {tags.nome}
-                                </label>
-                            )
-                        })}
+                        <div className="tags">
+                            {tags && tags.map(tags => {
+                                return (
+                                    <label key={tags.id}>
+                                        <input type="checkbox" value={tags.id} id={tags.id} {...register('tags.0.id')} />
+                                        {tags.nome}
+                                    </label>
+                                )
+                            })}
+                        </div>
                         <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Adicionar tags'} type="submit" />
                     </form>
                 </main>

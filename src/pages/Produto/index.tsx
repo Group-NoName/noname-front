@@ -30,12 +30,12 @@ function Produto() {
 
   useEffect(() => { getAllProdutos() })
   async function getAllProdutos() {
-    const response = await api.get<Iproduto[]>('/produto/produtos')
+    const response = await api.get<Iproduto[]>('/produto/produtos-quantia/5')
     setProdutos(response.data)
   }
 
   async function getProdutosSemelhantes() {
-    const response = await api.get<Iproduto[]>(`/produto/produtos-semelhantes/${id}/5`)
+    const response = await api.get<Iproduto[]>(`/produto/produtos-semelhantes/${id}/3`)
     setProdutosTag(response.data)
   }
 

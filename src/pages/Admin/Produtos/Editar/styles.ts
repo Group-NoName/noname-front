@@ -6,7 +6,7 @@ main{
     flex-direction: column;
 }
 .Form{
-    margin: 45px auto;
+    margin: auto;
 }
 .icon{
     font-size: 4vw;
@@ -61,9 +61,15 @@ img{
 
 .formTags{
     width: 50vw;
-    margin: 15px auto;
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    
+    .tags{
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 `
