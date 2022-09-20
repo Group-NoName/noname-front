@@ -183,6 +183,7 @@ export const Container = styled.div`
       width: 100vw;
       height: 100%;
       flex-direction: column;
+      
     .imgLateral{
       width: 100%;
       display: flex;

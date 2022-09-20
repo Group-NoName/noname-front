@@ -2,7 +2,6 @@ import { DOMAttributes } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
-import { string } from 'yup';
 import * as S from './styles'
 
 interface ICard extends DOMAttributes<HTMLButtonElement> {
@@ -10,7 +9,6 @@ interface ICard extends DOMAttributes<HTMLButtonElement> {
     imageURL: string;
     produtoID: string;
     preco: number;
-    tags?: string;
 }
 
 function CardProds({ name, imageURL, produtoID, preco, tags}: ICard) {
@@ -26,7 +24,6 @@ function CardProds({ name, imageURL, produtoID, preco, tags}: ICard) {
         <Card.Body>
             <Card.Title className='name'>{name}</Card.Title>
             <Card.Title className='preco'>Preço: R$ {preco}</Card.Title>
-            <Card.Title>{tags}</Card.Title>
             <Button variant="primary" onClick={() => navigate(`/produto/${produtoID}`)}>Ver Mais</Button>
         </Card.Body>
         </Card>

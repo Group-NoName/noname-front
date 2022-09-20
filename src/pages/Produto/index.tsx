@@ -35,7 +35,7 @@ function Produto() {
   }
 
   async function getProdutosSemelhantes() {
-    const response = await api.get<Iproduto[]>(`/produto/produtos-semelhantes/${id}/3`)
+    const response = await api.get<Iproduto[]>(`/produto/produtos-semelhantes/${id}/4`)
     setProdutosTag(response.data)
   }
 
@@ -91,13 +91,15 @@ function Produto() {
             <div className="cards">
               {produtosTag && produtosTag.map(i => {
                 if(!(i.tags.length == 0)){
-                  return (
-                    <>
-                    <div className="card" key={i.id}>
-                      <CardProds  imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} tags={`Pontos: ${i.tags.length}`}/>
-                    </div>
-                    </>
-                  )
+                  if(i.id != id){
+                    return (
+                      <>
+                      <div className="card" key={i.id}>
+                        <CardProds  imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco}/>
+                      </div>
+                      </>
+                    )
+                  }
                 }
               })}
             </div>
