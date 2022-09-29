@@ -12,12 +12,12 @@ function homeTag() {
     const navigate = useNavigate();
     useEffect(() => { getTags() });
     async function getTags() {
-        const response = await api.get<tags[]>('/tags/tags')
+        const response = await api.get<tags[]>('/tag/tags')
         setTags(response.data)
     }
     const deleteTags = useCallback(
         async (id: string) => {
-            await api.delete(`/tags/excluir/${id}`)
+            await api.delete(`/tag/excluir/${id}`)
                 .then(() => {
                     alert("Tag deletada!")
                 }).catch(err => {

@@ -16,7 +16,7 @@ function cadastroTag() {
 
     const cadastroTag = useCallback(
         async (data: CadastroTags) => {
-            await api.post<CadastroTags>('/tags/inserir', {
+            await api.post<CadastroTags>('/tag/inserir', {
                 nome: data.nome,
             }).then(({ data }) => {
                 console.log(data);

@@ -31,7 +31,7 @@ function Visualizar() {
 
     const deleteRelacao = useCallback(
         async (idTags: string, idProd: string) => {
-            await api.delete(`/tags/tag-produtos/${idTags}/${idProd}`)
+            await api.delete(`/tag/tag-produtos/${idTags}/${idProd}`)
                 .then(({ data }) => {
                     alert("Tag removida!")
                     navigate(0)

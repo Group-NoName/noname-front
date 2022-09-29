@@ -11,7 +11,7 @@ interface ICard extends DOMAttributes<HTMLButtonElement> {
     preco: number;
 }
 
-function CardProds({ name, imageURL, produtoID, preco, tags}: ICard) {
+function CardProds({ name, imageURL, produtoID, preco}: ICard) {
     const navigate = useNavigate();
   return (
     <S.Container>

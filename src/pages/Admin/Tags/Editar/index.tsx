@@ -16,13 +16,13 @@ function editarTag() {
     const { id } = useParams()
     useEffect(() => { getTag() }, [id]);
     async function getTag() {
-        const response = await api.get<ITags>(`tags/tags/${id}`)
+        const response = await api.get<ITags>(`tag/tags/${id}`)
         setTag(response.data)
     }
     const navigate = useNavigate()
     const editarTag = useCallback(
         async (data: editarTag) => {
-            await api.put<editarTag>(`/tags/atualizar/${id}`, {
+            await api.put<editarTag>(`/tag/atualizar/${id}`, {
                 nome: data.nome,
             }).then(({ data }) => {
                 alert("Tag Editada!")

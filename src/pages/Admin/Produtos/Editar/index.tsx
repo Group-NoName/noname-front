@@ -39,7 +39,7 @@ function editar() {
     }
 
     async function getTags() {
-        const response = await api.get<tags[]>('/tags/tags')
+        const response = await api.get<tags[]>('/tag/tags')
         setTags(response.data)
     }
 

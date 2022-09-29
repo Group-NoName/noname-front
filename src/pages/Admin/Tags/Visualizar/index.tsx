@@ -12,12 +12,12 @@ function visualizarTag() {
     const navigate = useNavigate()
     useEffect(() => { getTag() }, [id]);
     async function getTag() {
-        const response = await api.get<tags>(`tags/tags/${id}`)
+        const response = await api.get<tags>(`tag/tags/${id}`)
         setTag(response.data)
     }
     const deletarTag = useCallback(
         async (id: string) => {
-            await api.delete(`/tags/excluir/${id}`)
+            await api.delete(`/tag/excluir/${id}`)
             .then(({ data }) => {
                 alert("Tag deletada!")
                 navigate(`/admin/tags`)
@@ -29,7 +29,7 @@ function visualizarTag() {
     )
     const deleteRelacao = useCallback(
         async (idTags: string, idProd: string) => {
-            await api.delete(`/tags/tag-produtos/${idTags}/${idProd}`)
+            await api.delete(`/tag/tag-produtos/${idTags}/${idProd}`)
             .then(({ data }) => {
                 alert("Produto removido!")
                 navigate(0)
