@@ -8,9 +8,13 @@ import Carrinho from '../../assets/icons/carrinho';
 import Favoritos from '../../assets/icons/favoritos';
 import Logo from '../../assets/icons/logo';
 import Perfil from '../../assets/icons/perfil';
+import ICategoria from '../../interfaces/categoria';
+import { useState } from 'react';
+import { api } from '../../service/api';
 
 
 function Nav_() {
+
     return (
         <S.NavBar>
             <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">

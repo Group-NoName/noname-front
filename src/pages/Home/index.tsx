@@ -6,14 +6,19 @@ import Nav_ from '../../components/Nav';
 import Iproduto from '../../interfaces/produto';
 import { api } from '../../service/api';
 import * as S from './styles';
+import Carousel from 'react-bootstrap/Carousel';
+import ICategoria from '../../interfaces/categoria';
+
 
 function Home() {
 
-  const [produtos, setProduto] = useState<Iproduto[]>([])
-  useEffect(() => { getAllProdutos() })
-  async function getAllProdutos() {
-    const response = await api.get<Iproduto[]>('/produto/produtos-quantia/5')
-    setProduto(response.data)
+  useEffect(() => { getAllCategoria() })
+
+  const [categorias, setCategoria] = useState<ICategoria[]>([])
+
+  async function getAllCategoria() {
+    const response = await api.get<ICategoria[]>('/categoria/categorias')
+    setCategoria(response.data)
   }
 
   const navigate = useNavigate();
@@ -24,18 +29,30 @@ function Home() {
 
   return (
     <>
-      <Nav_/>
+      <Nav_ />
       <S.Container>
-        <div className="produtosrecentes">
-          <h1>Produtos Recentes</h1>
-          <div className="produtosmap">
-            {produtos && produtos.map(i => {
-              return (
-                <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
-              )
-            })}
-          </div>
-        </div>
+
+        {categorias && categorias.map(itemCategoria => {
+          if (itemCategoria.produtos.length > 0) {
+            return (
+              <>
+                <div className='listCategorias'>
+
+                  <h1>{itemCategoria.nome}</h1>
+                  <div className='produtosmap'>
+                      {itemCategoria.produtos.map(i => {
+                        return (
+                          <div className="disposicaoItem">
+                            <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+                          </div>
+                        )
+                      })}
+                  </div>
+                </div>
+              </>
+            )
+          }
+        })}
       </S.Container>
     </>
   );
