@@ -1,14 +1,18 @@
 import { Checkbox, Stack } from "@chakra-ui/react";
 import { useState, useCallback, useEffect } from "react";
 import { useForm } from 'react-hook-form';
-import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../../components/Button";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Iproduto from "../../../../interfaces/produto";
 import tags from "../../../../interfaces/tags"
 import { api } from "../../../../service/api";
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 import * as S from './styles'
+import React from 'react';
+import Dropdown from 'react-bootstrap/Dropdown';
+import Form from 'react-bootstrap/Form';
+import { ButtonGroup, InputGroup, ToggleButton } from "react-bootstrap";
 
 interface CadastroProduto {
     nome: string,
@@ -29,6 +33,10 @@ function editar() {
     const navigate = useNavigate()
     const [produto, setProduto] = useState<Iproduto>()
     const [tags, setTags] = useState<tags[]>([])
+    const [tag, searchTag] = useState([])
+    const [searchInput, setSearchInput] = useState('');
+    const [filteredResults, setFilteredResults] = useState<tags[]>([]);
+
     const { id } = useParams()
 
     useEffect(() => { getProduto(), getTags() }, [id]);
@@ -43,9 +51,24 @@ function editar() {
         setTags(response.data)
     }
 
+    useEffect(() => {
+        api.get(`/tag/tags`)
+            .then((response) => {
+                searchTag(response.data);
+            })
+    }, [])
+
+    const searchItems = (searchValue: any) => {
+        setSearchInput(searchValue)
+        const filteredData = tag?.filter((item) => {
+            return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
+        })
+        setFilteredResults(filteredData)
+    }
+
     const editarProduto = useCallback(
         async (data: CadastroProduto) => {
-            
+
             await api.put<CadastroProduto>(`/produto/atualizar/${id}`, {
                 nome: data.nome,
                 descricao: data.descricao,
@@ -103,7 +126,7 @@ function editar() {
                 <main>
                     <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
                     <div className="Form">
-                        
+
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="nome">
                                 <label htmlFor="nome">Nome</label>
@@ -132,7 +155,7 @@ function editar() {
                                             defaultValue={produto?.images[0].url}
                                             {...register('images.0.url')}
                                         />
-{/*                                         <img src={produto?.images[0].url} alt="" /> */}
+                                        {/*                                         <img src={produto?.images[0].url} alt="" /> */}
                                     </div>
                                     <div className="img2">
                                         <label htmlFor="url">Img2</label>
@@ -168,18 +191,43 @@ function editar() {
                                 </div>
                             </div>
                         </form>
-                    </div>           
+                    </div>
                     <form className='formTags' onSubmit={handleSubmit(onSubmitTags)}>
-                        <div className="tags">
-                            {tags && tags.map(tags => {
-                                return (
-                                    <label key={tags.id}>
-                                        <input type="checkbox" value={tags.id} id={tags.id} {...register('tags.0.id')} />
-                                        {tags.nome}
-                                    </label>
-                                )
-                            })}
-                        </div>
+                        <Dropdown>
+                            <Dropdown.Toggle id="dropdown-custom-components">
+                                <>
+                                    Adicionar Tags
+                                </>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Form.Control aria-label="Text input with dropdown button"
+                                    onChange={(e) => searchItems(e.target.value)}
+                                    placeholder="Nome da tag..." />
+                                {searchInput.length > 1 ? (
+                                    filteredResults.map((item) => {
+                                        return (
+                                            <Dropdown.ItemText key={item.id}>
+                                                <Form.Check
+                                                    key={item.id}
+                                                    label={item?.nome}
+                                                    value={item.id}
+                                                    {...register('tags.0.id')} />
+                                            </Dropdown.ItemText>
+                                        )
+                                    })
+                                ) : tags && tags.map(tags => {
+                                    return (
+                                        <Dropdown.ItemText key={tags.id}>
+                                            <Form.Check
+                                                key={tags.id}
+                                                label={tags?.nome}
+                                                value={tags.id}
+                                                {...register('tags.0.id')} />
+                                        </Dropdown.ItemText>
+                                    )
+                                })}
+                            </Dropdown.Menu>
+                        </Dropdown>
                         <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Adicionar tags'} type="submit" />
                     </form>
                 </main>

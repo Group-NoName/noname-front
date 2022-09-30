@@ -19,6 +19,7 @@ import HomePacote from '../pages/Admin/Pacotes/Home'
 import CadastroPacote from '../pages/Admin/Pacotes/Cadastro'
 import VisualizarPacote from '../pages/Admin/Pacotes/Visualizar'
 import EditarPacote from '../pages/Admin/Pacotes/Editar'
+import Pacote from '../pages/Pacote';
 
 function Routes() {
     return (
@@ -27,6 +28,7 @@ function Routes() {
         <Route path="/" element={<Home />} />
         <Route path="/produtos" element={<Produtos />} />
         <Route path="/produto/:id" element={<Produto />} />
+        <Route path="/pacote/:id" element={<Pacote />} />
         <Route path="admin" >
           <Route index element={<HomeAdmin/>}/> 
           <Route path="produtos">
