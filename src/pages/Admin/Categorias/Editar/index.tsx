@@ -1,4 +1,3 @@
-import { Select } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -18,11 +17,24 @@ interface IUpdateCategoria {
 }
 
 function editar() {
-    const [produtos, getProdutos] = useState<Iproduto[]>([])
+
     const [categoria, setCategoria] = useState<ICategoria>()
+    const [produtos, getProdutos] = useState<Iproduto[]>([])
+    const [produto, searchProduto] = useState<Iproduto[]>([])
+    const [searchInput, setSearchInput] = useState('');
+    const [filteredResults, setFilteredResults] = useState<Iproduto[]>([]);
+
     const { id } = useParams()
     const navigate = useNavigate()
     useEffect(() => { getProduto(), getCategoria() }, [id]);
+
+    const searchItems = (searchValue: any) => {
+        setSearchInput(searchValue)
+        const filteredData = produto?.filter((item) => {
+            return Object.values(item.nome).join('').toLowerCase().includes(searchInput.toLowerCase())
+        })
+        setFilteredResults(filteredData)
+    }
 
     async function getCategoria() {
         const response = await api.get<ICategoria>(`/categoria/categorias/${id}`)
@@ -33,6 +45,13 @@ function editar() {
         const response = await api.get<Iproduto[]>(`/produto/produtos`)
         getProdutos(response.data)
     }
+
+    useEffect(() => {
+        api.get(`/produto/produtos`)
+            .then((response) => {
+                searchProduto(response.data);
+            })
+    }, [])
 
     const atualizar = useCallback(
         async (data: IUpdateCategoria) => {
@@ -46,6 +65,7 @@ function editar() {
             });
         }, []
     )
+
     const editarCategoria = useCallback(
         async (data: IUpdateCategoria) => {
             await api.put<IUpdateCategoria>(`/categoria/categorias-produtos/${id}`, {
@@ -74,7 +94,7 @@ function editar() {
     });
 
     return (
-        <section>
+        <section style={{ overflowY: 'hidden', height: "100vh" }}>
             <Nav_Admin />
             <S.Editar>
                 <main>
@@ -88,17 +108,36 @@ function editar() {
                                     {...register('nomeCategoria')}
                                 />
                             </div>
-                            <Form aria-label="Default select example">
-                                {produtos && produtos.map((produto) => {
-                                    return (
-                                        <Form.Check
-                                            key={produto.id}
-                                            label={produto?.nome}
-                                            value={produto.id}
-                                            {...register('produtoId.0.id')} />
-                                    )
-                                })}
-                            </Form>
+                            <Form.Control aria-label="Text input with dropdown button"
+                                onChange={(e) => searchItems(e.target.value)}
+                                placeholder="Buscar Produto" />
+                            <div className="produtosSearch">
+                                <Form aria-label="Default select">
+                                    {searchInput.length > 1 ? (
+                                        filteredResults.map((item) => {
+                                            if (categoria?.produtos) {
+                                                return (
+                                                    <Form.Check
+                                                        key={item.id}
+                                                        label={item?.nome}
+                                                        value={item.id}
+                                                        type="switch"
+                                                        {...register('produtoId.0.id')} />
+                                                )
+                                            }
+                                        })
+                                    ) : produtos && produtos.map((produto) => {
+                                        return (
+                                            <Form.Check
+                                                key={produto.id}
+                                                label={produto?.nome}
+                                                value={produto.id}
+                                                type="switch"
+                                                {...register('produtoId.0.id')} />
+                                        )
+                                    })}
+                                </Form>
+                            </div>
                             <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Editar'} type="submit" />
                         </form>
                     </div>

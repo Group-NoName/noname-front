@@ -5,15 +5,17 @@ import ICategoria from '../../../../interfaces/categoria'
 import { api } from "../../../../service/api"
 import * as S from './styles'
 import Table from 'react-bootstrap/Table';
-import { Button } from "react-bootstrap"
+import { Button, Form } from "react-bootstrap"
 
 function Home() {
+
     const [categorias, setCategorias] = useState<ICategoria[]>([])
+    const [categoria, searchCategoria] = useState<ICategoria[]>([])
+    const [searchInput, setSearchInput] = useState('');
+    const [filteredResults, setFilteredResults] = useState<ICategoria[]>([]);
+
+    const navigate = useNavigate()
     useEffect(() => { getAllCategorias() })
-    async function getAllCategorias() {
-        const response = await api.get<ICategoria[]>('/categoria/categorias')
-        setCategorias(response.data)
-    }
 
     const deletarCategoria = useCallback(
         async (id: string) => {
@@ -25,11 +27,30 @@ function Home() {
                 })
         }, []
     )
-    const navigate = useNavigate()
+
+    const searchItems = (searchValue: any) => {
+        setSearchInput(searchValue)
+        const filteredData = categoria?.filter((item) => {
+            return Object.values(item.nome).join('').toLowerCase().includes(searchInput.toLowerCase())
+        })
+        setFilteredResults(filteredData)
+    }
+
+    async function getAllCategorias() {
+        const response = await api.get<ICategoria[]>('/categoria/categorias')
+        setCategorias(response.data)
+    }
+
+    useEffect(() => {
+        api.get(`/categoria/categorias`)
+            .then((response) => {
+                searchCategoria(response.data);
+            })
+    }, [])
 
     return (
         <section>
-            <Nav_Admin/>
+            <Nav_Admin />
             <S.Home>
                 <main>
                     <div className="Form">
@@ -41,7 +62,25 @@ function Home() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {categorias && categorias.map(i => {
+                                <Form.Control aria-label="Text input with dropdown button"
+                                    onChange={(e) => searchItems(e.target.value)}
+                                    placeholder="Buscar Categoria" />
+                                {searchInput.length > 1 ? (
+                                    filteredResults.map((item) => {
+                                        return (
+                                            <tr key={item.id}>
+                                                <td>{item.nome}</td>
+                                                <td className="tdbuttons">
+                                                    <div className="buttons">
+                                                        <Button variant="outline-primary" onClick={() => navigate(`/admin/categorias/editar/${item.id}`)}>Editar</Button>{' '}
+                                                        <Button variant="outline-success" onClick={() => navigate(`/admin/categorias/visualizar/${item.id}`)}>Visualizar</Button>
+                                                        <Button variant="outline-danger" onClick={() => deletarCategoria(item.id)}>Deletar</Button>{' '}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                ) : categorias && categorias.map(i => {
                                     return (
                                         <tr key={i.id}>
                                             <td>{i.nome}</td>
@@ -55,11 +94,12 @@ function Home() {
                                         </tr>
                                     )
                                 })}
+
                             </tbody>
                         </Table>
                     </div>
                 </main>
-            </S.Home>   
+            </S.Home>
         </section>
     )
 }
