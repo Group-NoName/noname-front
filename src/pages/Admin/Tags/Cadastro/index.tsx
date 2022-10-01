@@ -10,13 +10,13 @@ interface CadastroTags {
     nome: string
 }
 function cadastroTag() {
-    /* tags/inserir */
+
     const [tag, setTag] = useState<CadastroTags>()
     const navigate = useNavigate();
 
     const cadastroTag = useCallback(
         async (data: CadastroTags) => {
-            await api.post<CadastroTags>('/tag/inserir', {
+            await api.post<CadastroTags>('/tag/cadastro', {
                 nome: data.nome,
             }).then(({ data }) => {
                 console.log(data);

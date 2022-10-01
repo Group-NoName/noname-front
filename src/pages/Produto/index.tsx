@@ -13,12 +13,8 @@ function Produto() {
   const { id } = useParams();
 
   const [produto, setProduto] = useState<Iproduto>()
-
   const [produtos, setProdutos] = useState<Iproduto[]>([])
-
   const [produtosTag, setProdutosTag] = useState<Iproduto[]>([])
-
-  const navigate = useNavigate();
 
   useEffect(() => { getProduto(), getProdutosSemelhantes() }, [id]);
 
@@ -27,22 +23,16 @@ function Produto() {
     setProduto(response.data)
   }
 
+  async function getProdutosSemelhantes() {
+    const response = await api.get<Iproduto[]>(`/produto/produtos-semelhantes/${id}/4`)
+    setProdutosTag(response.data)
+  }
 
   useEffect(() => { getAllProdutos() })
   async function getAllProdutos() {
     const response = await api.get<Iproduto[]>('/produto/produtos-quantia/5')
     setProdutos(response.data)
   }
-
-  async function getProdutosSemelhantes() {
-    const response = await api.get<Iproduto[]>(`/produto/produtos-semelhantes/${id}/4`)
-    setProdutosTag(response.data)
-  }
-
-  function viewProduto(id: string) {
-    navigate(`produto/${id}`)
-  }
-
 
   return (
     <>
@@ -69,7 +59,7 @@ function Produto() {
           <div className='produtoInformation'>
             <div className='produtoDescricao'>
               <div className="nome">
-                <h1>{produto?.nome}</h1>  
+                <h1>{produto?.nome}</h1>
               </div>
               <div className="desc">
                 <p>{produto?.descricao}</p>
@@ -90,13 +80,13 @@ function Produto() {
             <h2>Produtos Semelhantes</h2>
             <div className="cards">
               {produtosTag && produtosTag.map(i => {
-                if(!(i.tags.length == 0)){
-                  if(i.id != id){
+                if (!(i.tags.length == 0)) {
+                  if (i.id != id) {
                     return (
                       <>
-                      <div className="card" key={i.id}>
-                        <CardProds  imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco}/>
-                      </div>
+                        <div className="card" key={i.id}>
+                          <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+                        </div>
                       </>
                     )
                   }
@@ -105,12 +95,12 @@ function Produto() {
             </div>
           </div>
           <div className='produtosRelacionados'>
-          <h2>Produtos Relacionados</h2>
+            <h2>Produtos Relacionados</h2>
             <div className='posicao'>
               {produtos && produtos.map(i => {
                 return (
                   <div key={i.id}>
-                    <CardProds  imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+                    <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
                   </div>
                 )
               })}

@@ -13,13 +13,16 @@ interface editarTag {
 
 function editarTag() {
     const [tag, setTag] = useState<ITags>()
+
     const { id } = useParams()
     useEffect(() => { getTag() }, [id]);
+    const navigate = useNavigate()
+
     async function getTag() {
         const response = await api.get<ITags>(`tag/tags/${id}`)
         setTag(response.data)
     }
-    const navigate = useNavigate()
+
     const editarTag = useCallback(
         async (data: editarTag) => {
             await api.put<editarTag>(`/tag/atualizar/${id}`, {
@@ -46,6 +49,7 @@ function editarTag() {
     } = useForm<editarTag>({
         mode: 'onBlur',
     });
+    
     return (
         <section>
             <Nav_Admin />
