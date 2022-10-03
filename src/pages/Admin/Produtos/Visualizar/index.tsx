@@ -69,7 +69,7 @@ function Visualizar() {
                                                         <div className="tag" key={item.id}>
                                                             <p>{item?.nome}</p>
                                                             <Button variant="danger" onClick={() => deleteRelacao(String(item.id), String(produto.id))}>Remover</Button>
-                                                            <Link to={`/admin/produtos/visualizar/${item?.id}`}><Button variant="primary">Visualizar</Button></Link>
+                                                            <Link to={`/admin/tags/visualizar/${item?.id}`}><Button variant="primary">Visualizar</Button></Link>
                                                         </div>
                                                     </>
                                                 )

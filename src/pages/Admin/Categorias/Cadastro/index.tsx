@@ -1,9 +1,8 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../components/Button";
 import Nav_Admin from "../../../../components/Nav_Admin";
-import ICategoria from "../../../../interfaces/categoria";
 import { api } from "../../../../service/api";
 import * as S from './styles'
 

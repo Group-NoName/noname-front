@@ -23,10 +23,6 @@ function Home() {
 
   const navigate = useNavigate();
 
-  function viewProduto(id: string) {
-    navigate(`produto/${id}`)
-  }
-
   return (
     <>
       <Nav_ />

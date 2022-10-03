@@ -8,8 +8,11 @@ import { api } from '../../service/api';
 import * as S from './styles';
 
 function Produtos(){
+
     const [produtos, setProduto] = useState<Iproduto[]>([])
+
     useEffect(() => { getAllProdutos() })
+    
     async function getAllProdutos() {
         const response = await api.get<Iproduto[]>('/produto/produtos')
         setProduto(response.data)
@@ -17,9 +20,6 @@ function Produtos(){
 
     const navigate = useNavigate();
 
-    function viewProduto(id: string) {
-        navigate(`produto/${id}`)
-    }
     return(
         <>
             <Nav_/>

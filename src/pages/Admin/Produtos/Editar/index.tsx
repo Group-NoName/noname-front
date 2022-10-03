@@ -30,7 +30,7 @@ interface CadastroProduto {
 }
 
 function editar() {
-    const navigate = useNavigate()
+
     const [produto, setProduto] = useState<Iproduto>()
     const [tags, setTags] = useState<tags[]>([])
     const [tag, searchTag] = useState([])
@@ -38,6 +38,15 @@ function editar() {
     const [filteredResults, setFilteredResults] = useState<tags[]>([]);
 
     const { id } = useParams()
+    const navigate = useNavigate()
+
+    const searchItems = (searchValue: any) => {
+        setSearchInput(searchValue)
+        const filteredData = tag?.filter((item) => {
+            return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
+        })
+        setFilteredResults(filteredData)
+    }
 
     useEffect(() => { getProduto(), getTags() }, [id]);
 
@@ -57,14 +66,6 @@ function editar() {
                 searchTag(response.data);
             })
     }, [])
-
-    const searchItems = (searchValue: any) => {
-        setSearchInput(searchValue)
-        const filteredData = tag?.filter((item) => {
-            return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
-        })
-        setFilteredResults(filteredData)
-    }
 
     const editarProduto = useCallback(
         async (data: CadastroProduto) => {

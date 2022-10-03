@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
-import { Button, Table } from "react-bootstrap"
+import { Button, Form, Table } from "react-bootstrap"
 import { useNavigate } from 'react-router-dom'
 import Nav_Admin from "../../../../components/Nav_Admin"
 import Iproduto from "../../../../interfaces/produto"
@@ -7,12 +7,14 @@ import { api } from "../../../../service/api"
 import * as S from './styles'
 
 function Home() {
+
     const [produtos, setProduto] = useState<Iproduto[]>([])
+    const [produto, searchProduto] = useState<Iproduto[]>([])
+    const [searchInput, setSearchInput] = useState('');
+    const [filteredResults, setFilteredResults] = useState<Iproduto[]>([]);
+
+    const navigate = useNavigate()
     useEffect(() => { getAllProdutos() })
-    async function getAllProdutos() {
-        const response = await api.get<Iproduto[]>('/produto/produtos')
-        setProduto(response.data)
-    }
 
     const deleteProduto = useCallback(
         async (id: string) => {
@@ -24,15 +26,36 @@ function Home() {
                 })
         }, []
     )
-    const navigate = useNavigate()
+
+    async function getAllProdutos() {
+        const response = await api.get<Iproduto[]>('/produto/produtos')
+        setProduto(response.data)
+    }
+
+    const searchItems = (searchValue: any) => {
+        setSearchInput(searchValue)
+        const filteredData = produto?.filter((item) => {
+            return Object.values(item.nome).join('').toLowerCase().includes(searchInput.toLowerCase())
+        })
+        setFilteredResults(filteredData)
+    }
+
+    useEffect(() => {
+        api.get(`/produto/produtos`)
+            .then((response) => {
+                searchProduto(response.data);
+            })
+    }, [])
 
     return (
         <section>
-            <Nav_Admin/>
+            <Nav_Admin />
             <S.Home>
                 <main>
                     <div className="Form">
+
                         <Table striped bordered hover>
+
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -41,7 +64,26 @@ function Home() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {produtos && produtos.map(i => {
+                                <Form.Control aria-label="Text input with dropdown button"
+                                    onChange={(e) => searchItems(e.target.value)}
+                                    placeholder="Buscar Produto" />
+                                {searchInput.length > 1 ? (
+                                    filteredResults.map((item) => {
+                                        return (
+                                            <tr key={item.id}>
+                                                <td>{item.nome}</td>
+                                                <td>{item.preco}</td>
+                                                <td className="tdbuttons">
+                                                    <div className="buttons">
+                                                        <Button variant="outline-primary" onClick={() => navigate(`/admin/produtos/editar/${item.id}`)}>Editar</Button>{' '}
+                                                        <Button variant="outline-success" onClick={() => navigate(`/admin/produtos/visualizar/${item.id}`)}>Visualizar</Button>
+                                                        <Button variant="outline-danger" onClick={() => deleteProduto(item.id)}>Deletar</Button>{' '}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                ) : produtos && produtos.map(i => {
                                     return (
                                         <tr key={i.id}>
                                             <td>{i.nome}</td>
@@ -60,7 +102,7 @@ function Home() {
                         </Table>
                     </div>
                 </main>
-            </S.Home> 
+            </S.Home>
         </section>
     )
 }
