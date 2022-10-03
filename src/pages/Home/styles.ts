@@ -2,18 +2,19 @@ import { Flex } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 export const Container = styled(Flex)`
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+    background-color: #f5f5f5;
     .listCategorias{
         display: flex;
         flex-direction: column;
         justify-content: center;
         margin: 1em auto;
+        background-color: #FFFF;
         box-shadow: 10px 10px 5px #aaaaaa;
         h1{
-            margin: auto;
+            margin: 2px auto;
         }
         .produtosmap{
             display: flex ;
