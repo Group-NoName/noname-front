@@ -20,6 +20,9 @@ import CadastroPacote from '../pages/Admin/Pacotes/Cadastro'
 import VisualizarPacote from '../pages/Admin/Pacotes/Visualizar'
 import EditarPacote from '../pages/Admin/Pacotes/Editar'
 import Pacote from '../pages/Pacote';
+import HomeOferta from '../pages/Admin/Ofertas/Home'
+import CadastroOferta from '../pages/Admin/Ofertas/Cadastro'
+import VisualizarOferta from '../pages/Admin/Ofertas/Visualizar'
 
 function Routes() {
     return (
@@ -54,6 +57,11 @@ function Routes() {
             <Route path="cadastro" element={<CadastroPacote/>} />
             <Route path="visualizar/:id" element={<VisualizarPacote/>} />  
             <Route path="editar/:id" element={<EditarPacote/>} />
+          </Route>
+          <Route path="ofertas">
+            <Route index element={ <HomeOferta/> } />
+            <Route path="cadastro" element={<CadastroOferta/>} />
+            <Route path="visualizar/:id" element={<VisualizarOferta/>} />
           </Route>  
         </Route>
       </RoutesWrapper>
