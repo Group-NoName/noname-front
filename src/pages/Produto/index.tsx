@@ -7,7 +7,7 @@ import Nav_ from '../../components/Nav';
 import Iproduto from '../../interfaces/produto';
 import { api } from '../../service/api';
 import * as S from './styles';
-
+import ValidadorDesconto from '../../validators/validadorDesconto'
 function Produto() {
 
   const { id } = useParams();
@@ -33,6 +33,8 @@ function Produto() {
     const response = await api.get<Iproduto[]>('/produto/produtos-quantia/5')
     setProdutos(response.data)
   }
+
+  const validador = new ValidadorDesconto();
 
   return (
     <>
@@ -66,7 +68,7 @@ function Produto() {
               </div>
               <div className='produtoPrice'>
                 <div className='price'>
-                  <h2>R$ {produto?.preco}</h2>
+                  {validador.validar(produto)}
                 </div>
                 <div className='produtopricebuttom'>
                   <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Comprar'} />
