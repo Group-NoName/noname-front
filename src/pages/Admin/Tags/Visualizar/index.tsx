@@ -59,7 +59,8 @@ function visualizarTag() {
                                 return (
                                     <h1></h1>
                                 )
-                            } else {
+                            }
+                            else {
                                 return (
                                     <>
                                     <div className="produto">
