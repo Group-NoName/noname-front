@@ -20,11 +20,9 @@ function cadastro() {
   const deletarRelacao = useCallback(
     async (id: string, idProduto: string) => {
       await api.put(`/pacote/remover-produto/${id}`, {
-        bodyParser: {
-          "produtos": [{
-            "id": `${idProduto}`
-          }]
-        }
+        produtos: [{
+          id: `${idProduto}`
+        }]
       })
         .then(({ data }) => {
           alert("Produto removido!")
@@ -34,6 +32,18 @@ function cadastro() {
         });
     }, []
   )
+  const deletePacote = useCallback(
+    async (id: string) => {
+        await api.delete(`/pacote/excluir/${id}`)
+            .then(() => {
+                alert("Pacote Deletado")
+                navigate(-1)
+            }).catch(err => {
+                alert(`Pacote não foi deletado! Erro:${err}`)
+            })
+    }, []
+  ) 
+
   return (
     <section>
       <Nav_Admin />
@@ -75,8 +85,8 @@ function cadastro() {
             </div>
             <div className="right-content">
               <img src={`${pacote?.images[0].url}`} alt="" />
-              {/*               <Button variant="outline-primary" onClick={() => navigate(`/admin/produtos/editar/${produto?.id}`)}>Editar</Button>
-              <Button variant="outline-danger" onClick={() => deleteProduto(String(produto?.id))}>Deletar</Button> */}
+              <Button variant="outline-primary" onClick={() => navigate(`/admin/pacotes/editar/${pacote?.id}`)}>Editar</Button>
+              <Button variant="outline-danger" onClick={() => deletePacote(String(pacote?.id))}>Deletar</Button>
             </div>
           </div>
         </main>

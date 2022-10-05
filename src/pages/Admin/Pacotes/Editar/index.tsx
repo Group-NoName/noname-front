@@ -126,7 +126,7 @@ function editar() {
                                         <input
                                             type="text"
                                             required
-                                            defaultValue={pacoteget?.images[0].url}
+                                            defaultValue={pacoteget?.images[0]?.url}
                                             {...register('images.0.url')}
                                         />
                                         {/*                                         <img src={produto?.images[0].url} alt="" /> */}
@@ -136,7 +136,7 @@ function editar() {
                                         <input
                                             type="text"
                                             required
-                                            defaultValue={pacoteget?.images[1].url}
+                                            defaultValue={pacoteget?.images[1]?.url}
                                             {...register('images.1.url')}
                                         />
                                         {/* <img src={produto?.images[1].url} alt="" /> */}
@@ -146,7 +146,7 @@ function editar() {
                                         <input
                                             type="text"
                                             required
-                                            defaultValue={pacoteget?.images[2].url}
+                                            defaultValue={pacoteget?.images[2]?.url}
                                             {...register('images.2.url')}
                                         />
                                         {/* <img src={produto?.images[2].url} alt="" /> */}

@@ -4,13 +4,14 @@ import Nav_Admin from "../../../../components/Nav_Admin"
 import { api } from "../../../../service/api"
 import { Button, Form, Table } from 'react-bootstrap';
 import Ipacote from '../../../../interfaces/pacote'
+import { useNavigate } from 'react-router-dom'
 
 function home() {
     const [pacotes, setPacotes] = useState<Ipacote[]>([])
     const [pacote, searchPacote] = useState<Ipacote[]>([])
     const [searchInput, setSearchInput] = useState('');
     const [filteredResults, setFilteredResults] = useState<Ipacote[]>([]);
-
+    const navigate = useNavigate()
 
     const searchItems = (searchValue: any) => {
         setSearchInput(searchValue)
@@ -19,6 +20,17 @@ function home() {
         })
         setFilteredResults(filteredData)
     }
+
+    const deletePacote = useCallback(
+        async (id: string) => {
+            await api.delete(`/pacote/excluir/${id}`)
+                .then(() => {
+                    alert("Pacote Deletado")
+                }).catch(err => {
+                    alert(`Pacote não foi deletado! Erro:${err}`)
+                })
+        }, []
+    )
 
     useEffect(() => {
         api.get(`/pacote/pacotes`)
@@ -58,9 +70,9 @@ function home() {
                                                 <td>{pacotes.preco}</td>
                                                 <td className="tdbuttons">
                                                     <div className="buttons">
-                                                        <Button variant="outline-primary">Editar</Button>{' '}
-                                                        <Button variant="outline-success">Visualizar</Button>
-                                                        <Button variant="outline-danger">Deletar</Button>{' '}
+                                                        <Button variant="outline-primary" onClick={() => navigate(`/admin/pacotes/editar/${pacotes.id}`)}>Editar</Button>{' '}
+                                                        <Button variant="outline-success" onClick={() => navigate(`/admin/pacotes/visualizar/${pacotes.id}`)}>Visualizar</Button>
+                                                        <Button variant="outline-danger" onClick={() => deletePacote(pacotes.id)}>Deletar</Button>{' '}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -73,9 +85,9 @@ function home() {
                                             <td>{pacotes.preco}</td>
                                             <td className="tdbuttons">
                                                 <div className="buttons">
-                                                    <Button variant="outline-primary">Editar</Button>{' '}
-                                                    <Button variant="outline-success">Visualizar</Button>
-                                                    <Button variant="outline-danger">Deletar</Button>{' '}
+                                                    <Button variant="outline-primary" onClick={() => navigate(`/admin/pacotes/editar/${pacotes.id}`)}>Editar</Button>{' '}
+                                                    <Button variant="outline-success" onClick={() => navigate(`/admin/pacotes/visualizar/${pacotes.id}`)}>Visualizar</Button>
+                                                    <Button variant="outline-danger" onClick={() => deletePacote(pacotes.id)}>Deletar</Button>{' '}
                                                 </div>
                                             </td>
                                         </tr>
