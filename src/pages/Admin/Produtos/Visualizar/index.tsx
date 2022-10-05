@@ -6,7 +6,7 @@ import { api } from "../../../../service/api";
 import * as S from './styles'
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import Nav_Admin from "../../../../components/Nav_Admin";
-import { Button } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 
 function Visualizar() {
     const [produto, setProduto] = useState<Iproduto>()
@@ -66,11 +66,20 @@ function Visualizar() {
                                             } else {
                                                 return (
                                                     <>
-                                                        <div className="tag" key={item.id}>
-                                                            <p>{item?.nome}</p>
-                                                            <Button variant="danger" onClick={() => deleteRelacao(String(item.id), String(produto.id))}>Remover</Button>
+                                                    <Dropdown>
+                                                        <Dropdown.Toggle>
+                                                            {item.nome}
+                                                        </Dropdown.Toggle>
+                                                        <Dropdown.Menu>
+                                                            <Dropdown.ItemText>
+                                                                <Button variant="danger" onClick={() => deleteRelacao(String(item.id), String(produto.id))}>Remover</Button>
+                                                            </Dropdown.ItemText>
+                                                            <Dropdown.ItemText>
                                                             <Link to={`/admin/tags/visualizar/${item?.id}`}><Button variant="primary">Visualizar</Button></Link>
-                                                        </div>
+                                                            </Dropdown.ItemText>
+                                                            
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
                                                     </>
                                                 )
                                             }
