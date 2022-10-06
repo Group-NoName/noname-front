@@ -21,29 +21,27 @@ interface AtualizarPacote {
         { url: string },
     ]
     produtos: Array<{
-        id: string[]
+        id: string[],
     }>
 }
 
 function editar() {
-    const navigate = useNavigate()
-    const [pacote, setPacote] = useState<AtualizarPacote>()
-    const [pacoteget, getPacote] = useState<Ipacote>()
+
+    const [pacote, getPacote] = useState<Ipacote>()
     const [produto, searchProduto] = useState([])
     const [produtos, setProduto] = useState<Iproduto[]>([])
     const [searchInput, setSearchInput] = useState('');
     const [filteredResults, setFilteredResults] = useState<Iproduto[]>([]);
 
-    const { id } = useParams()
-    const searchItems = (searchValue: any) => {
-        setSearchInput(searchValue)
-        const filteredData = produto?.filter((item) => {
-            return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
-        })
-        setFilteredResults(filteredData)
-    }
+    const [status, setStatus] = useState({
+        type: '',
+        mensagem: ''
+    });
 
-    const cadastroPacotes = useCallback(
+    const navigate = useNavigate()
+    const { id } = useParams()
+
+    const atualizarDadosPacote = useCallback(
         async (data: AtualizarPacote) => {
             await api.put<AtualizarPacote>(`/pacote/atualizar/${id}`, {
                 nome: data.nome,
@@ -54,15 +52,42 @@ function editar() {
                     { url: data.images[1].url },
                     { url: data.images[2].url }
                 ],
+            }).then(({ data }) => {
+                alert("pacote cadastrado")
+            }).catch((error) => {
+                setStatus({
+                    type: "error",
+                    mensagem: `Coloque informações válidas`
+                })
+            })
+        }, [])
+
+
+    const atualizarProdutosPacote = useCallback(
+        async (data: AtualizarPacote) => {
+            await api.put<AtualizarPacote>(`/pacote/inserir-produto/${id}`, {
                 produtos: data.produtos[0].id.map(i => ({ id: i }))
             }).then(({ data }) => {
                 alert("pacote cadastrado")
-            }).catch(error => {
-                alert(error)
-            });
+            }).catch((error) => {
+                setStatus({
+                    type: "error",
+                    mensagem: `Existe Produtos Repetido no pacote!`
+                })
+            })
         }, [])
 
-    useEffect(() => { getProduto(), getPacotes() });
+    useEffect(() => { getPacotes(), getProduto() });
+
+    async function getPacotes() {
+        const response = await api.get<Ipacote>(`/pacote/pacote/${id}`)
+        getPacote(response.data)
+    }
+
+    async function getProduto() {
+        const response = await api.get<Iproduto[]>(`/produto/produtos`)
+        setProduto(response.data)
+    }
 
     useEffect(() => {
         api.get(`/produto/produtos`)
@@ -71,19 +96,22 @@ function editar() {
             })
     }, [])
 
-    async function getProduto() {
-        const response = await api.get<Iproduto[]>(`/produto/produtos`)
-        setProduto(response.data)
-    }
-
-    async function getPacotes() {
-        const response = await api.get<Ipacote>(`/pacote/pacote/${id}`)
-        getPacote(response.data)
+    const searchItems = (searchValue: any) => {
+        setSearchInput(searchValue)
+        const filteredData = produto?.filter((item) => {
+            return Object.values(item).join().toLowerCase().includes(searchInput.toLowerCase())
+        })
+        setFilteredResults(filteredData)
     }
 
     const onSubmit = useCallback(
         async (data: AtualizarPacote) => {
-            cadastroPacotes(data);
+            atualizarDadosPacote(data);
+        }, []
+    );
+    const onSubmitProduto = useCallback(
+        async (data: AtualizarPacote) => {
+            atualizarProdutosPacote(data);
         }, []
     );
 
@@ -99,6 +127,7 @@ function editar() {
             <Nav_Admin />
             <S.Editar>
                 <main>
+                    {status.type === 'error' ? <p style={{ color: "red" }}>{status.mensagem}</p> : ""}
                     <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
                     <div className="Form">
                         <form onSubmit={handleSubmit(onSubmit)}>
@@ -106,7 +135,7 @@ function editar() {
                                 <label htmlFor="nome">Nome</label>
                                 <input
                                     type="text"
-                                    defaultValue={pacoteget?.nome}
+                                    defaultValue={pacote?.nome}
                                     required
                                     {...register('nome')}
                                 />
@@ -116,7 +145,7 @@ function editar() {
                                 <textarea
                                     {...register('descricao')}
                                     required
-                                    defaultValue={pacoteget?.descricao}
+                                    defaultValue={pacote?.descricao}
                                 />
                             </div>
                             <div className="position">
@@ -126,7 +155,7 @@ function editar() {
                                         <input
                                             type="text"
                                             required
-                                            defaultValue={pacoteget?.images[0]?.url}
+                                            defaultValue={pacote?.images[0]?.url}
                                             {...register('images.0.url')}
                                         />
                                         {/*                                         <img src={produto?.images[0].url} alt="" /> */}
@@ -136,7 +165,7 @@ function editar() {
                                         <input
                                             type="text"
                                             required
-                                            defaultValue={pacoteget?.images[1]?.url}
+                                            defaultValue={pacote?.images[1]?.url}
                                             {...register('images.1.url')}
                                         />
                                         {/* <img src={produto?.images[1].url} alt="" /> */}
@@ -146,7 +175,7 @@ function editar() {
                                         <input
                                             type="text"
                                             required
-                                            defaultValue={pacoteget?.images[2]?.url}
+                                            defaultValue={pacote?.images[2]?.url}
                                             {...register('images.2.url')}
                                         />
                                         {/* <img src={produto?.images[2].url} alt="" /> */}
@@ -159,10 +188,13 @@ function editar() {
                                         step="0.01"
                                         required
                                         {...register('preco')}
-                                        defaultValue={pacoteget?.preco}
+                                        defaultValue={pacote?.preco}
                                     />
                                 </div>
                             </div>
+                            <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Editar'} type="submit" />
+                        </form>
+                        <form onSubmit={handleSubmit(onSubmitProduto)}>
                             <Dropdown>
                                 <Dropdown.Toggle id="dropdown-custom-components">
                                     <>
@@ -176,29 +208,29 @@ function editar() {
                                     {searchInput.length > 1 ? (
                                         filteredResults.map((item) => {
                                             return (
-                                                <Dropdown.ItemText key={item.id}>
+                                                <Dropdown.ItemText key={item.id || item?.nome}>
                                                     <Form.Check
-                                                        key={item.id}
+                                                        key={item.id || item?.nome}
                                                         label={item?.nome}
-                                                        value={item.id}
+                                                        value={item.id || item?.nome}
                                                         {...register('produtos.0.id')} />
                                                 </Dropdown.ItemText>
                                             )
                                         })
                                     ) : produtos && produtos.map(prod => {
                                         return (
-                                            <Dropdown.ItemText key={prod.id}>
+                                            <Dropdown.ItemText key={prod.id || prod.nome}>
                                                 <Form.Check
-                                                    key={prod.id}
-                                                    label={prod?.nome}
-                                                    value={prod.id}
+                                                    key={prod.id || prod.nome}
+                                                    label={prod.nome}
+                                                    value={prod.id || prod.nome}
                                                     {...register('produtos.0.id')} />
                                             </Dropdown.ItemText>
                                         )
                                     })}
                                 </Dropdown.Menu>
                             </Dropdown>
-                            <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Editar'} type="submit" />
+                            <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Adicionar Produto'} type="submit" />
                         </form>
                     </div>
                 </main>

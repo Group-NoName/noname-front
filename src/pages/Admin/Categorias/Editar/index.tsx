@@ -53,35 +53,40 @@ function editar() {
             })
     }, [])
 
-    const atualizar = useCallback(
+    const atualizarNomeCategoria = useCallback(
         async (data: IUpdateCategoria) => {
             await api.put<IUpdateCategoria>(`/categoria/atualizar/${id}`, {
-                nome: data.nomeCategoria
+                nome: data.nomeCategoria,
             }).then(({ data }) => {
                 alert("Categoria Editada!")
-                navigate(`/admin/categorias`)
+                navigate(`/admin/categorias/visualizar/${id}`)
             }).catch(error => {
                 alert(error)
             });
         }, []
     )
 
-    const editarCategoria = useCallback(
+    const onSubmit = useCallback(
+        async (data: IUpdateCategoria) => {
+            atualizarNomeCategoria(data)
+        }, []
+    )
+
+    const adicionarCategoriaProduto = useCallback(
         async (data: IUpdateCategoria) => {
             await api.put<IUpdateCategoria>(`/categoria/categorias-produtos/${id}`, {
-                produtos: data.produtoId[0].id.map(i => ({ id: i }))
+                produtos: `${data.produtoId[0].id.forEach(i => ({ id: i }))}`
             }).then(({ data }) => {
                 alert("Produtos adicionados!")
-                navigate(`/admin/categorias`)
+                navigate(`/admin/categorias/visualizar/${id}`)
             }).catch(error => {
                 alert(error)
             });
         }, [])
 
-    const onSubmit = useCallback(
+    const onSubmitProduto = useCallback(
         async (data: IUpdateCategoria) => {
-            editarCategoria(data)
-            atualizar(data)
+            adicionarCategoriaProduto(data)
         }, [],
     );
 
@@ -101,13 +106,18 @@ function editar() {
                     <div className="contentMain">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="nome">
-                                <label htmlFor="nomeCategoria">Nome</label>
+                                <label htmlFor="nomeCategoria">Nome da Categoria</label>
                                 <input
                                     type="text"
                                     defaultValue={categoria?.nome}
                                     {...register('nomeCategoria')}
                                 />
                             </div>
+                            <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Editar'} type="submit" />
+                        </form>
+                    </div>
+                    <div className="contentProd">
+                        <form onSubmit={handleSubmit(onSubmitProduto)}>
                             <Form.Control aria-label="Text input with dropdown button"
                                 onChange={(e) => searchItems(e.target.value)}
                                 placeholder="Buscar Produto" />
@@ -138,7 +148,7 @@ function editar() {
                                     })}
                                 </Form>
                             </div>
-                            <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Editar'} type="submit" />
+                            <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Adicionar Produto'} type="submit" />
                         </form>
                     </div>
                 </main>
