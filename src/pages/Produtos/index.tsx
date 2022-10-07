@@ -7,12 +7,12 @@ import Iproduto from '../../interfaces/produto';
 import { api } from '../../service/api';
 import * as S from './styles';
 
-function Produtos(){
+function Produtos() {
 
     const [produtos, setProduto] = useState<Iproduto[]>([])
 
     useEffect(() => { getAllProdutos() })
-    
+
     async function getAllProdutos() {
         const response = await api.get<Iproduto[]>('/produto/produtos')
         setProduto(response.data)
@@ -20,19 +20,26 @@ function Produtos(){
 
     const navigate = useNavigate();
 
-    return(
+    return (
         <>
-            <Nav_/>
+            <Nav_ />
             <S.Container>
                 <div className="produtos">
-                <h1>Produtos</h1>
-                <div className="produtosmap">
-                    {produtos && produtos.map(i => {
-                    return (
-                        <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
-                    )
-                    })}
-                </div>
+                    <h1>Produtos</h1>
+                    <div className="produtosmap">
+                        {produtos && produtos.map(i => {
+                            if (i.desconto == 0) {
+                                return (
+                                    <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+                                )
+                            }
+                            else {
+                                return (
+                                    <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={String(i.desconto.toFixed(2))} />
+                                )
+                            }
+                        })}
+                    </div>
                 </div>
             </S.Container>
         </>
