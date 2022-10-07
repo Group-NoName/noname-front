@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
 import * as S from './styles'
+import ValidadorDesconto from '../../validators/validadorDesconto'
 
 interface ICard extends DOMAttributes<HTMLButtonElement> {
     name: string;
@@ -13,6 +14,7 @@ interface ICard extends DOMAttributes<HTMLButtonElement> {
 
 function CardProds({ name, imageURL, produtoID, preco}: ICard) {
     const navigate = useNavigate();
+    const validacao = new ValidadorDesconto ()
   return (
     <S.Container>
         <Card style={{ width: '18rem', height: '25rem' }}>

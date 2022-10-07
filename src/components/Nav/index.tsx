@@ -35,6 +35,9 @@ function Nav_() {
                                 <Link  className='link' to={'/produtos'}>
                                     <Navbar.Brand>Produtos</Navbar.Brand>
                                 </Link>
+                                <Link  className='link' to={'/pacotes'}>
+                                    <Navbar.Brand>Pacotes</Navbar.Brand>
+                                </Link>
                                  
                             {/*   
                             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
