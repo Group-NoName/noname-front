@@ -23,6 +23,7 @@ import Pacote from '../pages/Pacote';
 import HomeOferta from '../pages/Admin/Ofertas/Home'
 import CadastroOferta from '../pages/Admin/Ofertas/Cadastro'
 import VisualizarOferta from '../pages/Admin/Ofertas/Visualizar'
+import Pacotes from '../pages/Pacotes';
 
 function Routes() {
     return (
@@ -31,6 +32,7 @@ function Routes() {
         <Route path="/" element={<Home />} />
         <Route path="/produtos" element={<Produtos />} />
         <Route path="/produto/:id" element={<Produto />} />
+        <Route path="/pacotes" element={<Pacotes />} />
         <Route path="/pacote/:id" element={<Pacote />} />
         <Route path="admin" >
           <Route index element={<HomeAdmin/>}/> 
