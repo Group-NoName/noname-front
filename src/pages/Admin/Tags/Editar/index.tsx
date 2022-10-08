@@ -1,72 +1,92 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
-import Button from '../../../../components/Button';
-import ITags from '../../../../interfaces/tags';
-import { api } from '../../../../service/api';
-import Nav_Admin from '../../../../components/Nav_Admin'
-import * as S from './styles'
+import { useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import Button from "../../../../components/Button";
+import ITags from "../../../../interfaces/tags";
+import { api } from "../../../../service/api";
+import Nav_Admin from "../../../../components/Nav_Admin";
+import * as S from "./styles";
+import useStateView from "../../../../validators/useStateView";
 
 interface editarTag {
-    nome: string
+  nome: string;
 }
 
 function editarTag() {
-    const [tag, setTag] = useState<ITags>()
+  const [tag, setTag] = useState<ITags>();
 
-    const { id } = useParams()
-    useEffect(() => { getTag() }, [id]);
-    const navigate = useNavigate()
+  const { id } = useParams();
+  useEffect(() => {
+    getTag();
+  }, [id]);
+  const navigate = useNavigate();
+  const [status, setStatus] = useState({
+    type: "",
+    mensagem: "",
+  });
+  const stateView = new useStateView();
+  async function getTag() {
+    const response = await api.get<ITags>(`tag/tags/${id}`);
+    setTag(response.data);
+  }
 
-    async function getTag() {
-        const response = await api.get<ITags>(`tag/tags/${id}`)
-        setTag(response.data)
-    }
+  const editarTag = useCallback(async (data: editarTag) => {
+    await api
+      .put<editarTag>(`/tag/atualizar/${id}`, {
+        nome: data.nome,
+      })
+      .then((response) => {
+        navigate(`/admin/tags/visualizar/${id}`, {
+          state: {
+            data: response.data,
+            status: response.status,
+          },
+        });
+      })
+      .catch((error) => {
+        if (error.response) {
+          setStatus({
+            type: "error",
+            mensagem: `${error.response.data}`,
+          });
+        }
+      });
+  }, []);
 
-    const editarTag = useCallback(
-        async (data: editarTag) => {
-            await api.put<editarTag>(`/tag/atualizar/${id}`, {
-                nome: data.nome,
-            }).then(({ data }) => {
-                alert("Tag Editada!")
-                navigate(`/admin/tags`)
-            }).catch(error => {
-                alert(error)
-            });
-        }, [])
+  const onSubmit = useCallback(async (data: editarTag) => {
+    editarTag(data);
+  }, []);
 
-    const onSubmit = useCallback(
-        async (data: editarTag) => {
-            editarTag(data)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<editarTag>({
+    mode: "onBlur",
+  });
 
-        }, [],
-    );
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm<editarTag>({
-        mode: 'onBlur',
-    });
-    
-    return (
-        <section>
-            <Nav_Admin />
-            <S.Editar>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="nome">
-                        <label htmlFor="nome">Nome:</label>
-                        <input
-                            type="text"
-                            defaultValue={tag?.nome}
-                            {...register('nome')}
-                        />
-                    </div>
-                    <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Editar'} type="submit" />
-                </form>
-            </S.Editar >
-        </section>
-    )
+  return (
+    <section>
+      <Nav_Admin />
+      <S.Editar>
+        {stateView.validacao(status.type, status.mensagem)}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="nome">
+            <label htmlFor="nome">Nome :</label>
+            <input type="text" defaultValue={tag?.nome} {...register("nome")} />
+          </div>
+          <Button
+            color={"#ffff"}
+            width={"8"}
+            height={"3"}
+            fontSize={"20"}
+            backgroundColor={"#3a4ad9"}
+            text={"Editar"}
+            type="submit"
+          />
+        </form>
+      </S.Editar>
+    </section>
+  );
 }
-export default editarTag
+export default editarTag;
