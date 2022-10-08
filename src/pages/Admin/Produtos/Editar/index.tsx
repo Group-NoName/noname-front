@@ -13,6 +13,7 @@ import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import { ButtonGroup, InputGroup, ToggleButton } from "react-bootstrap";
+import useStateView from "../../../../validators/useStateView";
 
 interface CadastroProduto {
   nome: string;
@@ -36,7 +37,7 @@ function editar() {
   });
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const stateView = new useStateView();
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
     const filteredData = tag?.filter((item) => {
@@ -142,16 +143,7 @@ function editar() {
   return (
     <section>
       <Nav_Admin />
-      {status.type === "error" ? (
-        <p style={{ color: "red" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
-      {status.type === "sucesso" ? (
-        <p style={{ color: "blue" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
+      {stateView.validacao(status.type, status.mensagem)}
 
       <S.Editar>
         <main>

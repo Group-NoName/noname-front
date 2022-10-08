@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
+import useStateView from "../../../../validators/useStateView";
 import * as S from "./styles";
 
 function Home() {
@@ -11,10 +12,14 @@ function Home() {
   const [produto, searchProduto] = useState<Iproduto[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState<Iproduto[]>([]);
+  const location = useLocation();
+  const statesView = new useStateView();
+
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
   });
+
   const navigate = useNavigate();
   useEffect(() => {
     getAllProdutos();
@@ -67,16 +72,8 @@ function Home() {
   return (
     <section>
       <Nav_Admin />
-      {status.type === "error" ? (
-        <p style={{ color: "red" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
-      {status.type === "sucesso" ? (
-        <p style={{ color: "blue" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
+      {statesView.validacao(location?.state?.status, location?.state?.data)}
+      {statesView.validacao(status.type, status.mensagem)}
 
       <S.Home>
         <main>
@@ -86,6 +83,7 @@ function Home() {
                 <tr>
                   <th>Nome</th>
                   <th>Preço</th>
+                  <th>Desconto</th>
                   <th>Ações</th>
                 </tr>
               </thead>
@@ -101,6 +99,15 @@ function Home() {
                         <tr key={item.id}>
                           <td>{item.nome}</td>
                           <td>{item.preco}</td>
+                          <td>
+                            {item.desconto === 0 ? (
+                              <p style={{ color: "green " }}>Sem desconto</p>
+                            ) : (
+                              <p style={{ color: "red", fontWeight: "bold" }}>
+                                R${item.desconto.toFixed(2)}
+                              </p>
+                            )}
+                          </td>
                           <td className="tdbuttons">
                             <div className="buttons">
                               <Button
@@ -137,7 +144,16 @@ function Home() {
                       return (
                         <tr key={i.id}>
                           <td>{i.nome}</td>
-                          <td>{i.preco}</td>
+                          <td>R${i.preco}</td>
+                          <td>
+                            {i.desconto === 0 ? (
+                              <p style={{ color: "green " }}>Sem desconto</p>
+                            ) : (
+                              <p style={{ color: "red", fontWeight: "bold" }}>
+                                R${i.desconto.toFixed(2)}
+                              </p>
+                            )}
+                          </td>
                           <td className="tdbuttons">
                             <div className="buttons">
                               <Button

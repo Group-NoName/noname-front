@@ -1,12 +1,13 @@
 // Tela do admin que vai pegar os produtos especificos
 import { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
 import * as S from "./styles";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import { Button, Dropdown } from "react-bootstrap";
+import useStateView from "../../../../validators/useStateView";
 
 function Visualizar() {
   const [produto, setProduto] = useState<Iproduto>();
@@ -19,7 +20,8 @@ function Visualizar() {
   useEffect(() => {
     getProduto();
   }, [id]);
-
+  const location = useLocation();
+  const statusView = new useStateView();
   async function getProduto() {
     const response = await api.get<Iproduto>(`/produto/produtos/${id}`);
     setProduto(response.data);
@@ -29,11 +31,12 @@ function Visualizar() {
       .delete(`/produto/excluir/${id}`)
       .then(function (response) {
         if (response) {
-          setStatus({
-            type: "sucesso",
-            mensagem: `${response.data}`,
-          }),
-            navigate("/admin/produtos");
+          navigate("/admin/produtos", {
+            state: {
+              data: response.data,
+              status: response.status,
+            },
+          });
         }
       })
       .catch(function (error) {
@@ -51,9 +54,11 @@ function Visualizar() {
       .delete(`/tag/tag-produtos/${idTags}/${idProd}`)
       .then(function (response) {
         if (response) {
-          setStatus({
-            type: "sucesso",
-            mensagem: `${response.data}`,
+          navigate(`/admin/produtos/visualizar/${id}`, {
+            state: {
+              data: response.data,
+              status: response.status,
+            },
           }),
             navigate(0);
         }
@@ -63,8 +68,7 @@ function Visualizar() {
           setStatus({
             type: "error",
             mensagem: `${error.response.data}`,
-          }),
-            navigate(0);
+          });
         }
       });
   }, []);
@@ -72,16 +76,8 @@ function Visualizar() {
   return (
     <section>
       <Nav_Admin />
-      {status.type === "error" ? (
-        <p style={{ color: "red" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
-      {status.type === "sucesso" ? (
-        <p style={{ color: "blue" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
+      {statusView.validacao(location.state?.status, location.state?.data)}
+      {statusView.validacao(status.type, status.mensagem)}
       <S.Home>
         <main>
           <div className="mainContent">
@@ -90,6 +86,15 @@ function Visualizar() {
               <div className="content">
                 <h1>{produto?.nome}</h1>
                 <h3>R$ {produto?.preco}</h3>
+                <h3>
+                  {produto?.desconto === 0 ? (
+                    <p style={{ color: "green " }}>Sem desconto</p>
+                  ) : (
+                    <p style={{ color: "red", fontWeight: "bold" }}>
+                      R${produto?.desconto.toFixed(2)}
+                    </p>
+                  )}
+                </h3>
                 <div className="description">
                   <p>{produto?.descricao}</p>
                 </div>

@@ -38,7 +38,12 @@ function cadastro() {
             type: "sucesso",
             mensagem: `${response.data}`,
           }),
-            navigate("/admin/produtos");
+            navigate("/admin/produtos", {
+              state: {
+                data: response.data,
+                status: response.status
+              },
+            });
         }
       })
       .catch(function (error) {
@@ -46,7 +51,7 @@ function cadastro() {
           setStatus({
             type: "error",
             mensagem: `${error.response.data}`,
-          })
+          });
         }
       });
   }, []);
