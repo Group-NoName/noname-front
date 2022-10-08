@@ -8,7 +8,7 @@ interface ICard extends DOMAttributes<HTMLButtonElement> {
     name: string;
     imageURL: string;
     pacoteID?: string;
-    preco: number;
+    preco: number | string;
 }
 
 function CardPacote({ name, imageURL, pacoteID, preco}: ICard) {
