@@ -7,6 +7,7 @@ import { useState, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
+import useStateView from "../../../../validators/useStateView";
 
 interface CadastroOferta {
   desconto: number;
@@ -17,6 +18,7 @@ interface CadastroOferta {
 function Cadastro() {
   const [ofertas, setOferta] = useState<CadastroOferta>();
   const navigate = useNavigate();
+  const stateView = new useStateView();
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -28,15 +30,19 @@ function Cadastro() {
         desconto: data.desconto,
         produtos: data.produtos[0].id.map((i) => ({ id: i })),
       })
-      .then(({ data }) => {
-        alert("Oferta cadastrada!");
-        navigate(`/admin/ofertas`);
+      .then(function (response) {
+        navigate(`/admin/ofertas`, {
+          state: {
+            data: response.data,
+            status: response.status,
+          },
+        });
       })
       .catch(function (error) {
         if (error.response) {
           setStatus({
             type: "error",
-            mensagem: `${error.response.data}`,
+            mensagem: `Produtos - ${error.response.data} - Já estão em alguma oferta.`,
           });
         }
       });
@@ -89,12 +95,8 @@ function Cadastro() {
     <section>
       <Nav_Admin />
       <S.Cadastro>
-      {status.type === "error" ? (
-          <p style={{ color: "red" }}>{status.mensagem}</p>
-        ) : (
-          ""
-        )}
         <main>
+          {stateView.validacao(status.type, status.mensagem)}
           <div className="contentMain">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="porcentagem">

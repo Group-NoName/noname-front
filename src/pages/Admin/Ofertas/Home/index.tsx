@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Ioferta from "../../../../interfaces/oferta";
 import { api } from "../../../../service/api";
+import useStateView from "../../../../validators/useStateView";
 import * as S from "./styles";
 
 function Home() {
@@ -12,10 +13,13 @@ function Home() {
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState<Ioferta[]>([]);
   const navigate = useNavigate();
+  const location = useLocation();
+  const stateView = new useStateView();
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
   });
+
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
     const filteredData = oferta?.filter((item) => {
@@ -31,11 +35,13 @@ function Home() {
       .delete(`/oferta/excluir/${id}`)
       .then(function (response) {
         if (response) {
-          setStatus({
-            type: "sucesso",
-            mensagem: `${response.data}`,
+          navigate(`/admin/ofertas`, {
+            state: {
+              data: response.data,
+              status: response.status,
+            },
           }),
-            navigate(`/admin/ofertas`);
+            navigate(0);
         }
       })
       .catch(function (error) {
@@ -43,8 +49,7 @@ function Home() {
           setStatus({
             type: "error",
             mensagem: `${error.response.data}`,
-          }),
-            navigate(0);
+          });
         }
       });
   }, []);
@@ -66,16 +71,8 @@ function Home() {
     <section>
       <Nav_Admin />
       <S.Home>
-        {status.type === "sucesso" ? (
-          <p style={{ color: "blue" }}>{status.mensagem}</p>
-        ) : (
-          ""
-        )}
-        {status.type === "error" ? (
-          <p style={{ color: "blue" }}>{status.mensagem}</p>
-        ) : (
-          ""
-        )}
+        {stateView.validacao(location.state?.status, location.state?.data)}
+        {stateView.validacao(status.type, status.mensagem)}
         <main>
           <div className="Form">
             <Table striped bordered hover>

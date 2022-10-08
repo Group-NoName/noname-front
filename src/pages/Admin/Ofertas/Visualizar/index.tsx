@@ -2,11 +2,12 @@ import { AxiosError } from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Dropdown, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Ioferta from "../../../../interfaces/oferta";
 import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
+import useStateView from "../../../../validators/useStateView";
 import * as S from "./styles";
 
 function Visualizar() {
@@ -21,6 +22,9 @@ function Visualizar() {
     getOferta();
   }, [id]);
 
+  const location = useLocation();
+  const stateView = new useStateView();
+
   async function getOferta() {
     const response = await api.get<Ioferta>(`/oferta/ofertas/${id}`);
     setOfertas(response.data);
@@ -31,11 +35,12 @@ function Visualizar() {
       .delete(`/oferta/excluir/${id}`)
       .then(function (response) {
         if (response) {
-          setStatus({
-            type: "sucesso",
-            mensagem: `${response.data}`,
-          }),
-            navigate(`/admin/ofertas`);
+          navigate(`/admin/ofertas`, {
+            state: {
+              data: response.data,
+              status: response.status,
+            },
+          });
         }
       })
       .catch((err) => {
@@ -79,11 +84,13 @@ function Visualizar() {
       .put(`/oferta/retirar-todos-produtos/${id}`)
       .then(function (response) {
         if (response) {
-          setStatus({
-            type: "sucesso",
-            mensagem: `${response.data}`,
+          navigate(`/admin/ofertas/visualizar/${id}`, {
+            state: {
+              data: response.data,
+              status: response.status,
+            },
           }),
-            navigate(`/admin/ofertas/visualizar/${id}`);
+            navigate(0);
         }
       })
       .catch(function (error: AxiosError) {
@@ -106,11 +113,13 @@ function Visualizar() {
         ],
       })
       .then(function (response) {
-        setStatus({
-          type: "sucesso",
-          mensagem: `${response.data}`,
-        }),
-          navigate(`/admin/ofertas/visualizar/${id}`);
+        navigate(`/admin/ofertas/visualizar/${id}`, {
+          state: {
+            data: response.data,
+            status: response.status,
+          },
+        });
+        navigate(0);
       })
       .catch(function (error) {
         if (error.response) {
@@ -135,19 +144,21 @@ function Visualizar() {
         produtos: data.produtos[0].id.map((i) => ({ id: i })),
       })
       .then(function (response) {
-        setStatus({
-          type: "sucesso",
-          mensagem: `${response.data}`,
-        }),
-          navigate(0);
+        navigate(`/admin/ofertas/visualizar/${id}`, {
+          state: {
+            data: response.data,
+            status: response.status,
+          },
+        });
+        navigate(0);
       })
-      .catch(function (error) {
+      .catch(function (error: AxiosError) {
         if (error.response) {
           setStatus({
             type: "error",
             mensagem: `${error.response.data}`,
           }),
-            navigate(0);
+            console.log(error.response.data);
         }
       });
   }, []);
@@ -168,16 +179,8 @@ function Visualizar() {
     <section>
       <Nav_Admin />
       <S.Visu>
-        {status.type === "sucesso" ? (
-          <p style={{ color: "blue" }}>{status.mensagem}</p>
-        ) : (
-          ""
-        )}
-        {status.type === "error" ? (
-          <p style={{ color: "blue" }}>{status.mensagem}</p>
-        ) : (
-          ""
-        )}
+        {stateView.validacao(location.state?.status, location.state?.data)}
+        {stateView.validacao(status.type, status.mensagem)}
 
         <div className="porcentagem">
           <h1>Porcentagem: {oferta?.desconto}</h1>
@@ -238,11 +241,11 @@ function Visualizar() {
                 {searchInput.length > 1
                   ? filteredResults.map((item) => {
                       return (
-                        <Dropdown.ItemText key={item.id}>
+                        <Dropdown.ItemText key={item.id || item?.nome}>
                           <Form.Check
-                            key={item.id}
+                            key={item.id || item?.nome}
                             label={item?.nome}
-                            value={item.id}
+                            value={item.id || item?.nome}
                             {...register("produtos.0.id")}
                           />
                         </Dropdown.ItemText>
@@ -251,11 +254,11 @@ function Visualizar() {
                   : produtos &&
                     produtos.map((prod) => {
                       return (
-                        <Dropdown.ItemText key={prod.id}>
+                        <Dropdown.ItemText key={prod.id || prod.nome}>
                           <Form.Check
-                            key={prod.id}
-                            label={prod?.nome}
-                            value={prod.id}
+                            key={prod.id || prod.nome}
+                            label={prod.nome}
+                            value={prod.id || prod.nome}
                             {...register("produtos.0.id")}
                           />
                         </Dropdown.ItemText>
