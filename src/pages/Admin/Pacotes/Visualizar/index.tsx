@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Ipacote from "../../../../interfaces/pacote";
 import * as S from "./styles";
 import { api } from "../../../../service/api";
 import { Button } from "react-bootstrap";
+import useStateView from "../../../../validators/useStateView";
 
 function cadastro() {
   const { id } = useParams();
@@ -15,9 +16,13 @@ function cadastro() {
     type: "",
     mensagem: "",
   });
+  const location = useLocation();
+  const stateView = new useStateView();
+
   useEffect(() => {
     getPacotes();
   }, [id]);
+
   async function getPacotes() {
     const response = await api.get<Ipacote>(`/pacote/pacote/${id}`);
     getPacote(response.data);
@@ -33,9 +38,11 @@ function cadastro() {
         ],
       })
       .then(function (response) {
-        setStatus({
-          type: "sucesso",
-          mensagem: `${response.data}`,
+        navigate(`/admin/pacotes/visualizar/${id}`, {
+          state: {
+            data: response.data,
+            status: response.status,
+          },
         }),
           navigate(0);
       })
@@ -46,9 +53,13 @@ function cadastro() {
   const deletePacote = useCallback(async (id: string) => {
     await api
       .delete(`/pacote/excluir/${id}`)
-      .then(() => {
-        alert("Pacote Deletado");
-        navigate(-1);
+      .then((response) => {
+        navigate(`/admin/pacotes`, {
+          state: {
+            data: response.data,
+            status: response.status,
+          },
+        });
       })
       .catch((err) => {
         alert(`Pacote não foi deletado! Erro:${err}`);
@@ -60,11 +71,7 @@ function cadastro() {
       <Nav_Admin />
       <S.Visualizar>
         <main>
-          {status.type === "sucesso" ? (
-            <p style={{ color: "blue" }}>{status.mensagem}</p>
-          ) : (
-            ""
-          )}
+          {stateView.validacao(location.state?.status, location.state?.data)}
           <div className="mainContent">
             <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
             <div className="left-content">

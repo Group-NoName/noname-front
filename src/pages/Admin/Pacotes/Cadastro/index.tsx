@@ -8,6 +8,7 @@ import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import useStateView from "../../../../validators/useStateView";
 
 interface CadastroPacote {
   nome: string;
@@ -29,6 +30,7 @@ function cadastro() {
     type: "",
     mensagem: "",
   });
+  const stateView = new useStateView();
   const navigate = useNavigate();
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
@@ -56,11 +58,12 @@ function cadastro() {
       })
       .then(function (response) {
         if (response) {
-          setStatus({
-            type: "sucesso",
-            mensagem: `${response.data}`,
-          }),
-            navigate("/admin/pacotes");
+          navigate("/admin/pacotes", {
+            state: {
+              data: response.data,
+              status: response.status,
+            },
+          });
         }
       })
       .catch(function (error) {
@@ -68,8 +71,7 @@ function cadastro() {
           setStatus({
             type: "error",
             mensagem: `${error.response.data}`,
-          }),
-            navigate(0);
+          });
         }
       });
   }, []);
@@ -104,17 +106,7 @@ function cadastro() {
   return (
     <section>
       <Nav_Admin />
-      {status.type === "error" ? (
-        <p style={{ color: "red" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
-      {status.type === "sucesso" ? (
-        <p style={{ color: "blue" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
-
+      {stateView.validacao(status.type, status.mensagem)}
       <S.Cadastro>
         <main>
           <div className="Form">

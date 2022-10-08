@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import Ipacote from "../../../../interfaces/pacote";
 import { AxiosError } from "axios";
+import useStateView from "../../../../validators/useStateView";
 
 interface AtualizarPacote {
   nome: string;
@@ -37,6 +38,8 @@ function editar() {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const stateView = new useStateView();
+
   const atualizarDadosPacote = useCallback(async (data: AtualizarPacote) => {
     await api
       .put<AtualizarPacote>(`/pacote/atualizar/${id}`, {
@@ -49,8 +52,13 @@ function editar() {
           { url: data.images[2].url },
         ],
       })
-      .then(({ data }) => {
-        alert("pacote cadastrado");
+      .then(function (response) {
+        navigate(`/admin/pacotes/visualizar/${id}`, {
+          state: {
+            data: response.data,
+            status: response.status,
+          },
+        });
       })
       .catch((error: AxiosError) => {
         setStatus({
@@ -65,8 +73,13 @@ function editar() {
       .put<AtualizarPacote>(`/pacote/inserir-produto/${id}`, {
         produtos: data.produtos[0].id.map((i) => ({ id: i })),
       })
-      .then(({ data }) => {
-        alert("pacote cadastrado");
+      .then(function (response) {
+        navigate(`/admin/pacotes/visualizar/${id}`, {
+          state: {
+            data: response.data,
+            status: response.status,
+          },
+        });
       })
       .catch(function (error: AxiosError) {
         if (error.response) {
@@ -128,11 +141,7 @@ function editar() {
       <Nav_Admin />
       <S.Editar>
         <main>
-          {status.type === "error" ? (
-            <p style={{ color: "red" }}>{status.mensagem}</p>
-          ) : (
-            ""
-          )}
+          {stateView.validacao(status.type, status.mensagem)}
           <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
           <div className="Form">
             <form onSubmit={handleSubmit(onSubmit)}>

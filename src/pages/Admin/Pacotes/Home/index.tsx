@@ -4,7 +4,9 @@ import Nav_Admin from "../../../../components/Nav_Admin";
 import { api } from "../../../../service/api";
 import { Button, Form, Table } from "react-bootstrap";
 import Ipacote from "../../../../interfaces/pacote";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { type } from "jquery";
+import useStateView from "../../../../validators/useStateView";
 
 function home() {
   const [pacotes, setPacotes] = useState<Ipacote[]>([]);
@@ -16,6 +18,8 @@ function home() {
     type: "",
     mensagem: "",
   });
+  const location = useLocation();
+  const statusView = new useStateView();
 
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
@@ -37,16 +41,18 @@ function home() {
     await api
       .delete(`/pacote/excluir/${id}`)
       .then(function (response) {
-        setStatus({
-          type: "sucesso",
-          mensagem: `${response.data}`,
+        navigate(`/admin/pacotes`, {
+          state: {
+            data: response.data,
+            status: response.status,
+          },
         }),
           navigate(0);
       })
       .catch((err) => {
         setStatus({
-          type: "",
-          mensagem: "",
+          type: "error",
+          mensagem: err.response.data,
         });
       });
   }, []);
@@ -62,12 +68,8 @@ function home() {
     <section>
       <Nav_Admin />
       <S.Home>
-        {status.type === "sucesso" ? (
-          <p style={{ color: "blue" }}>{status.mensagem}</p>
-        ) : (
-          ""
-        )}
-
+        {statusView.validacao(location.state?.status, location.state?.data)}
+        {statusView.validacao(status.type, status.mensagem)}
         <main>
           <div className="Form">
             <Table striped bordered hover>
