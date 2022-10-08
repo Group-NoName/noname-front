@@ -1,17 +1,20 @@
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import ICategoria from "../../../../interfaces/categoria";
 import { api } from "../../../../service/api";
 import * as S from "./styles";
 import Table from "react-bootstrap/Table";
 import { Button, Form } from "react-bootstrap";
+import useStateView from "../../../../validators/useStateView";
 
 function Home() {
   const [categorias, setCategorias] = useState<ICategoria[]>([]);
   const [categoria, searchCategoria] = useState<ICategoria[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState<ICategoria[]>([]);
+  const location = useLocation();
+  const stateView = new useStateView();
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -29,8 +32,7 @@ function Home() {
           setStatus({
             type: "sucesso",
             mensagem: `${response.data}`,
-          }),
-            navigate("/admin/categorias");
+          });
         }
       })
       .catch(function (error) {
@@ -38,8 +40,7 @@ function Home() {
           setStatus({
             type: "error",
             mensagem: `${error.response.data}`,
-          }),
-            navigate(0);
+          });
         }
       });
   }, []);
@@ -70,16 +71,8 @@ function Home() {
     <section>
       <Nav_Admin />
       <S.Home>
-        {status.type === "sucesso" ? (
-          <p style={{ color: "blue" }}>{status.mensagem}</p>
-        ) : (
-          ""
-        )}
-        {status.type === "error" ? (
-          <p style={{ color: "red" }}>{status.mensagem}</p>
-        ) : (
-          ""
-        )}
+        {stateView.validacao(status?.type, status?.mensagem)}
+        {stateView.validacao(location.state?.status, location.state?.data)}
         <main>
           <div className="Form">
             <Table striped bordered hover>

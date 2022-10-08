@@ -4,8 +4,9 @@ import Nav_Admin from "../../../../components/Nav_Admin";
 import Iproduto from "../../../../interfaces/produto";
 import Categoria from "../../../../interfaces/categoria";
 import { api } from "../../../../service/api";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import useStateView from "../../../../validators/useStateView";
 
 function visualizar() {
   const [categoria, setCategoria] = useState<Categoria>();
@@ -16,6 +17,8 @@ function visualizar() {
   });
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const stateView = new useStateView();
 
   useEffect(() => {
     getCategorias(), getCategoriasProdutos();
@@ -38,9 +41,11 @@ function visualizar() {
       .delete(`categoria/categorias-produtos/${idCat}/${idProd}`)
       .then(function (response) {
         if (response) {
-          setStatus({
-            type: "sucesso",
-            mensagem: `${response.data}`,
+          navigate(`/admin/categorias/visualizar/${id}`, {
+            state: {
+              data: response.data,
+              status: response.status,
+            },
           }),
             navigate(0);
         }
@@ -61,11 +66,13 @@ function visualizar() {
       .delete(`/categoria/excluir/${id}`)
       .then(function (response) {
         if (response) {
-          setStatus({
-            type: "sucesso",
-            mensagem: `${response.data}`,
+          navigate(`/admin/categorias`, {
+            state: {
+              data: response.data,
+              status: response.status,
+            },
           }),
-            navigate(`/admin/categorias/visualizar/${id}`);
+            navigate(0);
         }
       })
       .catch(function (error) {
@@ -82,16 +89,8 @@ function visualizar() {
   return (
     <main>
       <Nav_Admin />
-      {status.type === "error" ? (
-        <p style={{ color: "red" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
-      {status.type === "sucesso" ? (
-        <p style={{ color: "blue" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
+      {stateView.validacao(status.type, status.type)}
+      {stateView.validacao(location.state?.status, location.state?.data)}
       <S.Visualizar>
         <div className="categoria">
           <h1>Categoria: {categoria?.nome}</h1>

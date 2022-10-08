@@ -7,6 +7,7 @@ import Button from "../../../../components/Button";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
+import useStateView from "../../../../validators/useStateView";
 import * as S from "./styles";
 
 interface CadastroCategoria {
@@ -24,6 +25,8 @@ function cadastro() {
     type: "",
     mensagem: "",
   });
+
+  const stateView = new useStateView();
 
   const [produtos, getProdutos] = useState<Iproduto[]>([]);
   const [produto, searchProduto] = useState<Iproduto[]>([]);
@@ -61,11 +64,12 @@ function cadastro() {
       })
       .then(function (response) {
         if (response) {
-          setStatus({
-            type: "sucesso",
-            mensagem: `${response.data}`,
-          }),
-            navigate("/admin/categorias");
+          navigate("/admin/categorias", {
+            state: {
+              data: response.data,
+              status: response.status,
+            },
+          });
         }
       })
       .catch(function (error) {
@@ -73,8 +77,7 @@ function cadastro() {
           setStatus({
             type: "error",
             mensagem: `${error.response.data}`,
-          }),
-            navigate(0);
+          });
         }
       });
   }, []);
@@ -94,16 +97,7 @@ function cadastro() {
   return (
     <section>
       <Nav_Admin />
-      {status.type === "error" ? (
-        <p style={{ color: "red" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
-      {status.type === "sucesso" ? (
-        <p style={{ color: "blue" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
+      {stateView.validacao(status.type, status.mensagem)}
       <S.Cadastro>
         <main>
           <div className="Form">
@@ -125,11 +119,12 @@ function cadastro() {
                 placeholder="Buscar Produto"
               />
               <div className="produtosSearch">
-                <Form aria-label="Default select">
+                <Form aria-label="Default select" required>
                   {searchInput.length > 1
                     ? filteredResults.map((item) => {
                         return (
                           <Form.Check
+                            required
                             key={item.id || item?.nome}
                             label={item?.nome}
                             value={item.id || item?.nome}
@@ -141,6 +136,7 @@ function cadastro() {
                       produtos.map((produto) => {
                         return (
                           <Form.Check
+                            required
                             key={produto.id || produto?.nome}
                             label={produto?.nome}
                             value={produto.id || produto?.nome}

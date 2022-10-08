@@ -66,9 +66,15 @@ function editar() {
       .put<IUpdateCategoria>(`/categoria/atualizar/${id}`, {
         nome: data.nome,
       })
-      .then(({ data }) => {
-        alert("Categoria Editada!");
-        navigate(`/admin/categorias/visualizar/${id}`);
+      .then(function (response) {
+        if (response) {
+          navigate(`/admin/categorias/visualizar/${id}`, {
+            state: {
+              data: response.data,
+              status: response.status,
+            },
+          });
+        }
       })
       .catch((error) => {
         alert(error);
@@ -83,11 +89,12 @@ function editar() {
         })
         .then(function (response) {
           if (response) {
-            setStatus({
-              type: "sucesso",
-              mensagem: `${response.data}`,
-            }),
-              navigate(`/admin/categorias/visualizar/${id}`);
+            navigate(`/admin/categorias/visualizar/${id}`, {
+              state: {
+                data: response.data,
+                status: response.status,
+              },
+            });
           }
         })
         .catch(function (error) {
