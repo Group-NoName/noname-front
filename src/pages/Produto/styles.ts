@@ -104,7 +104,7 @@ export const Container = styled.div`
           }
         }
         .produtoPrice{
-          margin-top: 10px;
+          /* margin-top: 10px; */
           width: 100%;
           height: 20%;
           display: flex;
