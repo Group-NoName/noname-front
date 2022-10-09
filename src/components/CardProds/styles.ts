@@ -31,5 +31,6 @@ export const Container = styled.div`
     width: 100%;
     height: 20px;
     font-size: 15px;
+    margin-bottom: 1.25em;
 }
 `

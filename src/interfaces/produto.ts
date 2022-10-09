@@ -2,6 +2,7 @@ import tags from "./tags"
 
 interface Iproduto {
     id : string,
+    desconto: number,
     nome: string,
     descricao: string,
     preco: number,

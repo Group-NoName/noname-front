@@ -14,7 +14,16 @@ import HomeTags from '../pages/Admin/Tags/Home'
 import CadastroTags from '../pages/Admin/Tags/Cadastro'
 import VisualizarTag from '../pages/Admin/Tags/Visualizar'
 import EditarTags from '../pages/Admin/Tags/Editar'
-import Produtos from '../pages/Produtos';
+import Produtos from '../pages/Produtos'
+import HomePacote from '../pages/Admin/Pacotes/Home'
+import CadastroPacote from '../pages/Admin/Pacotes/Cadastro'
+import VisualizarPacote from '../pages/Admin/Pacotes/Visualizar'
+import EditarPacote from '../pages/Admin/Pacotes/Editar'
+import Pacote from '../pages/Pacote';
+import HomeOferta from '../pages/Admin/Ofertas/Home'
+import CadastroOferta from '../pages/Admin/Ofertas/Cadastro'
+import VisualizarOferta from '../pages/Admin/Ofertas/Visualizar'
+import Pacotes from '../pages/Pacotes';
 
 function Routes() {
     return (
@@ -23,6 +32,8 @@ function Routes() {
         <Route path="/" element={<Home />} />
         <Route path="/produtos" element={<Produtos />} />
         <Route path="/produto/:id" element={<Produto />} />
+        <Route path="/pacotes" element={<Pacotes />} />
+        <Route path="/pacote/:id" element={<Pacote />} />
         <Route path="admin" >
           <Route index element={<HomeAdmin/>}/> 
           <Route path="produtos">
@@ -42,6 +53,17 @@ function Routes() {
             <Route path="cadastro" element={<CadastroTags/>} />
             <Route path="visualizar/:id" element={<VisualizarTag/>} />       
             <Route path="editar/:id" element={<EditarTags/>} />
+          </Route>
+          <Route path="pacotes">
+            <Route index element={ <HomePacote/> } />
+            <Route path="cadastro" element={<CadastroPacote/>} />
+            <Route path="visualizar/:id" element={<VisualizarPacote/>} />  
+            <Route path="editar/:id" element={<EditarPacote/>} />
+          </Route>
+          <Route path="ofertas">
+            <Route index element={ <HomeOferta/> } />
+            <Route path="cadastro" element={<CadastroOferta/>} />
+            <Route path="visualizar/:id" element={<VisualizarOferta/>} />
           </Route>  
         </Route>
       </RoutesWrapper>

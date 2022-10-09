@@ -1,10 +1,24 @@
 import styled from "@emotion/styled";
 
 export const Editar = styled.div`
-main{
-    display: flex;
-    flex-direction: column;
+
+section{
+    header{
+        z-index: 100;
+        width: 100vw;
+        top: 0;
+        position: fixed;
+    }
+
+    main{
+        margin-top: 4em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }
+
 .Form{
     margin: auto;
 }

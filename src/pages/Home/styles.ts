@@ -1,29 +1,104 @@
-import { Flex } from '@chakra-ui/react';
-import styled from '@emotion/styled';
+import { Flex } from "@chakra-ui/react";
+import styled from "@emotion/styled";
 
 export const Container = styled(Flex)`
-    margin-top: 10px;
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  background-color: #f5f5f5;
 
-    .produtosrecentes{
+  header {
+    top: 0;
+    z-index: 1000;
+    width: 100vw;
+    position: fixed;
+  }
+  main {
+    margin-top: 3.5em;
+    display: flex;
+  }
+  .categorias{
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin: auto;
-
-        h1{
-            margin: auto;
-        }
-
-        .produtosmap{
+        width: 75vw;
+        .listCategorias{
+            width: 90%;
+            height: 80%;
+            padding: 1em;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            flex-wrap: wrap;
-            width: 100vw;
-            gap: 15px;
+            margin: 1em auto;
+            box-shadow: 0 0 10px black;
+            border-radius: 20px;
+            
+            
+            h1{
+                margin: 2px auto;
+            }
+            .produtosmap{
+                margin: auto;
+                display: flex ;
+                align-items: center;
+                overflow-x: scroll;
+                width: 100%;
+                height: 550px;
+                gap: 1vw;
+    
+                .disposicaoItem{
+                  
+                }
+            }
+            
+    
         }
     }
+
+
+  .listpacotes {
+    position: fixed;
+    right: 10px;
+    margin-top: 30px;
+    float: right;
+    width: 25vw;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    align-items: center;
+    border: 1px solid;
+    box-shadow: 0 0 10px black;
+    border-radius: 20px;
+
+    .pacote {
+      margin-top: 30px;
+      border: 1px solid grey;
+      border-radius: 5px;
+    }
+  }
+
+  .listpacotes::-webkit-scrollbar,
+  .produtosmap::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .listpacotes::-webkit-scrollbar-track,
+  .produtosmap::-webkit-scrollbar-track {
+    /* Background */
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+  }
+
+  .listpacotes::-webkit-scrollbar-thumb,
+  .produtosmap::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #0d6efd;
+    width: 5px;
+  }
+
+  .listpacotes::-webkit-scrollbar-thumb:hover,
+  .produtosmap::-webkit-scrollbar-thumb:hover {
+    background-color: #0b5ed7;
+  }
 `;
