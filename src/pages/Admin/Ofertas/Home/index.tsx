@@ -3,6 +3,7 @@ import { Button, Form, Table } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Ioferta from "../../../../interfaces/oferta";
+import LocationStateView from "../../../../interfaces/useLocationsState";
 import { api } from "../../../../service/api";
 import useStateView from "../../../../validators/useStateView";
 import * as S from "./styles";
@@ -15,6 +16,8 @@ function Home() {
   const navigate = useNavigate();
   const location = useLocation();
   const stateView = new useStateView();
+  const stateViewLocation = location.state as LocationStateView;
+
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -70,13 +73,16 @@ function Home() {
   return (
     <>
       <S.Home>
-        {stateView.validacao(location.state?.status, location.state?.data)}
-        {stateView.validacao(status.type, status.mensagem)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {stateView.validacao(
+              stateViewLocation.status,
+              stateViewLocation.data
+            )}
+            {stateView.validacao(status.type, status.mensagem)}
             <div className="Form">
               <Table striped bordered hover>
                 <thead>

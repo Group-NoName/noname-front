@@ -97,12 +97,13 @@ function cadastro() {
   return (
     <>
       <S.Cadastro>
-        {stateView.validacao(status.type, status.mensagem)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {stateView.validacao(status.type, status.mensagem)}
+
             <div className="Form">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
@@ -122,7 +123,7 @@ function cadastro() {
                   placeholder="Buscar Produto"
                 />
                 <div className="produtosSearch">
-                  <Form aria-label="Default select" required>
+                  <Form aria-label="Default select">
                     {searchInput.length > 1
                       ? filteredResults.map((item) => {
                           return (

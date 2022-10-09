@@ -7,6 +7,7 @@ import * as S from "./styles";
 import Table from "react-bootstrap/Table";
 import { Button, Form } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
+import LocationStateView from "../../../../interfaces/useLocationsState";
 
 function Home() {
   const [categorias, setCategorias] = useState<ICategoria[]>([]);
@@ -15,6 +16,7 @@ function Home() {
   const [filteredResults, setFilteredResults] = useState<ICategoria[]>([]);
   const location = useLocation();
   const stateView = new useStateView();
+  const stateViewLocation = location.state as LocationStateView;
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -70,13 +72,16 @@ function Home() {
   return (
     <section>
       <S.Home>
-        {stateView.validacao(status?.type, status?.mensagem)}
-        {stateView.validacao(location.state?.status, location.state?.data)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {stateView.validacao(status?.type, status?.mensagem)}
+            {stateView.validacao(
+              stateViewLocation.status,
+              stateViewLocation.data
+            )}
             <div className="Form">
               <Table striped bordered hover>
                 <thead>

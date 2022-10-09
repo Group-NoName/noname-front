@@ -3,6 +3,7 @@ import { Button, Form, Table } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Iproduto from "../../../../interfaces/produto";
+import LocationStateView from "../../../../interfaces/useLocationsState";
 import { api } from "../../../../service/api";
 import PrecoValidador from "../../../../validators/precoValidador";
 import useStateView from "../../../../validators/useStateView";
@@ -13,8 +14,11 @@ function Home() {
   const [produto, searchProduto] = useState<Iproduto[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState<Iproduto[]>([]);
+
   const location = useLocation();
   const statesView = new useStateView();
+  const stateViewLocation = location.state as LocationStateView;
+
   const validadePrice = new PrecoValidador();
   const [status, setStatus] = useState({
     type: "",
@@ -72,13 +76,16 @@ function Home() {
   return (
     <>
       <S.Home>
-        {statesView.validacao(location?.state?.status, location?.state?.data)}
-        {statesView.validacao(status.type, status.mensagem)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {statesView.validacao(
+              stateViewLocation.status,
+              stateViewLocation.data
+            )}
+            {statesView.validacao(status.type, status.mensagem)}
             <div className="Form">
               <Table striped bordered hover>
                 <thead>

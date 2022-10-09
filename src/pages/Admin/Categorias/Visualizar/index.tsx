@@ -7,6 +7,7 @@ import { api } from "../../../../service/api";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
+import LocationStateView from "../../../../interfaces/useLocationsState";
 
 function visualizar() {
   const [categoria, setCategoria] = useState<Categoria>();
@@ -19,6 +20,7 @@ function visualizar() {
   const navigate = useNavigate();
   const location = useLocation();
   const stateView = new useStateView();
+  const stateViewLocation = location.state as LocationStateView;
 
   useEffect(() => {
     getCategorias(), getCategoriasProdutos();
@@ -89,13 +91,16 @@ function visualizar() {
   return (
     <>
       <S.Visualizar>
-        {stateView.validacao(status.type, status.type)}
-        {stateView.validacao(location.state?.status, location.state?.data)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {stateView.validacao(status.type, status.type)}
+            {stateView.validacao(
+              stateViewLocation.status,
+              stateViewLocation.data
+            )}
             <div className="categoria">
               <h1>Categoria: {categoria?.nome}</h1>
               <div className="bottons">
@@ -146,7 +151,6 @@ function visualizar() {
             </div>
           </main>
         </section>
-        
       </S.Visualizar>
     </>
   );

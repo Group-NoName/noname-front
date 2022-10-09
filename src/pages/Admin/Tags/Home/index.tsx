@@ -6,6 +6,7 @@ import * as S from "./styles";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import { Button, Form, Table } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
+import LocationStateView from "../../../../interfaces/useLocationsState";
 
 function homeTag() {
   const [tags, setTags] = useState<tags[]>([]);
@@ -14,6 +15,7 @@ function homeTag() {
   const [filteredResults, setFilteredResults] = useState<tags[]>([]);
   const location = useLocation();
   const stateView = new useStateView();
+  const stateViewLocation = location.state as LocationStateView;
   const navigate = useNavigate();
   useEffect(() => {
     getTags();
@@ -61,13 +63,16 @@ function homeTag() {
   return (
     <>
       <S.Home>
-        {stateView.validacao(status.type, status.mensagem)}
-        {stateView.validacao(location.state?.status, location.state?.data)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {stateView.validacao(status.type, status.mensagem)}
+            {stateView.validacao(
+              stateViewLocation.status,
+              stateViewLocation.data
+            )}
             <div className="Form">
               <Table striped bordered hover>
                 <thead>
@@ -100,7 +105,9 @@ function homeTag() {
                                 <Button
                                   variant="outline-success"
                                   onClick={() =>
-                                    navigate(`/admin/tags/visualizar/${item.id}`)
+                                    navigate(
+                                      `/admin/tags/visualizar/${item.id}`
+                                    )
                                   }
                                 >
                                   Visualizar

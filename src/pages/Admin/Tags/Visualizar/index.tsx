@@ -6,6 +6,7 @@ import * as S from "./styles";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
+import LocationStateView from "../../../../interfaces/useLocationsState";
 
 function visualizarTag() {
   const [tag, setTag] = useState<tags>();
@@ -13,6 +14,7 @@ function visualizarTag() {
   const navigate = useNavigate();
   const location = useLocation();
   const stateView = new useStateView();
+  const stateViewLocation = location.state as LocationStateView;
   useEffect(() => {
     getTag();
   }, [id]);
@@ -48,7 +50,8 @@ function visualizarTag() {
             data: response.data,
             status: response.status,
           },
-        }), navigate(0);
+        }),
+          navigate(0);
       })
       .catch((error) => {
         alert(`Produto não foi removido! Erro: ${error}`);
@@ -58,13 +61,16 @@ function visualizarTag() {
   return (
     <>
       <S.Visualizar>
-        {stateView.validacao(location.state?.status, location.state?.data)}
-        {stateView.validacao(status.type, status.mensagem)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {stateView.validacao(
+              stateViewLocation.status,
+              stateViewLocation.data
+            )}
+            {stateView.validacao(status.type, status.mensagem)}
             <div className="tag">
               <h1>Tag: {tag?.nome}</h1>
               <div className="buttons">
@@ -95,12 +101,17 @@ function visualizarTag() {
                               <Button
                                 variant="danger"
                                 onClick={() =>
-                                  deleteRelacao(String(tag.id), String(item?.id))
+                                  deleteRelacao(
+                                    String(tag.id),
+                                    String(item?.id)
+                                  )
                                 }
                               >
                                 Remover
                               </Button>
-                              <Link to={`/admin/produtos/visualizar/${item?.id}`}>
+                              <Link
+                                to={`/admin/produtos/visualizar/${item?.id}`}
+                              >
                                 <Button variant="primary">Visualizar</Button>
                               </Link>
                             </div>
@@ -110,9 +121,9 @@ function visualizarTag() {
                     }
                   })}
               </div>
-            </div> 
+            </div>
           </main>
-        </section>   
+        </section>
       </S.Visualizar>
     </>
   );
