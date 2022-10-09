@@ -99,16 +99,32 @@ export const Container = styled.div`
             margin: auto;
             border-bottom: 1px solid pink;
             p{
-              padding: 1vw;
+              padding: 3px;
               font-size: 17px;
             }
             h3{
-              padding: 0vw 1vw;
               font-size: 15px;
             }
             a{
               padding: 1vw;
               font-size: 15px;
+            }
+
+            .itens{
+              padding: 3px;
+              height: 120px;
+              border: 1px solid pink;
+              overflow-y: scroll;
+              display: flex;
+              flex-direction: column;
+              
+              .link{
+                display: flex;
+                height: 25px;
+                align-items: center;
+
+                text-decoration: none;
+              }
             }
           }
         }

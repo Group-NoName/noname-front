@@ -7,8 +7,8 @@ export default class ValidadorDesconto {
       return (
         <h1
           style={{
-            fontSize: "5em",
-            width: "200px",
+            fontSize: "3em",
+            width: "300px",
             height: "75px",
           }}
         >
@@ -30,8 +30,8 @@ export default class ValidadorDesconto {
             style={{
               width: "350px",
               fontWeight: "bold",
-              fontSize: "3em",
-              marginTop: "-0.5em"
+              fontSize: "2.5em",
+              marginTop: "-0.8em"
             }}
           >
             Por: R${produto?.desconto.toFixed(2)}

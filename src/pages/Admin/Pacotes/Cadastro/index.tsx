@@ -14,7 +14,7 @@ interface CadastroPacote {
   nome: string;
   descricao: string;
   preco: number;
-  images: [{ url: string }, { url: string }, { url: string }];
+  images: [{ url: string }];
   produtos: Array<{
     id: string[];
   }>;
@@ -51,8 +51,6 @@ function cadastro() {
         preco: data.preco,
         images: [
           { url: data.images[0].url },
-          { url: data.images[1].url },
-          { url: data.images[2].url },
         ],
         produtos: data.produtos[0].id.map((i) => ({ id: i })),
       })
@@ -139,40 +137,25 @@ function cadastro() {
                         placeholder="https://exemple.com/image1.jpg"
                       />
                     </div>
-                    <div className="img2">
-                      <label htmlFor="url">Img2</label>
+                    <div className="preço">
+                      <label htmlFor="preco">Preço</label>
                       <input
-                        {...register("images.1.url")}
-                        type="text"
-                        placeholder="https://exemple.com/image2.jpg"
+                        {...register("preco")}
+                        type="number"
+                        placeholder="R$ 00.00"
                       />
-                    </div>
-                    <div className="img3">
-                      <label htmlFor="url">Img3</label>
-                      <input
-                        {...register("images.2.url")}
-                        type="text"
-                        placeholder="https://exemple.com/image3.jpg"
+                      <Button
+                        color={"#ffff"}
+                        width={"8"}
+                        height={"3"}
+                        fontSize={"20"}
+                        backgroundColor={"#3a4ad9"}
+                        text={"Cadastrar"}
+                        type="submit"
                       />
                     </div>
                   </div>
-                  <div className="preço">
-                  <label htmlFor="preco">Preço</label>
-                  <input
-                    {...register("preco")}
-                    type="number"
-                    placeholder="R$ 00.00"
-                  />
-                  <Button
-                    color={"#ffff"}
-                    width={"8"}
-                    height={"3"}
-                    fontSize={"20"}
-                    backgroundColor={"#3a4ad9"}
-                    text={"Cadastrar"}
-                    type="submit"
-                  />
-                </div>
+                  
                 </div>
                 
                 <div className="produtos">

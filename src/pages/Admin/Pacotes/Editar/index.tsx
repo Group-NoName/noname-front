@@ -17,7 +17,7 @@ interface AtualizarPacote {
   nome: string;
   descricao: string;
   preco: number;
-  images: [{ url: string }, { url: string }, { url: string }];
+  images: [{ url: string }];
   produtos: Array<{
     id: string[];
   }>;
@@ -47,8 +47,6 @@ function editar() {
         preco: data.preco,
         images: [
           { url: data.images[0].url },
-          { url: data.images[1].url },
-          { url: data.images[2].url },
         ],
       })
       .then(function (response) {
@@ -176,46 +174,27 @@ function editar() {
                       />
                       {/*                                         <img src={produto?.images[0].url} alt="" /> */}
                     </div>
-                    <div className="img2">
-                      <label htmlFor="url">Img2</label>
+                    <div className="preco">
+                      <label htmlFor="preco">Preço</label>
                       <input
-                        type="text"
+                        type="number"
+                        step="0.01"
                         required
-                        defaultValue={pacote?.images[1]?.url}
-                        {...register("images.1.url")}
+                        {...register("preco")}
+                        defaultValue={pacote?.preco}
                       />
-                      {/* <img src={produto?.images[1].url} alt="" /> */}
-                    </div>
-                    <div className="img3">
-                      <label htmlFor="url">Img3</label>
-                      <input
-                        type="text"
-                        required
-                        defaultValue={pacote?.images[2]?.url}
-                        {...register("images.2.url")}
+                      <Button
+                        color={"#ffff"}
+                        width={"8"}
+                        height={"3"}
+                        fontSize={"20"}
+                        backgroundColor={"#3a4ad9"}
+                        text={"Editar"}
+                        type="submit"
                       />
-                      {/* <img src={produto?.images[2].url} alt="" /> */}
                     </div>
                   </div>
-                  <div className="preco">
-                    <label htmlFor="preco">Preço</label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      required
-                      {...register("preco")}
-                      defaultValue={pacote?.preco}
-                    />
-                    <Button
-                      color={"#ffff"}
-                      width={"8"}
-                      height={"3"}
-                      fontSize={"20"}
-                      backgroundColor={"#3a4ad9"}
-                      text={"Editar"}
-                      type="submit"
-                    />
-                  </div>
+                  
                 </div>
               </form>
               <div>

@@ -17,36 +17,43 @@ export const Container = styled(Flex)`
     margin-top: 3.5em;
     display: flex;
   }
-  .categorias {
-    display: flex;
-    flex-direction: column;
-    width: 75vw;
-    .listCategorias {
-      width: 90%;
-      height: 90%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin: 1em auto;
-      background-color: #ffff;
-      box-shadow: 10px 10px 5px #aaaaaa;
-      h1 {
-        margin: 2px auto;
-      }
-      .produtosmap {
+  .categorias{
         display: flex;
-        overflow-x: scroll;
-        width: 65vw;
-        height: 55vh;
-        gap: 1vw;
-        margin: 2em;
-      }
-
-      .disposicaoItem {
-        width: 100%;
-      }
+        flex-direction: column;
+        width: 75vw;
+        .listCategorias{
+            width: 90%;
+            height: 80%;
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 1em auto;
+            box-shadow: 0 0 10px black;
+            border-radius: 20px;
+            
+            
+            h1{
+                margin: 2px auto;
+            }
+            .produtosmap{
+                margin: auto;
+                display: flex ;
+                justify-content: center;
+                align-items: center;
+                overflow-x: scroll;
+                width: 100%;
+                height: 550px;
+                gap: 1vw;
+    
+                .disposicaoItem{
+                }
+            }
+            
+    
+        }
     }
-  }
+
 
   .listpacotes {
     position: fixed;

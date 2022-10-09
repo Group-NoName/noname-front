@@ -39,12 +39,14 @@ function Pacote() {
                   </div>
                   <div className="desc">
                     <p>{pacote?.descricao}</p>
-                    <h3>Itens inclusos</h3>
-                    {pacote?.produtos.map(itens => {
-                      return (
-                        <Link to={`/produto/${itens.id}`} key={itens.id}>{itens.nome}<br></br></Link>
-                      )
-                    })}
+                    <div className="itens">
+                      <h3>Itens inclusos</h3>
+                      {pacote?.produtos.map(itens => {
+                        return (
+                          <Link className='link' to={`/produto/${itens.id}`} key={itens.id}>{itens.nome}</Link>
+                        )
+                      })}
+                    </div>
                   </div>
                   <div className='pacotePrice'>
                     <div className='price'>
