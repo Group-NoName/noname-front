@@ -9,6 +9,7 @@ import Nav_Admin from "../../../../components/Nav_Admin";
 import { Button, Dropdown } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
 import PrecoValidador from "../../../../validators/precoValidador";
+import LocationStateView from "../../../../interfaces/useLocationsState";
 
 function Visualizar() {
   const [produto, setProduto] = useState<Iproduto>();
@@ -22,7 +23,9 @@ function Visualizar() {
     getProduto();
   }, [id]);
   const location = useLocation();
-  const statusView = new useStateView();
+  const statesView = new useStateView();
+
+  const stateViewLocation = location.state as LocationStateView;
   const validadePrice = new PrecoValidador();
   async function getProduto() {
     const response = await api.get<Iproduto>(`/produto/produtos/${id}`);
@@ -83,8 +86,11 @@ function Visualizar() {
             <Nav_Admin />
           </header>
           <main>
-          {statusView.validacao(location.state?.status, location.state?.data)}
-          {statusView.validacao(status.type, status.mensagem)}
+            {statesView.validacao(
+              stateViewLocation?.status,
+              stateViewLocation?.data
+            )}
+            {statesView.validacao(status.type, status.mensagem)}
             <div className="mainContent">
               <AiOutlineArrowLeft
                 className="icon"

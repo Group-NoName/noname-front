@@ -7,6 +7,7 @@ import Ipacote from "../../../../interfaces/pacote";
 import { useLocation, useNavigate } from "react-router-dom";
 import { type } from "jquery";
 import useStateView from "../../../../validators/useStateView";
+import LocationStateView from "../../../../interfaces/useLocationsState";
 
 function home() {
   const [pacotes, setPacotes] = useState<Ipacote[]>([]);
@@ -20,6 +21,7 @@ function home() {
   });
   const location = useLocation();
   const statusView = new useStateView();
+  const stateViewLocation = location.state as LocationStateView;
 
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
@@ -65,15 +67,18 @@ function home() {
   }, []);
 
   return (
-    <> 
+    <>
       <S.Home>
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
-          {statusView.validacao(location.state?.status, location.state?.data)}
-          {statusView.validacao(status.type, status.mensagem)}
+            {statusView.validacao(
+              stateViewLocation?.status,
+              stateViewLocation?.data
+            )}
+            {statusView.validacao(status.type, status.mensagem)}
             <div className="Form">
               <Form.Control
                 aria-label="Text input with dropdown button"

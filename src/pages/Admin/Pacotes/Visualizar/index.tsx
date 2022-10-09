@@ -7,6 +7,7 @@ import * as S from "./styles";
 import { api } from "../../../../service/api";
 import { Button } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
+import LocationStateView from "../../../../interfaces/useLocationsState";
 
 function cadastro() {
   const { id } = useParams();
@@ -18,6 +19,7 @@ function cadastro() {
   });
   const location = useLocation();
   const stateView = new useStateView();
+  const stateViewLocation = location.state as LocationStateView;
 
   useEffect(() => {
     getPacotes();
@@ -74,9 +76,15 @@ function cadastro() {
             <Nav_Admin />
           </header>
           <main>
-            {stateView.validacao(location.state?.status, location.state?.data)}
+            {stateView.validacao(
+              stateViewLocation?.status,
+              stateViewLocation?.data
+            )}
             <div className="mainContent">
-              <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
+              <AiOutlineArrowLeft
+                className="icon"
+                onClick={() => navigate(-1)}
+              />
               <div className="left-content">
                 <div className="content">
                   <h1>{pacote?.nome}</h1>
@@ -110,7 +118,9 @@ function cadastro() {
                                   <Link
                                     to={`/admin/produtos/visualizar/${item?.id}`}
                                   >
-                                    <Button variant="primary">Visualizar</Button>
+                                    <Button variant="primary">
+                                      Visualizar
+                                    </Button>
                                   </Link>
                                 </div>
                               </>
@@ -125,7 +135,9 @@ function cadastro() {
                 <img src={`${pacote?.images[0].url}`} alt="" />
                 <Button
                   variant="outline-primary"
-                  onClick={() => navigate(`/admin/pacotes/editar/${pacote?.id}`)}
+                  onClick={() =>
+                    navigate(`/admin/pacotes/editar/${pacote?.id}`)
+                  }
                 >
                   Editar
                 </Button>

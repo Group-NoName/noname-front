@@ -275,7 +275,6 @@ function editar() {
             </form>
           </main>
         </section>
-        
       </S.Editar>
     </>
   );

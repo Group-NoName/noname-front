@@ -66,7 +66,7 @@ function editarTag() {
   });
 
   return (
-    <> 
+    <>
       <S.Editar>
         <section>
           <header>
@@ -77,7 +77,11 @@ function editarTag() {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="nome">
                 <label htmlFor="nome">Nome :</label>
-                <input type="text" defaultValue={tag?.nome} {...register("nome")} />
+                <input
+                  type="text"
+                  defaultValue={tag?.nome}
+                  {...register("nome")}
+                />
               </div>
               <Button
                 color={"#ffff"}

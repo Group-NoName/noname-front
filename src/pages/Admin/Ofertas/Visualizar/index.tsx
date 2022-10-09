@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Ioferta from "../../../../interfaces/oferta";
 import Iproduto from "../../../../interfaces/produto";
+import LocationStateView from "../../../../interfaces/useLocationsState";
 import { api } from "../../../../service/api";
 import useStateView from "../../../../validators/useStateView";
 import * as S from "./styles";
@@ -24,6 +25,7 @@ function Visualizar() {
 
   const location = useLocation();
   const stateView = new useStateView();
+  const stateViewLocation = location.state as LocationStateView;
 
   async function getOferta() {
     const response = await api.get<Ioferta>(`/oferta/ofertas/${id}`);
@@ -180,11 +182,14 @@ function Visualizar() {
       <S.Visu>
         <section>
           <header>
-            <Nav_Admin />
+            <Nav_Admin/>
           </header>
           <main>
-          {stateView.validacao(location.state?.status, location.state?.data)}
-          {stateView.validacao(status.type, status.mensagem)}
+            {stateView.validacao(
+              stateViewLocation?.status,
+              stateViewLocation?.data
+            )}
+            {stateView.validacao(status.type, status.mensagem)}
             <div className="porcentagem">
               <h1>Porcentagem: {oferta?.desconto}</h1>
               <div className="buttons">
@@ -215,7 +220,10 @@ function Visualizar() {
                             <Button
                               variant="danger"
                               onClick={() =>
-                                removerProduto(String(oferta.id), String(item?.id))
+                                removerProduto(
+                                  String(oferta.id),
+                                  String(item?.id)
+                                )
                               }
                             >
                               Remover
@@ -275,7 +283,6 @@ function Visualizar() {
             </div>
           </main>
         </section>
-
       </S.Visu>
     </>
   );

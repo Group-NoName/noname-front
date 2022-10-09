@@ -8,6 +8,7 @@ import ICategoria from "../../../../interfaces/categoria";
 import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
 import * as S from "./styles";
+import useStateView from "../../../../validators/useStateView";
 
 interface IUpdateCategoria {
   nome: string;
@@ -27,6 +28,8 @@ function editar() {
     type: "",
     mensagem: "",
   });
+
+  const stateView = new useStateView();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -133,11 +136,7 @@ function editar() {
             <Nav_Admin />
           </header>
           <main>
-            {status.type === "error" ? (
-              <p style={{ color: "red" }}>{status.mensagem}</p>
-            ) : (
-              ""
-            )}
+            {stateView.validacao(status.type, status.mensagem)}
             <div className="contentMain">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">

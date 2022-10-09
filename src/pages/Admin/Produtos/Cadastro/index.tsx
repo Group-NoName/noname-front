@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../../../components/Button";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import { api } from "../../../../service/api";
+import useStateView from "../../../../validators/useStateView";
 import * as S from "./styles";
 
 interface CadastroProduto {
@@ -20,6 +21,7 @@ function cadastro() {
     type: "",
     mensagem: "",
   });
+  const stateView = new useStateView();
   const cadastroProduto = useCallback(async (data: CadastroProduto) => {
     await api
       .post<CadastroProduto>("/produto/cadastro", {
@@ -41,7 +43,7 @@ function cadastro() {
             navigate("/admin/produtos", {
               state: {
                 data: response.data,
-                status: response.status
+                status: response.status,
               },
             });
         }
@@ -76,16 +78,7 @@ function cadastro() {
             <Nav_Admin />
           </header>
           <main>
-            {status.type === "error" ? (
-              <p style={{ color: "red" }}>{status.mensagem}</p>
-            ) : (
-              ""
-            )}
-            {status.type === "sucesso" ? (
-              <p style={{ color: "blue" }}>{status.mensagem}</p>
-            ) : (
-              ""
-            )}
+            {stateView.validacao(status.type, status.mensagem)}
             <div className="Form">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
