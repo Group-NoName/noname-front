@@ -177,16 +177,14 @@ function Visualizar() {
 
   return (
     <>
-      <Nav_Admin />
       <S.Visu>
-        {stateView.validacao(location.state?.status, location.state?.data)}
-        {stateView.validacao(status.type, status.mensagem)}
-
         <section>
           <header>
-
+            <Nav_Admin />
           </header>
           <main>
+          {stateView.validacao(location.state?.status, location.state?.data)}
+          {stateView.validacao(status.type, status.mensagem)}
             <div className="porcentagem">
               <h1>Porcentagem: {oferta?.desconto}</h1>
               <div className="buttons">
@@ -271,15 +269,8 @@ function Visualizar() {
                         })}
                   </Dropdown.Menu>
                 </Dropdown>
-                <Button
-                  color={"#ffff"}
-                  width={"8"}
-                  height={"3"}
-                  fontSize={"20"}
-                  backgroundColor={"#3a4ad9"}
-                  text={"Cadastrar"}
-                  type="submit"
-                />
+                <br></br>
+                <Button type="submit" variant="primary">Editar</Button>
               </form>
             </div>
           </main>

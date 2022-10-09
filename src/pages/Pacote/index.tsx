@@ -27,18 +27,6 @@ function Pacote() {
           </header>
           <main>
             <div className='pacoteContent'>
-              <div className='imgLateral'>
-                {pacote?.images.map((i) => {
-                  return (
-                    <>
-                      <div className="imgsLateral">
-                        <div className="imgs">
-                          <img className='tamanho' src={`${i.url}`} alt="" />
-                        </div>
-                      </div>
-                    </>)
-                })}
-              </div>
               <div className='imgCentral'>
                 <div className="posicao">
                   <img className='tamanho' src={pacote?.images[0].url} alt="" />

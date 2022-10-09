@@ -143,12 +143,12 @@ function editar() {
   return (
     <>
       <S.Editar>
-        {stateView.validacao(status.type, status.mensagem)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {stateView.validacao(status.type, status.mensagem)}
             <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
             <div className="Form">
               <form onSubmit={handleSubmit(onSubmit)}>

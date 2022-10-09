@@ -72,14 +72,19 @@ function Home() {
   return (
     <>
       <S.Home>
-        {statesView.validacao(location?.state?.status, location?.state?.data)}
-        {statesView.validacao(status.type, status.mensagem)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {statesView.validacao(location?.state?.status, location?.state?.data)}
+            {statesView.validacao(status.type, status.mensagem)}
             <div className="Form">
+              <Form.Control
+                aria-label="Text input with dropdown button"
+                onChange={(e) => searchItems(e.target.value)}
+                placeholder="Buscar Produto"
+              />
               <Table striped bordered hover>
                 <thead>
                   <tr>
@@ -90,11 +95,6 @@ function Home() {
                   </tr>
                 </thead>
                 <tbody>
-                  <Form.Control
-                    aria-label="Text input with dropdown button"
-                    onChange={(e) => searchItems(e.target.value)}
-                    placeholder="Buscar Produto"
-                  />
                   {searchInput.length > 1
                     ? filteredResults.map((item) => {
                         return (

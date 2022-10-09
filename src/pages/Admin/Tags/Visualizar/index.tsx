@@ -58,13 +58,13 @@ function visualizarTag() {
   return (
     <>
       <S.Visualizar>
-        {stateView.validacao(location.state?.status, location.state?.data)}
-        {stateView.validacao(status.type, status.mensagem)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {stateView.validacao(location.state?.status, location.state?.data)}
+            {stateView.validacao(status.type, status.mensagem)}
             <div className="tag">
               <h1>Tag: {tag?.nome}</h1>
               <div className="buttons">

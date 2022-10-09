@@ -89,13 +89,13 @@ function visualizar() {
   return (
     <>
       <S.Visualizar>
-        {stateView.validacao(status.type, status.type)}
-        {stateView.validacao(location.state?.status, location.state?.data)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {stateView.validacao(status.type, status.type)}
+            {stateView.validacao(location.state?.status, location.state?.data)}
             <div className="categoria">
               <h1>Categoria: {categoria?.nome}</h1>
               <div className="bottons">

@@ -122,7 +122,7 @@ function cadastro() {
                   placeholder="Buscar Produto"
                 />
                 <div className="produtosSearch">
-                  <Form aria-label="Default select" required>
+                  <Form aria-label="Default select">
                     {searchInput.length > 1
                       ? filteredResults.map((item) => {
                           return (

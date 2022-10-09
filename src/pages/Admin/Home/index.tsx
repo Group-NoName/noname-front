@@ -13,22 +13,25 @@ function Home() {
                         <Nav_Admin />
                     </header>
                     <main>
+                        <h1>Bem vindo ao Painel Administrativo</h1>
+                        <p>Estas são suas opções</p>
                         <div className="Cards">
-                            <div className="conteudo">
-                                <Link to='/admin/produtos'>produtos</Link>
-                            </div>
-                            <div className="conteudo">
-                                <Link to='/admin/pacotes'>pacotes</Link>
-                            </div>
-                            <div className="conteudo">
-                                <Link to='/admin/ofertas'>ofertas</Link>
-                            </div>
-                            <div className="conteudo">
-                                <Link to='/admin/tags'>tags</Link>
-                            </div>
-                            <div className="conteudo">
-                                <Link to='/admin/categorias'>categorias</Link>
-                            </div>
+
+                            <Link to='/admin/produtos' className="link">
+                                <p>Produtos</p>
+                            </Link>
+                            <Link to='/admin/categorias' className="link">
+                                <p>Categorias</p>
+                            </Link>
+                            <Link to='/admin/tags' className="link">
+                                <p>Tags</p>
+                            </Link>
+                            <Link to='/admin/pacotes' className="link">
+                                <p>Pacotes</p>
+                            </Link>
+                            <Link to='/admin/ofertas' className="link">
+                                <p>Ofertas</p>
+                            </Link>
                         </div>
                     </main>
                 </section>

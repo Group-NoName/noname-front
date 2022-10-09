@@ -13,6 +13,9 @@ section{
     main{
         margin-top: 4em;
         display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
 
@@ -20,6 +23,7 @@ section{
     margin: 45px auto;
     width: 50vw;
     display: flex;
+    flex-direction: column;
     
     Table{
         margin: 0 auto auto;

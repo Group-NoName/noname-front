@@ -14,6 +14,7 @@ export const Home = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
     }
 
@@ -21,6 +22,7 @@ export const Home = styled.div`
         margin: 45px auto;
         width: 50vw;
         display: flex;
+        flex-direction: column;
         Table{
             margin: 0 auto auto;
             width: 100%;

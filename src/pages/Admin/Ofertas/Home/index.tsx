@@ -70,14 +70,19 @@ function Home() {
   return (
     <>
       <S.Home>
-        {stateView.validacao(location.state?.status, location.state?.data)}
-        {stateView.validacao(status.type, status.mensagem)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+          {stateView.validacao(location.state?.status, location.state?.data)}
+          {stateView.validacao(status.type, status.mensagem)}
             <div className="Form">
+              <Form.Control
+                aria-label="Text input with dropdown button"
+                onChange={(e) => searchItems(e.target.value)}
+                placeholder="Buscar oferta"
+              />
               <Table striped bordered hover>
                 <thead>
                   <tr>
@@ -87,15 +92,11 @@ function Home() {
                   </tr>
                 </thead>
                 <tbody>
-                  <Form.Control
-                    aria-label="Text input with dropdown button"
-                    onChange={(e) => searchItems(e.target.value)}
-                    placeholder="Buscar oferta"
-                  />
+                  
                   {searchInput.length > 1
                     ? filteredResults.map((item) => {
                         return (
-                          <tr>
+                          <tr key={item?.id}>
                             <td>{item?.desconto}</td>
                             <td>{item?.produtos.length}</td>
                             <td className="tdbuttons">
@@ -124,7 +125,7 @@ function Home() {
                     : oferta &&
                       oferta.map((item) => {
                         return (
-                          <tr>
+                          <tr key={item.id}>
                             <td>{item?.desconto}</td>
                             <td>{item?.produtos.length}</td>
                             <td className="tdbuttons">

@@ -3,12 +3,14 @@ import styled from "@emotion/styled";
 export const Visualizar = styled.div`
 
     section{
+        
         header{
             z-index: 100;
             width: 100vw;
             top: 0;
             position: fixed;
         }
+
         main{
             margin-top: 4em;
             display: flex;

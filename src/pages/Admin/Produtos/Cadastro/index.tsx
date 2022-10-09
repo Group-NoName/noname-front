@@ -71,21 +71,21 @@ function cadastro() {
   return (
     <>
       <S.Cadastro>
-        {status.type === "error" ? (
-          <p style={{ color: "red" }}>{status.mensagem}</p>
-        ) : (
-          ""
-        )}
-        {status.type === "sucesso" ? (
-          <p style={{ color: "blue" }}>{status.mensagem}</p>
-        ) : (
-          ""
-        )}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {status.type === "error" ? (
+              <p style={{ color: "red" }}>{status.mensagem}</p>
+            ) : (
+              ""
+            )}
+            {status.type === "sucesso" ? (
+              <p style={{ color: "blue" }}>{status.mensagem}</p>
+            ) : (
+              ""
+            )}
             <div className="Form">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">

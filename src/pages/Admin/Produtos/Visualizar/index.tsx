@@ -78,13 +78,13 @@ function Visualizar() {
   return (
     <>
       <S.Home>
-        {statusView.validacao(location.state?.status, location.state?.data)}
-        {statusView.validacao(status.type, status.mensagem)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+          {statusView.validacao(location.state?.status, location.state?.data)}
+          {statusView.validacao(status.type, status.mensagem)}
             <div className="mainContent">
               <AiOutlineArrowLeft
                 className="icon"

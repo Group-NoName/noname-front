@@ -56,12 +56,12 @@ function cadastroTag() {
   return (
     <>
       <S.Cadastro>
-        {stateView.validacao(status.type, status.mensagem)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {stateView.validacao(status.type, status.mensagem)}
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="nome">
                 <label htmlFor="nome">Nome</label>

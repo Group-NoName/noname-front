@@ -67,14 +67,19 @@ function home() {
   return (
     <> 
       <S.Home>
-        {statusView.validacao(location.state?.status, location.state?.data)}
-        {statusView.validacao(status.type, status.mensagem)}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+          {statusView.validacao(location.state?.status, location.state?.data)}
+          {statusView.validacao(status.type, status.mensagem)}
             <div className="Form">
+              <Form.Control
+                aria-label="Text input with dropdown button"
+                onChange={(e) => searchItems(e.target.value)}
+                placeholder="Buscar pacote"
+              />
               <Table striped bordered hover>
                 <thead>
                   <tr>
@@ -84,15 +89,10 @@ function home() {
                   </tr>
                 </thead>
                 <tbody>
-                  <Form.Control
-                    aria-label="Text input with dropdown button"
-                    onChange={(e) => searchItems(e.target.value)}
-                    placeholder="Buscar pacote"
-                  />
                   {searchInput.length > 1
                     ? filteredResults.map((pacotes) => {
                         return (
-                          <tr>
+                          <tr key={pacotes.id}>
                             <td>{pacotes?.nome}</td>
                             <td>{pacotes?.preco}</td>
                             <td className="tdbuttons">
@@ -131,7 +131,7 @@ function home() {
                     : pacotes &&
                       pacotes?.map((pacotes) => {
                         return (
-                          <tr>
+                          <tr key={pacotes.id}>
                             <td>{pacotes?.nome}</td>
                             <td>{pacotes?.preco}</td>
                             <td className="tdbuttons">

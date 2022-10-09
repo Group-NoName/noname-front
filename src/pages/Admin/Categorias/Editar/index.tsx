@@ -128,16 +128,16 @@ function editar() {
   return (
     <>
       <S.Editar>
-        {status.type === "error" ? (
-          <p style={{ color: "red" }}>{status.mensagem}</p>
-        ) : (
-          ""
-        )}
         <section>
           <header>
             <Nav_Admin />
           </header>
           <main>
+            {status.type === "error" ? (
+              <p style={{ color: "red" }}>{status.mensagem}</p>
+            ) : (
+              ""
+            )}
             <div className="contentMain">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
