@@ -123,11 +123,12 @@ function cadastro() {
                   placeholder="Buscar Produto"
                 />
                 <div className="produtosSearch">
-                  <Form aria-label="Default select">
+                  <Form className='checkform' aria-label="Default select">
                     {searchInput.length > 1
                       ? filteredResults.map((item) => {
                           return (
                             <Form.Check
+                              className="check"
                               required
                               key={item.id || item?.nome}
                               label={item?.nome}
@@ -140,6 +141,7 @@ function cadastro() {
                         produtos.map((produto) => {
                           return (
                             <Form.Check
+                              className="check"
                               required
                               key={produto.id || produto?.nome}
                               label={produto?.nome}

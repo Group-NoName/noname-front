@@ -119,10 +119,10 @@ export const Container = styled.div`
               color: red;
             }
 
-            h1{
-              color: blue;
-              font-size: 20px;
-            }
+              h1{
+                color: blue;
+                font-size: 20px;
+              }
           }
           .produtopricebuttom{
             display: flex;

@@ -156,48 +156,7 @@ function cadastro() {
                       />
                     </div>
                   </div>
-                  <div className="produtos">
-                    <Dropdown>
-                      <Dropdown.Toggle id="dropdown-custom-components">
-                        <>Adicionar produtos</>
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <Form.Control
-                          aria-label="Text input with dropdown button"
-                          onChange={(e) => searchItems(e.target.value)}
-                          placeholder="Nome do produto..."
-                        />
-                        {searchInput.length > 1
-                          ? filteredResults.map((item) => {
-                              return (
-                                <Dropdown.ItemText key={item.id}>
-                                  <Form.Check
-                                    key={item.id}
-                                    label={item?.nome}
-                                    value={item.id}
-                                    {...register("produtos.0.id")}
-                                  />
-                                </Dropdown.ItemText>
-                              );
-                            })
-                          : produtos &&
-                            produtos.map((prod) => {
-                              return (
-                                <Dropdown.ItemText key={prod.id}>
-                                  <Form.Check
-                                    key={prod.id}
-                                    label={prod?.nome}
-                                    value={prod.id}
-                                    {...register("produtos.0.id")}
-                                  />
-                                </Dropdown.ItemText>
-                              );
-                            })}
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </div>
-                </div>
-                <div className="preço">
+                  <div className="preço">
                   <label htmlFor="preco">Preço</label>
                   <input
                     {...register("preco")}
@@ -214,6 +173,50 @@ function cadastro() {
                     type="submit"
                   />
                 </div>
+                </div>
+                
+                <div className="produtos">
+                    <Form.Control
+                      className="search"
+                      aria-label="Text input with dropdown button"
+                      onChange={(e) => searchItems(e.target.value)}
+                      placeholder="Nome do produto..."
+                    />
+                    <Form aria-label="Default select">
+                      {searchInput.length > 1
+                            ? filteredResults.map((item) => {
+                                return (
+                                    <Form.Check
+                                      key={item.id}
+                                      label={item?.nome}
+                                      value={item.id}
+                                      {...register("produtos.0.id")}
+                                    />
+                                );
+                              })
+                            : produtos &&
+                              produtos.map((prod) => {
+                                return (
+                                    <Form.Check
+                                      key={prod.id}
+                                      label={prod?.nome}
+                                      value={prod.id}
+                                      {...register("produtos.0.id")}
+                                    />
+                                );
+                              })
+                      }
+                    </Form>
+                  </div>
+                    <Button
+                      color={"#ffff"}
+                      width={"8"}
+                      height={"3"}
+                      fontSize={"20"}
+                      backgroundColor={"#3a4ad9"}
+                      text={"Cadastrar"}
+                      type="submit"
+                    />
               </form>
             </div>
           </main>
