@@ -70,8 +70,8 @@ function homeTag() {
           <main>
             {stateView.validacao(status.type, status.mensagem)}
             {stateView.validacao(
-              stateViewLocation.status,
-              stateViewLocation.data
+              stateViewLocation?.status,
+              stateViewLocation?.data
             )}
             <div className="Form">
               <Table striped bordered hover>
