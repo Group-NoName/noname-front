@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
+import PrecoValidador from "../../../../validators/precoValidador";
 import useStateView from "../../../../validators/useStateView";
 import * as S from "./styles";
 
@@ -14,7 +15,7 @@ function Home() {
   const [filteredResults, setFilteredResults] = useState<Iproduto[]>([]);
   const location = useLocation();
   const statesView = new useStateView();
-
+  const validadePrice = new PrecoValidador();
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -33,8 +34,7 @@ function Home() {
           setStatus({
             type: "sucesso",
             mensagem: `${response.data}`,
-          }),
-            navigate("/admin/produtos");
+          });
         }
       })
       .catch(function (error) {
@@ -72,8 +72,8 @@ function Home() {
   return (
     <>
       <S.Home>
-      {statesView.validacao(location?.state?.status, location?.state?.data)}
-      {statesView.validacao(status.type, status.mensagem)}
+        {statesView.validacao(location?.state?.status, location?.state?.data)}
+        {statesView.validacao(status.type, status.mensagem)}
         <section>
           <header>
             <Nav_Admin />
@@ -106,7 +106,7 @@ function Home() {
                                 <p style={{ color: "green " }}>Sem desconto</p>
                               ) : (
                                 <p style={{ color: "red", fontWeight: "bold" }}>
-                                  R${item.desconto.toFixed(2)}
+                                  R${item.desconto}
                                 </p>
                               )}
                             </td>
@@ -115,7 +115,9 @@ function Home() {
                                 <Button
                                   variant="outline-primary"
                                   onClick={() =>
-                                    navigate(`/admin/produtos/editar/${item.id}`)
+                                    navigate(
+                                      `/admin/produtos/editar/${item.id}`
+                                    )
                                   }
                                 >
                                   Editar
@@ -147,15 +149,7 @@ function Home() {
                           <tr key={i.id}>
                             <td>{i.nome}</td>
                             <td>R${i.preco}</td>
-                            <td>
-                              {i.desconto === 0 ? (
-                                <p style={{ color: "green " }}>Sem desconto</p>
-                              ) : (
-                                <p style={{ color: "red", fontWeight: "bold" }}>
-                                  R${i.desconto.toFixed(2)}
-                                </p>
-                              )}
-                            </td>
+                            <td>{validadePrice.validar(i)}</td>
                             <td className="tdbuttons">
                               <div className="buttons">
                                 <Button
@@ -169,7 +163,9 @@ function Home() {
                                 <Button
                                   variant="outline-success"
                                   onClick={() =>
-                                    navigate(`/admin/produtos/visualizar/${i.id}`)
+                                    navigate(
+                                      `/admin/produtos/visualizar/${i.id}`
+                                    )
                                   }
                                 >
                                   Visualizar
@@ -189,7 +185,7 @@ function Home() {
               </Table>
             </div>
           </main>
-        </section>  
+        </section>
       </S.Home>
     </>
   );

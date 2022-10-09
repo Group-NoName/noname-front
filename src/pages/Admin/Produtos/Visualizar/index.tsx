@@ -8,6 +8,7 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import { Button, Dropdown } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
+import PrecoValidador from "../../../../validators/precoValidador";
 
 function Visualizar() {
   const [produto, setProduto] = useState<Iproduto>();
@@ -22,6 +23,7 @@ function Visualizar() {
   }, [id]);
   const location = useLocation();
   const statusView = new useStateView();
+  const validadePrice = new PrecoValidador();
   async function getProduto() {
     const response = await api.get<Iproduto>(`/produto/produtos/${id}`);
     setProduto(response.data);
@@ -82,88 +84,83 @@ function Visualizar() {
           <header>
             <Nav_Admin />
           </header>
-            <main>
-              <div className="mainContent">
-                <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
-                <div className="left-content">
-                  <div className="content">
-                    <h1>{produto?.nome}</h1>
-                    <h3>R$ {produto?.preco}</h3>
-                    <h3>
-                      {produto?.desconto === 0 ? (
-                        <p style={{ color: "green " }}>Sem desconto</p>
-                      ) : (
-                        <p style={{ color: "red", fontWeight: "bold" }}>
-                          R${produto?.desconto.toFixed(2)}
-                        </p>
-                      )}
-                    </h3>
-                    <div className="description">
-                      <p>{produto?.descricao}</p>
-                    </div>
-                    <div className="tags">
-                      <h2>Tags</h2>
-                      <div className="tagscards">
-                        {produto &&
-                          produto?.tags.map((item) => {
-                            if (item == null) {
-                              return <h1></h1>;
-                            } else {
-                              return (
-                                <>
-                                  <Dropdown>
-                                    <Dropdown.Toggle>{item.nome}</Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                      <Dropdown.ItemText>
-                                        <Button
-                                          variant="danger"
-                                          onClick={() =>
-                                            deleteRelacao(
-                                              String(item.id),
-                                              String(produto.id)
-                                            )
-                                          }
-                                        >
-                                          Remover
+          <main>
+            <div className="mainContent">
+              <AiOutlineArrowLeft
+                className="icon"
+                onClick={() => navigate(-1)}
+              />
+              <div className="left-content">
+                <div className="content">
+                  <h1>{produto?.nome}</h1>
+                  <h3>R$ {produto?.preco}</h3>
+                  {validadePrice.validar(produto)}
+                  <div className="description">
+                    <p>{produto?.descricao}</p>
+                  </div>
+                  <div className="tags">
+                    <h2>Tags</h2>
+                    <div className="tagscards">
+                      {produto &&
+                        produto?.tags.map((item) => {
+                          if (item == null) {
+                            return <h1></h1>;
+                          } else {
+                            return (
+                              <>
+                                <Dropdown>
+                                  <Dropdown.Toggle>{item.nome}</Dropdown.Toggle>
+                                  <Dropdown.Menu>
+                                    <Dropdown.ItemText>
+                                      <Button
+                                        variant="danger"
+                                        onClick={() =>
+                                          deleteRelacao(
+                                            String(item.id),
+                                            String(produto.id)
+                                          )
+                                        }
+                                      >
+                                        Remover
+                                      </Button>
+                                    </Dropdown.ItemText>
+                                    <Dropdown.ItemText>
+                                      <Link
+                                        to={`/admin/tags/visualizar/${item?.id}`}
+                                      >
+                                        <Button variant="primary">
+                                          Visualizar
                                         </Button>
-                                      </Dropdown.ItemText>
-                                      <Dropdown.ItemText>
-                                        <Link
-                                          to={`/admin/tags/visualizar/${item?.id}`}
-                                        >
-                                          <Button variant="primary">
-                                            Visualizar
-                                          </Button>
-                                        </Link>
-                                      </Dropdown.ItemText>
-                                    </Dropdown.Menu>
-                                  </Dropdown>
-                                </>
-                              );
-                            }
-                          })}
-                      </div>
+                                      </Link>
+                                    </Dropdown.ItemText>
+                                  </Dropdown.Menu>
+                                </Dropdown>
+                              </>
+                            );
+                          }
+                        })}
                     </div>
                   </div>
                 </div>
-                <div className="right-content">
-                  <img src={`${produto?.images[0].url}`} alt="" />
-                  <Button
-                    variant="outline-primary"
-                    onClick={() =>
-                      navigate(`/admin/produtos/editar/${produto?.id}`)
-                    }
-                  >
-                    Editar
-                  </Button>
-                  <Button
-                    variant="outline-danger"
-                    onClick={() => deleteProduto(String(produto?.id))}
-                  >
-                    Deletar
-                  </Button>
-                </div>
               </div>
+              <div className="right-content">
+                <img src={`${produto?.images[0].url}`} alt="" />
+                <Button
+                  variant="outline-primary"
+                  onClick={() =>
+                    navigate(`/admin/produtos/editar/${produto?.id}`)
+                  }
+                >
+                  Editar
+                </Button>
+                <Button
+                  variant="outline-danger"
+                  onClick={() => deleteProduto(String(produto?.id))}
+                >
+                  Deletar
+                </Button>
+              </div>
+            </div>
           </main>
         </section>
       </S.Home>
