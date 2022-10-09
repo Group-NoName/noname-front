@@ -68,91 +68,95 @@ function Home() {
     setOferta(response.data);
   }
   return (
-    <section>
-      <Nav_Admin />
+    <>
       <S.Home>
         {stateView.validacao(location.state?.status, location.state?.data)}
         {stateView.validacao(status.type, status.mensagem)}
-        <main>
-          <div className="Form">
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Porcentagem</th>
-                  <th>Quantidade</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                <Form.Control
-                  aria-label="Text input with dropdown button"
-                  onChange={(e) => searchItems(e.target.value)}
-                  placeholder="Buscar oferta"
-                />
-                {searchInput.length > 1
-                  ? filteredResults.map((item) => {
-                      return (
-                        <tr>
-                          <td>{item?.desconto}</td>
-                          <td>{item?.produtos.length}</td>
-                          <td className="tdbuttons">
-                            <div className="buttons">
-                              <Button
-                                variant="outline-success"
-                                onClick={() =>
-                                  navigate(
-                                    `/admin/ofertas/visualizar/${item.id}`
-                                  )
-                                }
-                              >
-                                Visualizar
-                              </Button>
-                              <Button
-                                variant="outline-danger"
-                                onClick={() => deleteOferta(item.id)}
-                              >
-                                Deletar
-                              </Button>{" "}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : oferta &&
-                    oferta.map((item) => {
-                      return (
-                        <tr>
-                          <td>{item?.desconto}</td>
-                          <td>{item?.produtos.length}</td>
-                          <td className="tdbuttons">
-                            <div className="buttons">
-                              <Button
-                                variant="outline-success"
-                                onClick={() =>
-                                  navigate(
-                                    `/admin/ofertas/visualizar/${item.id}`
-                                  )
-                                }
-                              >
-                                Visualizar
-                              </Button>
-                              <Button
-                                variant="outline-danger"
-                                onClick={() => deleteOferta(item.id)}
-                              >
-                                Deletar
-                              </Button>{" "}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-              </tbody>
-            </Table>
-          </div>
-        </main>
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <div className="Form">
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Porcentagem</th>
+                    <th>Quantidade</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <Form.Control
+                    aria-label="Text input with dropdown button"
+                    onChange={(e) => searchItems(e.target.value)}
+                    placeholder="Buscar oferta"
+                  />
+                  {searchInput.length > 1
+                    ? filteredResults.map((item) => {
+                        return (
+                          <tr>
+                            <td>{item?.desconto}</td>
+                            <td>{item?.produtos.length}</td>
+                            <td className="tdbuttons">
+                              <div className="buttons">
+                                <Button
+                                  variant="outline-success"
+                                  onClick={() =>
+                                    navigate(
+                                      `/admin/ofertas/visualizar/${item.id}`
+                                    )
+                                  }
+                                >
+                                  Visualizar
+                                </Button>
+                                <Button
+                                  variant="outline-danger"
+                                  onClick={() => deleteOferta(item.id)}
+                                >
+                                  Deletar
+                                </Button>{" "}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : oferta &&
+                      oferta.map((item) => {
+                        return (
+                          <tr>
+                            <td>{item?.desconto}</td>
+                            <td>{item?.produtos.length}</td>
+                            <td className="tdbuttons">
+                              <div className="buttons">
+                                <Button
+                                  variant="outline-success"
+                                  onClick={() =>
+                                    navigate(
+                                      `/admin/ofertas/visualizar/${item.id}`
+                                    )
+                                  }
+                                >
+                                  Visualizar
+                                </Button>
+                                <Button
+                                  variant="outline-danger"
+                                  onClick={() => deleteOferta(item.id)}
+                                >
+                                  Deletar
+                                </Button>{" "}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                </tbody>
+              </Table>
+            </div>
+          </main>
+        </section>
       </S.Home>
-    </section>
+    </>
   );
 }
 

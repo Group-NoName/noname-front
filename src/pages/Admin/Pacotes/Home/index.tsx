@@ -65,111 +65,115 @@ function home() {
   }, []);
 
   return (
-    <section>
-      <Nav_Admin />
+    <> 
       <S.Home>
         {statusView.validacao(location.state?.status, location.state?.data)}
         {statusView.validacao(status.type, status.mensagem)}
-        <main>
-          <div className="Form">
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Preço</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                <Form.Control
-                  aria-label="Text input with dropdown button"
-                  onChange={(e) => searchItems(e.target.value)}
-                  placeholder="Buscar pacote"
-                />
-                {searchInput.length > 1
-                  ? filteredResults.map((pacotes) => {
-                      return (
-                        <tr>
-                          <td>{pacotes?.nome}</td>
-                          <td>{pacotes?.preco}</td>
-                          <td className="tdbuttons">
-                            <div className="buttons">
-                              <Button
-                                variant="outline-primary"
-                                onClick={() =>
-                                  navigate(
-                                    `/admin/pacotes/editar/${pacotes.id}`
-                                  )
-                                }
-                              >
-                                Editar
-                              </Button>{" "}
-                              <Button
-                                variant="outline-success"
-                                onClick={() =>
-                                  navigate(
-                                    `/admin/pacotes/visualizar/${pacotes.id}`
-                                  )
-                                }
-                              >
-                                Visualizar
-                              </Button>
-                              <Button
-                                variant="outline-danger"
-                                onClick={() => deletePacote(pacotes.id)}
-                              >
-                                Deletar
-                              </Button>{" "}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : pacotes &&
-                    pacotes?.map((pacotes) => {
-                      return (
-                        <tr>
-                          <td>{pacotes?.nome}</td>
-                          <td>{pacotes?.preco}</td>
-                          <td className="tdbuttons">
-                            <div className="buttons">
-                              <Button
-                                variant="outline-primary"
-                                onClick={() =>
-                                  navigate(
-                                    `/admin/pacotes/editar/${pacotes.id}`
-                                  )
-                                }
-                              >
-                                Editar
-                              </Button>{" "}
-                              <Button
-                                variant="outline-success"
-                                onClick={() =>
-                                  navigate(
-                                    `/admin/pacotes/visualizar/${pacotes.id}`
-                                  )
-                                }
-                              >
-                                Visualizar
-                              </Button>
-                              <Button
-                                variant="outline-danger"
-                                onClick={() => deletePacote(pacotes.id)}
-                              >
-                                Deletar
-                              </Button>{" "}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-              </tbody>
-            </Table>
-          </div>
-        </main>
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <div className="Form">
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <Form.Control
+                    aria-label="Text input with dropdown button"
+                    onChange={(e) => searchItems(e.target.value)}
+                    placeholder="Buscar pacote"
+                  />
+                  {searchInput.length > 1
+                    ? filteredResults.map((pacotes) => {
+                        return (
+                          <tr>
+                            <td>{pacotes?.nome}</td>
+                            <td>{pacotes?.preco}</td>
+                            <td className="tdbuttons">
+                              <div className="buttons">
+                                <Button
+                                  variant="outline-primary"
+                                  onClick={() =>
+                                    navigate(
+                                      `/admin/pacotes/editar/${pacotes.id}`
+                                    )
+                                  }
+                                >
+                                  Editar
+                                </Button>{" "}
+                                <Button
+                                  variant="outline-success"
+                                  onClick={() =>
+                                    navigate(
+                                      `/admin/pacotes/visualizar/${pacotes.id}`
+                                    )
+                                  }
+                                >
+                                  Visualizar
+                                </Button>
+                                <Button
+                                  variant="outline-danger"
+                                  onClick={() => deletePacote(pacotes.id)}
+                                >
+                                  Deletar
+                                </Button>{" "}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : pacotes &&
+                      pacotes?.map((pacotes) => {
+                        return (
+                          <tr>
+                            <td>{pacotes?.nome}</td>
+                            <td>{pacotes?.preco}</td>
+                            <td className="tdbuttons">
+                              <div className="buttons">
+                                <Button
+                                  variant="outline-primary"
+                                  onClick={() =>
+                                    navigate(
+                                      `/admin/pacotes/editar/${pacotes.id}`
+                                    )
+                                  }
+                                >
+                                  Editar
+                                </Button>{" "}
+                                <Button
+                                  variant="outline-success"
+                                  onClick={() =>
+                                    navigate(
+                                      `/admin/pacotes/visualizar/${pacotes.id}`
+                                    )
+                                  }
+                                >
+                                  Visualizar
+                                </Button>
+                                <Button
+                                  variant="outline-danger"
+                                  onClick={() => deletePacote(pacotes.id)}
+                                >
+                                  Deletar
+                                </Button>{" "}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                </tbody>
+              </Table>
+            </div>
+          </main>
+        </section>
       </S.Home>
-    </section>
+    </>
   );
 }
 export default home;

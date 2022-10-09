@@ -95,71 +95,75 @@ function cadastro() {
   });
 
   return (
-    <section>
-      <Nav_Admin />
-      {stateView.validacao(status.type, status.mensagem)}
+    <>
       <S.Cadastro>
-        <main>
-          <div className="Form">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="nome">
-                <label htmlFor="nome">Nome</label>
-                <input
-                  type="text"
-                  value={categorias?.nome}
-                  required
-                  placeholder="Categoria X"
-                  {...register("nome")}
-                />
-              </div>
+        {stateView.validacao(status.type, status.mensagem)}
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <div className="Form">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="nome">
+                  <label htmlFor="nome">Nome</label>
+                  <input
+                    type="text"
+                    value={categorias?.nome}
+                    required
+                    placeholder="Categoria X"
+                    {...register("nome")}
+                  />
+                </div>
 
-              <Form.Control
-                aria-label="Text input with dropdown button"
-                onChange={(e) => searchItems(e.target.value)}
-                placeholder="Buscar Produto"
-              />
-              <div className="produtosSearch">
-                <Form aria-label="Default select" required>
-                  {searchInput.length > 1
-                    ? filteredResults.map((item) => {
-                        return (
-                          <Form.Check
-                            required
-                            key={item.id || item?.nome}
-                            label={item?.nome}
-                            value={item.id || item?.nome}
-                            {...register("produtos.0.id")}
-                          />
-                        );
-                      })
-                    : produtos &&
-                      produtos.map((produto) => {
-                        return (
-                          <Form.Check
-                            required
-                            key={produto.id || produto?.nome}
-                            label={produto?.nome}
-                            value={produto.id || produto?.nome}
-                            {...register("produtos.0.id")}
-                          />
-                        );
-                      })}
-                </Form>
-              </div>
-              <Button
-                color={"#ffff"}
-                width={"8"}
-                height={"3"}
-                fontSize={"20"}
-                backgroundColor={"#3a4ad9"}
-                text={"Cadastrar"}
-                type="submit"
-              />
-            </form>
-          </div>
-        </main>
+                <Form.Control
+                  aria-label="Text input with dropdown button"
+                  onChange={(e) => searchItems(e.target.value)}
+                  placeholder="Buscar Produto"
+                />
+                <div className="produtosSearch">
+                  <Form aria-label="Default select" required>
+                    {searchInput.length > 1
+                      ? filteredResults.map((item) => {
+                          return (
+                            <Form.Check
+                              required
+                              key={item.id || item?.nome}
+                              label={item?.nome}
+                              value={item.id || item?.nome}
+                              {...register("produtos.0.id")}
+                            />
+                          );
+                        })
+                      : produtos &&
+                        produtos.map((produto) => {
+                          return (
+                            <Form.Check
+                              required
+                              key={produto.id || produto?.nome}
+                              label={produto?.nome}
+                              value={produto.id || produto?.nome}
+                              {...register("produtos.0.id")}
+                            />
+                          );
+                        })}
+                  </Form>
+                </div>
+                <Button
+                  color={"#ffff"}
+                  width={"8"}
+                  height={"3"}
+                  fontSize={"20"}
+                  backgroundColor={"#3a4ad9"}
+                  text={"Cadastrar"}
+                  type="submit"
+                />
+              </form>
+            </div>
+          </main>
+        </section>
       </S.Cadastro>
-    </section>
+    </>
   );
 }
 export default cadastro;

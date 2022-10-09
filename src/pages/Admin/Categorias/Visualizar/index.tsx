@@ -87,59 +87,68 @@ function visualizar() {
   }, []);
 
   return (
-    <main>
-      <Nav_Admin />
-      {stateView.validacao(status.type, status.type)}
-      {stateView.validacao(location.state?.status, location.state?.data)}
+    <>
       <S.Visualizar>
-        <div className="categoria">
-          <h1>Categoria: {categoria?.nome}</h1>
-          <Link to={`/admin/categorias/editar/${categoria?.id}`}>
-            <Button variant="success">Editar</Button>
-          </Link>
-          <Button
-            variant="danger"
-            onClick={() => deletarCategoria(String(categoria?.id))}
-          >
-            Deletar
-          </Button>
-        </div>
-        <div className="produtosRelacionados">
-          <h3>Produtos</h3>
-          <div className="produtos">
-            {categoriasProdutos.map((item) => {
-              if (item == null) {
-                return <h1></h1>;
-              } else {
-                return (
-                  <>
-                    <div className="produto">
-                      <p>{item?.nome}</p>
-                      <div className="buttons">
-                        <Button
-                          variant="danger"
-                          onClick={() =>
-                            deletarRelacao(
-                              String(categoria?.id),
-                              String(item?.id)
-                            )
-                          }
-                        >
-                          Deletar
-                        </Button>
-                        <Link to={`/admin/produtos/visualizar/${item?.id}`}>
-                          <Button variant="primary">Visualizar</Button>
-                        </Link>
-                      </div>
-                    </div>
-                  </>
-                );
-              }
-            })}
-          </div>
-        </div>
+        {stateView.validacao(status.type, status.type)}
+        {stateView.validacao(location.state?.status, location.state?.data)}
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <div className="categoria">
+              <h1>Categoria: {categoria?.nome}</h1>
+              <div className="bottons">
+                <Link to={`/admin/categorias/editar/${categoria?.id}`}>
+                  <Button variant="success">Editar</Button>
+                </Link>
+                <Button
+                  variant="danger"
+                  onClick={() => deletarCategoria(String(categoria?.id))}
+                >
+                  Deletar
+                </Button>
+              </div>
+            </div>
+            <div className="produtosRelacionados">
+              <h3>Produtos</h3>
+              <div className="produtos">
+                {categoriasProdutos.map((item) => {
+                  if (item == null) {
+                    return <h1></h1>;
+                  } else {
+                    return (
+                      <>
+                        <div className="produto">
+                          <p>{item?.nome}</p>
+                          <div className="buttons">
+                            <Button
+                              variant="danger"
+                              onClick={() =>
+                                deletarRelacao(
+                                  String(categoria?.id),
+                                  String(item?.id)
+                                )
+                              }
+                            >
+                              Deletar
+                            </Button>
+                            <Link to={`/admin/produtos/visualizar/${item?.id}`}>
+                              <Button variant="primary">Visualizar</Button>
+                            </Link>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  }
+                })}
+              </div>
+            </div>
+          </main>
+        </section>
+        
       </S.Visualizar>
-    </main>
+    </>
   );
 }
 export default visualizar;

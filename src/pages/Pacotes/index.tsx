@@ -22,18 +22,24 @@ function Pacotes(){
 
     return(
         <>
-            <Nav_/>
             <S.Container>
-                <div className="pacotes">
-                <h1>Pacotes</h1>
-                <div className="pacotesmap">
-                    {pacotes && pacotes.map(i => {
-                    return (
-                        <CardPacote imageURL={`${i.images[0].url}`} name={`${i.nome}`} pacoteID={`${i.id}`} preco={i.preco} />
-                    )
-                    })}
-                </div>
-                </div>
+                <section>
+                    <header>
+                        <Nav_/>
+                    </header>
+                    <main>
+                        <div className="pacotes">
+                            <h1>Pacotes</h1>
+                            <div className="pacotesmap">
+                                {pacotes && pacotes.map(i => {
+                                return (
+                                    <CardPacote imageURL={`${i.images[0].url}`} name={`${i.nome}`} pacoteID={`${i.id}`} preco={i.preco} />
+                                )
+                                })}
+                            </div>
+                        </div>
+                    </main>
+                </section>
             </S.Container>
         </>
     )

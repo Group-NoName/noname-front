@@ -1,9 +1,21 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-    margin-top: 10px;
-    display: flex;
-    flex-direction: row;
+
+    section{
+        header{
+            z-index: 100;
+            top: 0;
+            width: 100vw;
+            position: fixed;
+        }
+
+        main{
+            margin-top: 4em;
+            display: flex;
+            flex-direction: row;
+        }
+    }
 
     .pacotes{
         display: flex;

@@ -1,9 +1,21 @@
 import styled from "@emotion/styled";
 
 export const Editar = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
+
+section{
+    header{
+        z-index: 100;
+        width: 100vw;
+        top: 0;
+        position: fixed;
+    }
+    main{
+        margin-top: 4em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
 
 .contentMain form{
     margin-top: 15px;

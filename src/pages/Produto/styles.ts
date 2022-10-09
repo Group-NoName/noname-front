@@ -1,14 +1,26 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  overflow-x: hidden;
-  min-height: 89vh;
-  margin-top: 0.5em;
+
+  section{
+    header{
+      z-index: 100;
+      top: 0;
+      width: 100vw;
+      position: fixed;
+    }
+
+    main{
+      display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    overflow-x: hidden;
+    min-height: 89vh;
+    margin-top: 4em;
+    }
+  }
 
   .produtoContent{
     width: 90vw;
@@ -102,9 +114,14 @@ export const Container = styled.div`
           .price{
             align-items: center;
             justify-content: center;
-            h2{
-              text-align: center;
-              color: #3a4ad9;
+            
+            p{
+              color: red;
+            }
+
+            h1{
+              color: blue;
+              font-size: 20px;
             }
           }
           .produtopricebuttom{

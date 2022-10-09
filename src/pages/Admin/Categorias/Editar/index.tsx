@@ -126,83 +126,87 @@ function editar() {
   });
 
   return (
-    <section style={{ overflowY: "hidden", height: "100vh" }}>
-      <Nav_Admin />
-      {status.type === "error" ? (
-        <p style={{ color: "red" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
+    <>
       <S.Editar>
-        <main>
-          <div className="contentMain">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="nome">
-                <label htmlFor="nomeCategoria">Nome da Categoria</label>
-                <input
-                  type="text"
-                  defaultValue={categoria?.nome}
-                  {...register("nome")}
+        {status.type === "error" ? (
+          <p style={{ color: "red" }}>{status.mensagem}</p>
+        ) : (
+          ""
+        )}
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <div className="contentMain">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="nome">
+                  <label htmlFor="nomeCategoria">Nome da Categoria</label>
+                  <input
+                    type="text"
+                    defaultValue={categoria?.nome}
+                    {...register("nome")}
+                  />
+                </div>
+                <Button
+                  color={"#ffff"}
+                  width={"8"}
+                  height={"3"}
+                  fontSize={"20"}
+                  backgroundColor={"#3a4ad9"}
+                  text={"Editar"}
+                  type="submit"
                 />
-              </div>
-              <Button
-                color={"#ffff"}
-                width={"8"}
-                height={"3"}
-                fontSize={"20"}
-                backgroundColor={"#3a4ad9"}
-                text={"Editar"}
-                type="submit"
-              />
-            </form>
-          </div>
-          <div className="contentProd">
-            <form onSubmit={handleSubmit(onSubmitProduto)}>
-              <Form.Control
-                aria-label="Text input with dropdown button"
-                onChange={(e) => searchItems(e.target.value)}
-                placeholder="Buscar Produto"
-              />
-              <div className="produtosSearch">
-                <Form aria-label="Default select">
-                  {searchInput.length > 1
-                    ? filteredResults.map((item) => {
-                        return (
-                          <Form.Check
-                            key={item.id || item?.nome}
-                            label={item?.nome}
-                            value={item.id || item?.nome}
-                            {...register("produtos.0.id")}
-                          />
-                        );
-                      })
-                    : produtos &&
-                      produtos.map((produto) => {
-                        return (
-                          <Form.Check
-                            key={produto.id || produto?.nome}
-                            label={produto?.nome}
-                            value={produto.id || produto?.nome}
-                            {...register("produtos.0.id")}
-                          />
-                        );
-                      })}
-                </Form>
-              </div>
-              <Button
-                color={"#ffff"}
-                width={"8"}
-                height={"3"}
-                fontSize={"20"}
-                backgroundColor={"#3a4ad9"}
-                text={"Adicionar Produto"}
-                type="submit"
-              />
-            </form>
-          </div>
-        </main>
+              </form>
+            </div>
+            <div className="contentProd">
+              <form onSubmit={handleSubmit(onSubmitProduto)}>
+                <Form.Control
+                  aria-label="Text input with dropdown button"
+                  onChange={(e) => searchItems(e.target.value)}
+                  placeholder="Buscar Produto"
+                />
+                <div className="produtosSearch">
+                  <Form aria-label="Default select">
+                    {searchInput.length > 1
+                      ? filteredResults.map((item) => {
+                          return (
+                            <Form.Check
+                              key={item.id || item?.nome}
+                              label={item?.nome}
+                              value={item.id || item?.nome}
+                              {...register("produtos.0.id")}
+                            />
+                          );
+                        })
+                      : produtos &&
+                        produtos.map((produto) => {
+                          return (
+                            <Form.Check
+                              key={produto.id || produto?.nome}
+                              label={produto?.nome}
+                              value={produto.id || produto?.nome}
+                              {...register("produtos.0.id")}
+                            />
+                          );
+                        })}
+                  </Form>
+                </div>
+                <Button
+                  color={"#ffff"}
+                  width={"8"}
+                  height={"3"}
+                  fontSize={"20"}
+                  backgroundColor={"#3a4ad9"}
+                  text={"Adicionar Produto"}
+                  type="submit"
+                />
+              </form>
+            </div>
+          </main>
+        </section>
       </S.Editar>
-    </section>
+    </>
   );
 }
 export default editar;

@@ -69,8 +69,7 @@ function cadastro() {
   });
 
   return (
-    <section>
-      <Nav_Admin />
+    <>
       <S.Cadastro>
         {status.type === "error" ? (
           <p style={{ color: "red" }}>{status.mensagem}</p>
@@ -82,85 +81,89 @@ function cadastro() {
         ) : (
           ""
         )}
-
-        <main>
-          <div className="Form">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="nome">
-                <label htmlFor="nome">Nome</label>
-                <input
-                  type="text"
-                  value={produto?.nome}
-                  required
-                  placeholder="Produto X"
-                  {...register("nome")}
-                />
-              </div>
-              <div className="descricao">
-                <label htmlFor="descricao">Descrição</label>
-                <textarea
-                  {...register("descricao")}
-                  placeholder="Descrição que o produto irá ter"
-                  required
-                  value={produto?.descricao}
-                />
-              </div>
-              <div className="position">
-                <div className="imgs">
-                  <div className="img1">
-                    <label htmlFor="url">Img1</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="https://exemple.com/image1.jpg"
-                      {...register("images.0.url")}
-                    />
-                  </div>
-                  <div className="img2">
-                    <label htmlFor="url">Img2</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="https://exemple.com/image2.jpg"
-                      {...register("images.1.url")}
-                    />
-                  </div>
-                  <div className="img3">
-                    <label htmlFor="url">Img3</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="https://exemple.com/image3.jpg"
-                      {...register("images.2.url")}
-                    />
-                  </div>
-                </div>
-                <div className="preco">
-                  <label htmlFor="preco">Preço</label>
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <div className="Form">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="nome">
+                  <label htmlFor="nome">Nome</label>
                   <input
-                    type="number"
-                    step="0.01"
+                    type="text"
+                    value={produto?.nome}
                     required
-                    {...register("preco")}
-                    placeholder="R$ 00.00"
-                    value={produto?.preco}
-                  />
-                  <Button
-                    color={"#ffff"}
-                    width={"8"}
-                    height={"3"}
-                    fontSize={"20"}
-                    backgroundColor={"#3a4ad9"}
-                    text={"Cadastrar"}
-                    type="submit"
+                    placeholder="Produto X"
+                    {...register("nome")}
                   />
                 </div>
-              </div>
-            </form>
-          </div>
-        </main>
+                <div className="descricao">
+                  <label htmlFor="descricao">Descrição</label>
+                  <textarea
+                    {...register("descricao")}
+                    placeholder="Descrição que o produto irá ter"
+                    required
+                    value={produto?.descricao}
+                  />
+                </div>
+                <div className="position">
+                  <div className="imgs">
+                    <div className="img1">
+                      <label htmlFor="url">Img1</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="https://exemple.com/image1.jpg"
+                        {...register("images.0.url")}
+                      />
+                    </div>
+                    <div className="img2">
+                      <label htmlFor="url">Img2</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="https://exemple.com/image2.jpg"
+                        {...register("images.1.url")}
+                      />
+                    </div>
+                    <div className="img3">
+                      <label htmlFor="url">Img3</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="https://exemple.com/image3.jpg"
+                        {...register("images.2.url")}
+                      />
+                    </div>
+                  </div>
+                  <div className="preco">
+                    <label htmlFor="preco">Preço</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      required
+                      {...register("preco")}
+                      placeholder="R$ 00.00"
+                      value={produto?.preco}
+                    />
+                    <Button
+                      color={"#ffff"}
+                      width={"8"}
+                      height={"3"}
+                      fontSize={"20"}
+                      backgroundColor={"#3a4ad9"}
+                      text={"Cadastrar"}
+                      type="submit"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </main>
+        </section>
       </S.Cadastro>
-    </section>
+    </>
   );
 }
 export default cadastro;

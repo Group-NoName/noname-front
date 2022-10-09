@@ -69,103 +69,107 @@ function Home() {
 
   return (
     <section>
-      <Nav_Admin />
       <S.Home>
         {stateView.validacao(status?.type, status?.mensagem)}
         {stateView.validacao(location.state?.status, location.state?.data)}
-        <main>
-          <div className="Form">
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                <Form.Control
-                  aria-label="Text input with dropdown button"
-                  onChange={(e) => searchItems(e.target.value)}
-                  placeholder="Buscar Categoria"
-                />
-                {searchInput.length > 1
-                  ? filteredResults.map((item) => {
-                      return (
-                        <tr key={item.id}>
-                          <td>{item.nome}</td>
-                          <td className="tdbuttons">
-                            <div className="buttons">
-                              <Button
-                                variant="outline-primary"
-                                onClick={() =>
-                                  navigate(
-                                    `/admin/categorias/editar/${item.id}`
-                                  )
-                                }
-                              >
-                                Editar
-                              </Button>{" "}
-                              <Button
-                                variant="outline-success"
-                                onClick={() =>
-                                  navigate(
-                                    `/admin/categorias/visualizar/${item.id}`
-                                  )
-                                }
-                              >
-                                Visualizar
-                              </Button>
-                              <Button
-                                variant="outline-danger"
-                                onClick={() => deletarCategoria(item.id)}
-                              >
-                                Deletar
-                              </Button>{" "}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : categorias &&
-                    categorias.map((i) => {
-                      return (
-                        <tr key={i.id}>
-                          <td>{i.nome}</td>
-                          <td className="tdbuttons">
-                            <div className="buttons">
-                              <Button
-                                variant="outline-primary"
-                                onClick={() =>
-                                  navigate(`/admin/categorias/editar/${i.id}`)
-                                }
-                              >
-                                Editar
-                              </Button>{" "}
-                              <Button
-                                variant="outline-success"
-                                onClick={() =>
-                                  navigate(
-                                    `/admin/categorias/visualizar/${i.id}`
-                                  )
-                                }
-                              >
-                                Visualizar
-                              </Button>
-                              <Button
-                                variant="outline-danger"
-                                onClick={() => deletarCategoria(i.id)}
-                              >
-                                Deletar
-                              </Button>{" "}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-              </tbody>
-            </Table>
-          </div>
-        </main>
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <div className="Form">
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <Form.Control
+                    aria-label="Text input with dropdown button"
+                    onChange={(e) => searchItems(e.target.value)}
+                    placeholder="Buscar Categoria"
+                  />
+                  {searchInput.length > 1
+                    ? filteredResults.map((item) => {
+                        return (
+                          <tr key={item.id}>
+                            <td>{item.nome}</td>
+                            <td className="tdbuttons">
+                              <div className="buttons">
+                                <Button
+                                  variant="outline-primary"
+                                  onClick={() =>
+                                    navigate(
+                                      `/admin/categorias/editar/${item.id}`
+                                    )
+                                  }
+                                >
+                                  Editar
+                                </Button>{" "}
+                                <Button
+                                  variant="outline-success"
+                                  onClick={() =>
+                                    navigate(
+                                      `/admin/categorias/visualizar/${item.id}`
+                                    )
+                                  }
+                                >
+                                  Visualizar
+                                </Button>
+                                <Button
+                                  variant="outline-danger"
+                                  onClick={() => deletarCategoria(item.id)}
+                                >
+                                  Deletar
+                                </Button>{" "}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : categorias &&
+                      categorias.map((i) => {
+                        return (
+                          <tr key={i.id}>
+                            <td>{i.nome}</td>
+                            <td className="tdbuttons">
+                              <div className="buttons">
+                                <Button
+                                  variant="outline-primary"
+                                  onClick={() =>
+                                    navigate(`/admin/categorias/editar/${i.id}`)
+                                  }
+                                >
+                                  Editar
+                                </Button>{" "}
+                                <Button
+                                  variant="outline-success"
+                                  onClick={() =>
+                                    navigate(
+                                      `/admin/categorias/visualizar/${i.id}`
+                                    )
+                                  }
+                                >
+                                  Visualizar
+                                </Button>
+                                <Button
+                                  variant="outline-danger"
+                                  onClick={() => deletarCategoria(i.id)}
+                                >
+                                  Deletar
+                                </Button>{" "}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                </tbody>
+              </Table>
+            </div>
+          </main>
+        </section>
       </S.Home>
     </section>
   );

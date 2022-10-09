@@ -66,27 +66,33 @@ function editarTag() {
   });
 
   return (
-    <section>
-      <Nav_Admin />
+    <> 
       <S.Editar>
         {stateView.validacao(status.type, status.mensagem)}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="nome">
-            <label htmlFor="nome">Nome :</label>
-            <input type="text" defaultValue={tag?.nome} {...register("nome")} />
-          </div>
-          <Button
-            color={"#ffff"}
-            width={"8"}
-            height={"3"}
-            fontSize={"20"}
-            backgroundColor={"#3a4ad9"}
-            text={"Editar"}
-            type="submit"
-          />
-        </form>
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="nome">
+                <label htmlFor="nome">Nome :</label>
+                <input type="text" defaultValue={tag?.nome} {...register("nome")} />
+              </div>
+              <Button
+                color={"#ffff"}
+                width={"8"}
+                height={"3"}
+                fontSize={"20"}
+                backgroundColor={"#3a4ad9"}
+                text={"Editar"}
+                type="submit"
+              />
+            </form>
+          </main>
+        </section>
       </S.Editar>
-    </section>
+    </>
   );
 }
 export default editarTag;

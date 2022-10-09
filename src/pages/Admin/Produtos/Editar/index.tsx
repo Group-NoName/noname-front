@@ -141,139 +141,143 @@ function editar() {
   });
 
   return (
-    <section>
-      <Nav_Admin />
-      {stateView.validacao(status.type, status.mensagem)}
-
+    <>
       <S.Editar>
-        <main>
-          <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
-          <div className="Form">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="nome">
-                <label htmlFor="nome">Nome</label>
-                <input
-                  type="text"
-                  defaultValue={produto?.nome}
-                  required
-                  {...register("nome")}
-                />
-              </div>
-              <div className="descricao">
-                <label htmlFor="descricao">Descrição</label>
-                <textarea
-                  {...register("descricao")}
-                  required
-                  defaultValue={produto?.descricao}
-                />
-              </div>
-              <div className="position">
-                <div className="imgs">
-                  <div className="img1">
-                    <label htmlFor="url">Img1</label>
-                    <input
-                      type="text"
-                      required
-                      defaultValue={produto?.images[0].url}
-                      {...register("images.0.url")}
-                    />
-                    {/*                                         <img src={produto?.images[0].url} alt="" /> */}
-                  </div>
-                  <div className="img2">
-                    <label htmlFor="url">Img2</label>
-                    <input
-                      type="text"
-                      required
-                      defaultValue={produto?.images[1].url}
-                      {...register("images.1.url")}
-                    />
-                    {/* <img src={produto?.images[1].url} alt="" /> */}
-                  </div>
-                  <div className="img3">
-                    <label htmlFor="url">Img3</label>
-                    <input
-                      type="text"
-                      required
-                      defaultValue={produto?.images[2].url}
-                      {...register("images.2.url")}
-                    />
-                    {/* <img src={produto?.images[2].url} alt="" /> */}
-                  </div>
-                </div>
-                <div className="preco">
-                  <label htmlFor="preco">Preço</label>
+        {stateView.validacao(status.type, status.mensagem)}
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
+            <div className="Form">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="nome">
+                  <label htmlFor="nome">Nome</label>
                   <input
-                    type="number"
-                    step="0.01"
+                    type="text"
+                    defaultValue={produto?.nome}
                     required
-                    {...register("preco")}
-                    defaultValue={produto?.preco}
-                  />
-                  <Button
-                    color={"#ffff"}
-                    width={"8"}
-                    height={"3"}
-                    fontSize={"20"}
-                    backgroundColor={"#3a4ad9"}
-                    text={"Editar"}
-                    type="submit"
+                    {...register("nome")}
                   />
                 </div>
-              </div>
+                <div className="descricao">
+                  <label htmlFor="descricao">Descrição</label>
+                  <textarea
+                    {...register("descricao")}
+                    required
+                    defaultValue={produto?.descricao}
+                  />
+                </div>
+                <div className="position">
+                  <div className="imgs">
+                    <div className="img1">
+                      <label htmlFor="url">Img1</label>
+                      <input
+                        type="text"
+                        required
+                        defaultValue={produto?.images[0].url}
+                        {...register("images.0.url")}
+                      />
+                      {/*                                         <img src={produto?.images[0].url} alt="" /> */}
+                    </div>
+                    <div className="img2">
+                      <label htmlFor="url">Img2</label>
+                      <input
+                        type="text"
+                        required
+                        defaultValue={produto?.images[1].url}
+                        {...register("images.1.url")}
+                      />
+                      {/* <img src={produto?.images[1].url} alt="" /> */}
+                    </div>
+                    <div className="img3">
+                      <label htmlFor="url">Img3</label>
+                      <input
+                        type="text"
+                        required
+                        defaultValue={produto?.images[2].url}
+                        {...register("images.2.url")}
+                      />
+                      {/* <img src={produto?.images[2].url} alt="" /> */}
+                    </div>
+                  </div>
+                  <div className="preco">
+                    <label htmlFor="preco">Preço</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      required
+                      {...register("preco")}
+                      defaultValue={produto?.preco}
+                    />
+                    <Button
+                      color={"#ffff"}
+                      width={"8"}
+                      height={"3"}
+                      fontSize={"20"}
+                      backgroundColor={"#3a4ad9"}
+                      text={"Editar"}
+                      type="submit"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+            <form className="formTags" onSubmit={handleSubmit(onSubmitTags)}>
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-custom-components">
+                  <>Adicionar Tags</>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Form.Control
+                    aria-label="Text input with dropdown button"
+                    onChange={(e) => searchItems(e.target.value)}
+                    placeholder="Nome da tag..."
+                  />
+                  {searchInput.length > 1
+                    ? filteredResults.map((item) => {
+                        return (
+                          <Dropdown.ItemText key={item.id}>
+                            <Form.Check
+                              key={item.id}
+                              label={item?.nome}
+                              value={item.id}
+                              {...register("tags.0.id")}
+                            />
+                          </Dropdown.ItemText>
+                        );
+                      })
+                    : tags &&
+                      tags.map((tags) => {
+                        return (
+                          <Dropdown.ItemText key={tags.id}>
+                            <Form.Check
+                              key={tags.id}
+                              label={tags?.nome}
+                              value={tags.id}
+                              {...register("tags.0.id")}
+                            />
+                          </Dropdown.ItemText>
+                        );
+                      })}
+                </Dropdown.Menu>
+              </Dropdown>
+              <Button
+                color={"#ffff"}
+                width={"8"}
+                height={"3"}
+                fontSize={"20"}
+                backgroundColor={"#3a4ad9"}
+                text={"Adicionar tags"}
+                type="submit"
+              />
             </form>
-          </div>
-          <form className="formTags" onSubmit={handleSubmit(onSubmitTags)}>
-            <Dropdown>
-              <Dropdown.Toggle id="dropdown-custom-components">
-                <>Adicionar Tags</>
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Form.Control
-                  aria-label="Text input with dropdown button"
-                  onChange={(e) => searchItems(e.target.value)}
-                  placeholder="Nome da tag..."
-                />
-                {searchInput.length > 1
-                  ? filteredResults.map((item) => {
-                      return (
-                        <Dropdown.ItemText key={item.id}>
-                          <Form.Check
-                            key={item.id}
-                            label={item?.nome}
-                            value={item.id}
-                            {...register("tags.0.id")}
-                          />
-                        </Dropdown.ItemText>
-                      );
-                    })
-                  : tags &&
-                    tags.map((tags) => {
-                      return (
-                        <Dropdown.ItemText key={tags.id}>
-                          <Form.Check
-                            key={tags.id}
-                            label={tags?.nome}
-                            value={tags.id}
-                            {...register("tags.0.id")}
-                          />
-                        </Dropdown.ItemText>
-                      );
-                    })}
-              </Dropdown.Menu>
-            </Dropdown>
-            <Button
-              color={"#ffff"}
-              width={"8"}
-              height={"3"}
-              fontSize={"20"}
-              backgroundColor={"#3a4ad9"}
-              text={"Adicionar tags"}
-              type="submit"
-            />
-          </form>
-        </main>
+          </main>
+        </section>
+        
       </S.Editar>
-    </section>
+    </>
   );
 }
 export default editar;

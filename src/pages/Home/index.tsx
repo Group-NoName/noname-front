@@ -33,61 +33,74 @@ function Home() {
 
   return (
     <>
-      <Nav_ />
       <S.Container>
-        {categorias &&
-          categorias.map((itemCategoria) => {
-            if (itemCategoria.produtos.length > 0) {
-              return (
-                <>
-                  <div className="listCategorias">
-                    <h1>{itemCategoria.nome}</h1>
-                    <div className="produtosmap">
-                      {itemCategoria.produtos.map((i) => {
-                        if (i?.desconto === 0) {
-                          return (
-                            <div className="disposicaoItem">
-                              <CardProds
-                                imageURL={`${i?.images[0].url}`}
-                                name={`${i?.nome}`}
-                                produtoID={`${i?.id}`}
-                                preco={i?.preco}
-                              />
-                            </div>
-                          );
-                        } else {
-                          return (
-                            <div className="disposicaoItem">
-                              <CardProds
-                                imageURL={`${i?.images[0].url}`}
-                                name={`${i?.nome}`}
-                                produtoID={`${i?.id}`}
-                                preco={i?.desconto?.toFixed(2)}
-                              />
-                            </div>
-                          );
-                        }
-                      })}
-                    </div>
-                  </div>
-                </>
-              );
-            }
-          })}
-        {/* DEIXAR OS CARDS DO PACOTE DO LADO DIREITO DAS CATEGORIAS */}
-        <div className="listpacotes">
-          {pacotes &&
-            pacotes.map((i) => {
-              return (
-                <CardPacote
-                  imageURL={`${i?.images[0].url}`}
-                  name={`${i?.nome}`}
-                  pacoteID={`${i?.id}`}
-                  preco={i?.preco}
-                />
-              );
-            })}
-        </div>
+        <section>
+          <header>
+            <Nav_/>
+          </header>
+          <main>
+            <div className="categorias">
+              {categorias &&
+                categorias.map((itemCategoria) => {
+                  if (itemCategoria.produtos.length > 0) {
+                    return (
+                      <>
+                        <div className="listCategorias">
+                          <h1>Categoria: {itemCategoria.nome}</h1>
+                          <div className="produtosmap">
+                            {itemCategoria.produtos.map((i) => {
+                              if (i?.desconto === 0) {
+                                return (
+                                  <div className="disposicaoItem">
+                                    <CardProds
+                                      imageURL={`${i?.images[0].url}`}
+                                      name={`${i?.nome}`}
+                                      produtoID={`${i?.id}`}
+                                      preco={i?.preco}
+                                    />
+                                  </div>
+                                );
+                              } else {
+                                return (
+                                  <div className="disposicaoItem">
+                                    <CardProds
+                                      imageURL={`${i?.images[0].url}`}
+                                      name={`${i?.nome}`}
+                                      produtoID={`${i?.id}`}
+                                      preco={i?.desconto?.toFixed(2)}
+                                    />
+                                  </div>
+                                );
+                              }
+                            })}
+                          </div>
+                        </div>
+                      </>
+                    );
+                  }
+                })}
+            </div>
+            {/* DEIXAR OS CARDS DO PACOTE DO LADO DIREITO DAS CATEGORIAS */}
+            <div className="pacotes">
+              <div className="listpacotes">
+                <h1>Pacotes</h1>
+                {pacotes &&
+                  pacotes.map((i) => {
+                    return (
+                      <div className="pacote">
+                        <CardPacote
+                          imageURL={`${i?.images[0].url}`}
+                          name={`${i?.nome}`}
+                          pacoteID={`${i?.id}`}
+                          preco={i?.preco}
+                        />
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </main>
+        </section>
       </S.Container>
     </>
   );

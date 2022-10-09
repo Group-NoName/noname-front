@@ -54,35 +54,39 @@ function cadastroTag() {
   });
 
   return (
-    <section>
-      <Nav_Admin />
+    <>
       <S.Cadastro>
         {stateView.validacao(status.type, status.mensagem)}
-        <main>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="nome">
-              <label htmlFor="nome">Nome</label>
-              <input
-                type="text"
-                value={tag?.nome}
-                required
-                placeholder="Tag X"
-                {...register("nome")}
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="nome">
+                <label htmlFor="nome">Nome</label>
+                <input
+                  type="text"
+                  value={tag?.nome}
+                  required
+                  placeholder="Tag X"
+                  {...register("nome")}
+                />
+              </div>
+              <Button
+                color={"#ffff"}
+                width={"8"}
+                height={"3"}
+                fontSize={"20"}
+                backgroundColor={"#3a4ad9"}
+                text={"Cadastrar"}
+                type="submit"
               />
-            </div>
-            <Button
-              color={"#ffff"}
-              width={"8"}
-              height={"3"}
-              fontSize={"20"}
-              backgroundColor={"#3a4ad9"}
-              text={"Cadastrar"}
-              type="submit"
-            />
-          </form>
-        </main>
+            </form>
+          </main>
+        </section>
       </S.Cadastro>
-    </section>
+    </>
   );
 }
 export default cadastroTag;

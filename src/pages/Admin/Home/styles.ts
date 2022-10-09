@@ -2,10 +2,21 @@ import styled from "@emotion/styled";
 
 export const Home = styled.div`
 
-main{
-    display: flex;
-    height: 100%;
+section{
+    header{
+        z-index: 100;
+        width: 100vw;
+        top: 0;
+        position: fixed;
+    }
+
+    main{
+        margin-top: 4em;
+        display: flex;
+        height: 100%;
+    }
 }
+
 .Cards{
     height: 100%;
     display: flex;

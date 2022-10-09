@@ -70,125 +70,128 @@ function Home() {
   }, []);
 
   return (
-    <section>
-      <Nav_Admin />
+    <>
+      <S.Home>
       {statesView.validacao(location?.state?.status, location?.state?.data)}
       {statesView.validacao(status.type, status.mensagem)}
-
-      <S.Home>
-        <main>
-          <div className="Form">
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Preço</th>
-                  <th>Desconto</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                <Form.Control
-                  aria-label="Text input with dropdown button"
-                  onChange={(e) => searchItems(e.target.value)}
-                  placeholder="Buscar Produto"
-                />
-                {searchInput.length > 1
-                  ? filteredResults.map((item) => {
-                      return (
-                        <tr key={item.id}>
-                          <td>{item.nome}</td>
-                          <td>{item.preco}</td>
-                          <td>
-                            {item.desconto === 0 ? (
-                              <p style={{ color: "green " }}>Sem desconto</p>
-                            ) : (
-                              <p style={{ color: "red", fontWeight: "bold" }}>
-                                R${item.desconto.toFixed(2)}
-                              </p>
-                            )}
-                          </td>
-                          <td className="tdbuttons">
-                            <div className="buttons">
-                              <Button
-                                variant="outline-primary"
-                                onClick={() =>
-                                  navigate(`/admin/produtos/editar/${item.id}`)
-                                }
-                              >
-                                Editar
-                              </Button>{" "}
-                              <Button
-                                variant="outline-success"
-                                onClick={() =>
-                                  navigate(
-                                    `/admin/produtos/visualizar/${item.id}`
-                                  )
-                                }
-                              >
-                                Visualizar
-                              </Button>
-                              <Button
-                                variant="outline-danger"
-                                onClick={() => deleteProduto(item.id)}
-                              >
-                                Deletar
-                              </Button>{" "}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : produtos &&
-                    produtos.map((i) => {
-                      return (
-                        <tr key={i.id}>
-                          <td>{i.nome}</td>
-                          <td>R${i.preco}</td>
-                          <td>
-                            {i.desconto === 0 ? (
-                              <p style={{ color: "green " }}>Sem desconto</p>
-                            ) : (
-                              <p style={{ color: "red", fontWeight: "bold" }}>
-                                R${i.desconto.toFixed(2)}
-                              </p>
-                            )}
-                          </td>
-                          <td className="tdbuttons">
-                            <div className="buttons">
-                              <Button
-                                variant="outline-primary"
-                                onClick={() =>
-                                  navigate(`/admin/produtos/editar/${i.id}`)
-                                }
-                              >
-                                Editar
-                              </Button>{" "}
-                              <Button
-                                variant="outline-success"
-                                onClick={() =>
-                                  navigate(`/admin/produtos/visualizar/${i.id}`)
-                                }
-                              >
-                                Visualizar
-                              </Button>
-                              <Button
-                                variant="outline-danger"
-                                onClick={() => deleteProduto(i.id)}
-                              >
-                                Deletar
-                              </Button>{" "}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-              </tbody>
-            </Table>
-          </div>
-        </main>
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <div className="Form">
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Desconto</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <Form.Control
+                    aria-label="Text input with dropdown button"
+                    onChange={(e) => searchItems(e.target.value)}
+                    placeholder="Buscar Produto"
+                  />
+                  {searchInput.length > 1
+                    ? filteredResults.map((item) => {
+                        return (
+                          <tr key={item.id}>
+                            <td>{item.nome}</td>
+                            <td>{item.preco}</td>
+                            <td>
+                              {item.desconto === 0 ? (
+                                <p style={{ color: "green " }}>Sem desconto</p>
+                              ) : (
+                                <p style={{ color: "red", fontWeight: "bold" }}>
+                                  R${item.desconto.toFixed(2)}
+                                </p>
+                              )}
+                            </td>
+                            <td className="tdbuttons">
+                              <div className="buttons">
+                                <Button
+                                  variant="outline-primary"
+                                  onClick={() =>
+                                    navigate(`/admin/produtos/editar/${item.id}`)
+                                  }
+                                >
+                                  Editar
+                                </Button>{" "}
+                                <Button
+                                  variant="outline-success"
+                                  onClick={() =>
+                                    navigate(
+                                      `/admin/produtos/visualizar/${item.id}`
+                                    )
+                                  }
+                                >
+                                  Visualizar
+                                </Button>
+                                <Button
+                                  variant="outline-danger"
+                                  onClick={() => deleteProduto(item.id)}
+                                >
+                                  Deletar
+                                </Button>{" "}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : produtos &&
+                      produtos.map((i) => {
+                        return (
+                          <tr key={i.id}>
+                            <td>{i.nome}</td>
+                            <td>R${i.preco}</td>
+                            <td>
+                              {i.desconto === 0 ? (
+                                <p style={{ color: "green " }}>Sem desconto</p>
+                              ) : (
+                                <p style={{ color: "red", fontWeight: "bold" }}>
+                                  R${i.desconto.toFixed(2)}
+                                </p>
+                              )}
+                            </td>
+                            <td className="tdbuttons">
+                              <div className="buttons">
+                                <Button
+                                  variant="outline-primary"
+                                  onClick={() =>
+                                    navigate(`/admin/produtos/editar/${i.id}`)
+                                  }
+                                >
+                                  Editar
+                                </Button>{" "}
+                                <Button
+                                  variant="outline-success"
+                                  onClick={() =>
+                                    navigate(`/admin/produtos/visualizar/${i.id}`)
+                                  }
+                                >
+                                  Visualizar
+                                </Button>
+                                <Button
+                                  variant="outline-danger"
+                                  onClick={() => deleteProduto(i.id)}
+                                >
+                                  Deletar
+                                </Button>{" "}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                </tbody>
+              </Table>
+            </div>
+          </main>
+        </section>  
       </S.Home>
-    </section>
+    </>
   );
 }
 export default Home;

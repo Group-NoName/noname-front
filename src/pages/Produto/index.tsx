@@ -38,77 +38,83 @@ function Produto() {
 
   return (
     <>
-      <Nav_ />
       <S.Container>
-        <div className='produtoContent'>
-          <div className='imgLateral'>
-            {produto?.images.map(i => {
-              return (
-                <>
-                  <div className="imgsLateral">
-                    <div className="imgs">
-                      <img className='tamanho' src={`${i.url}`} alt="" />
+        <section>
+          <header>
+            <Nav_ />
+          </header>
+          <main>
+            <div className='produtoContent'>
+              <div className='imgLateral'>
+                {produto?.images.map(i => {
+                  return (
+                    <>
+                      <div className="imgsLateral">
+                        <div className="imgs">
+                          <img className='tamanho' src={`${i.url}`} alt="" />
+                        </div>
+                      </div>
+                    </>)
+                })}
+              </div>
+              <div className='imgCentral'>
+                <div className="posicao">
+                  <img className='tamanho' src={produto?.images[0].url} alt="" />
+                </div>
+              </div>
+              <div className='produtoInformation'>
+                <div className='produtoDescricao'>
+                  <div className="nome">
+                    <h1>{produto?.nome}</h1>
+                  </div>
+                  <div className="desc">
+                    <p>{produto?.descricao}</p>
+                  </div>
+                  <div className='produtoPrice'>
+                    <div className='price'>
+                      {validador.validar(produto)}
+                    </div>
+                    <div className='produtopricebuttom'>
+                      <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Comprar'} />
                     </div>
                   </div>
-                </>)
-            })}
-          </div>
-          <div className='imgCentral'>
-            <div className="posicao">
-              <img className='tamanho' src={produto?.images[0].url} alt="" />
-            </div>
-          </div>
-          <div className='produtoInformation'>
-            <div className='produtoDescricao'>
-              <div className="nome">
-                <h1>{produto?.nome}</h1>
-              </div>
-              <div className="desc">
-                <p>{produto?.descricao}</p>
-              </div>
-              <div className='produtoPrice'>
-                <div className='price'>
-                  {validador.validar(produto)}
-                </div>
-                <div className='produtopricebuttom'>
-                  <Button color={'#ffff'} width={'8'} height={'3'} fontSize={'20'} backgroundColor={'#3a4ad9'} text={'Comprar'} />
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div className='produtosLists'>
-          <div className='produtosAdicionais'>
-            <h2>Produtos Semelhantes</h2>
-            <div className="cards">
-              {produtosTag && produtosTag.map(i => {
-                if (!(i.tags.length == 0)) {
-                  if (i.id != id) {
+            <div className='produtosLists'>
+              <div className='produtosAdicionais'>
+                <h2>Produtos Semelhantes</h2>
+                <div className="cards">
+                  {produtosTag && produtosTag.map(i => {
+                    if (!(i.tags.length == 0)) {
+                      if (i.id != id) {
+                        return (
+                          <>
+                            <div className="card" key={i.id}>
+                              <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+                            </div>
+                          </>
+                        )
+                      }
+                    }
+                  })}
+                </div>
+              </div>
+              <div className='produtosRelacionados'>
+                <h2>Produtos Relacionados</h2>
+                <div className='posicao'>
+                  {produtos && produtos.map(i => {
                     return (
-                      <>
-                        <div className="card" key={i.id}>
-                          <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
-                        </div>
-                      </>
+                      <div key={i.id}>
+                        <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+                      </div>
                     )
-                  }
-                }
-              })}
+                  })}
+                </div>
+              </div>
             </div>
-          </div>
-          <div className='produtosRelacionados'>
-            <h2>Produtos Relacionados</h2>
-            <div className='posicao'>
-              {produtos && produtos.map(i => {
-                return (
-                  <div key={i.id}>
-                    <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div>
+          </main>
+        </section>
       </S.Container>
     </>
   )

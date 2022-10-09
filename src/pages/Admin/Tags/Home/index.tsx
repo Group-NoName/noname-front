@@ -59,100 +59,104 @@ function homeTag() {
   }, []);
 
   return (
-    <section>
-      <Nav_Admin />
-      {stateView.validacao(status.type, status.mensagem)}
-      {stateView.validacao(location.state?.status, location.state?.data)}
+    <>
       <S.Home>
-        <main>
-          <div className="Form">
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                <Form.Control
-                  aria-label="Text input with dropdown button"
-                  onChange={(e) => searchItems(e.target.value)}
-                  placeholder="Buscar Tag"
-                />
-                {searchInput.length > 1
-                  ? filteredResults.map((item) => {
-                      return (
-                        <tr key={item.id}>
-                          <td>{item.nome}</td>
-                          <td className="tdbuttons">
-                            <div className="buttons">
-                              <Button
-                                variant="outline-primary"
-                                onClick={() =>
-                                  navigate(`/admin/tags/editar/${item.id}`)
-                                }
-                              >
-                                Editar
-                              </Button>{" "}
-                              <Button
-                                variant="outline-success"
-                                onClick={() =>
-                                  navigate(`/admin/tags/visualizar/${item.id}`)
-                                }
-                              >
-                                Visualizar
-                              </Button>
-                              <Button
-                                variant="outline-danger"
-                                onClick={() => deleteTags(item.id)}
-                              >
-                                Deletar
-                              </Button>{" "}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : tags &&
-                    tags.map((i) => {
-                      return (
-                        <tr key={i.id}>
-                          <td>{i.nome}</td>
-                          <td className="tdbuttons">
-                            <div className="buttons">
-                              <Button
-                                variant="outline-primary"
-                                onClick={() =>
-                                  navigate(`/admin/tags/editar/${i.id}`)
-                                }
-                              >
-                                Editar
-                              </Button>{" "}
-                              <Button
-                                variant="outline-success"
-                                onClick={() =>
-                                  navigate(`/admin/tags/visualizar/${i.id}`)
-                                }
-                              >
-                                Visualizar
-                              </Button>
-                              <Button
-                                variant="outline-danger"
-                                onClick={() => deleteTags(i.id)}
-                              >
-                                Deletar
-                              </Button>{" "}
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-              </tbody>
-            </Table>
-          </div>
-        </main>
+        {stateView.validacao(status.type, status.mensagem)}
+        {stateView.validacao(location.state?.status, location.state?.data)}
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <div className="Form">
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <Form.Control
+                    aria-label="Text input with dropdown button"
+                    onChange={(e) => searchItems(e.target.value)}
+                    placeholder="Buscar Tag"
+                  />
+                  {searchInput.length > 1
+                    ? filteredResults.map((item) => {
+                        return (
+                          <tr key={item.id}>
+                            <td>{item.nome}</td>
+                            <td className="tdbuttons">
+                              <div className="buttons">
+                                <Button
+                                  variant="outline-primary"
+                                  onClick={() =>
+                                    navigate(`/admin/tags/editar/${item.id}`)
+                                  }
+                                >
+                                  Editar
+                                </Button>{" "}
+                                <Button
+                                  variant="outline-success"
+                                  onClick={() =>
+                                    navigate(`/admin/tags/visualizar/${item.id}`)
+                                  }
+                                >
+                                  Visualizar
+                                </Button>
+                                <Button
+                                  variant="outline-danger"
+                                  onClick={() => deleteTags(item.id)}
+                                >
+                                  Deletar
+                                </Button>{" "}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : tags &&
+                      tags.map((i) => {
+                        return (
+                          <tr key={i.id}>
+                            <td>{i.nome}</td>
+                            <td className="tdbuttons">
+                              <div className="buttons">
+                                <Button
+                                  variant="outline-primary"
+                                  onClick={() =>
+                                    navigate(`/admin/tags/editar/${i.id}`)
+                                  }
+                                >
+                                  Editar
+                                </Button>{" "}
+                                <Button
+                                  variant="outline-success"
+                                  onClick={() =>
+                                    navigate(`/admin/tags/visualizar/${i.id}`)
+                                  }
+                                >
+                                  Visualizar
+                                </Button>
+                                <Button
+                                  variant="outline-danger"
+                                  onClick={() => deleteTags(i.id)}
+                                >
+                                  Deletar
+                                </Button>{" "}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                </tbody>
+              </Table>
+            </div>
+          </main>
+        </section>
       </S.Home>
-    </section>
+    </>
   );
 }
 export default homeTag;

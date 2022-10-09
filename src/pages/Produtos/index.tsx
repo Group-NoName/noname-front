@@ -22,25 +22,31 @@ function Produtos() {
 
     return (
         <>
-            <Nav_ />
             <S.Container>
-                <div className="produtos">
-                    <h1>Produtos</h1>
-                    <div className="produtosmap">
-                        {produtos && produtos.map(i => {
-                            if (i.desconto == 0) {
-                                return (
-                                    <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
-                                )
-                            }
-                            else {
-                                return (
-                                    <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={String(i.desconto.toFixed(2))} />
-                                )
-                            }
-                        })}
-                    </div>
-                </div>
+                <section>
+                    <header>
+                        <Nav_ />
+                    </header>
+                    <main>
+                        <div className="produtos">
+                            <h1>Produtos</h1>
+                            <div className="produtosmap">
+                                {produtos && produtos.map(i => {
+                                    if (i.desconto == 0) {
+                                        return (
+                                            <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+                                        )
+                                    }
+                                    else {
+                                        return (
+                                            <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={String(i.desconto.toFixed(2))} />
+                                        )
+                                    }
+                                })}
+                            </div>
+                        </div>
+                    </main>
+                </section>
             </S.Container>
         </>
     )

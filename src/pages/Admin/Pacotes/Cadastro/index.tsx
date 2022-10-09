@@ -104,118 +104,122 @@ function cadastro() {
   });
 
   return (
-    <section>
-      <Nav_Admin />
-      {stateView.validacao(status.type, status.mensagem)}
+    <>
       <S.Cadastro>
-        <main>
-          <div className="Form">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="nome">
-                <label htmlFor="nome">Nome</label>
-                <input
-                  type="text"
-                  placeholder="Pacote X"
-                  {...register("nome")}
-                />
-              </div>
-              <div className="descricao">
-                <label htmlFor="descricao">Descrição</label>
-                <textarea
-                  {...register("descricao")}
-                  placeholder="Descrição que o pacote irá ter"
-                />
-              </div>
-              <div className="position">
-                <div className="imgs">
-                  <div className="img1">
-                    <label htmlFor="url">Img1</label>
-                    <input
-                      {...register("images.0.url")}
-                      type="text"
-                      placeholder="https://exemple.com/image1.jpg"
-                    />
-                  </div>
-                  <div className="img2">
-                    <label htmlFor="url">Img2</label>
-                    <input
-                      {...register("images.1.url")}
-                      type="text"
-                      placeholder="https://exemple.com/image2.jpg"
-                    />
-                  </div>
-                  <div className="img3">
-                    <label htmlFor="url">Img3</label>
-                    <input
-                      {...register("images.2.url")}
-                      type="text"
-                      placeholder="https://exemple.com/image3.jpg"
-                    />
-                  </div>
+        {stateView.validacao(status.type, status.mensagem)}
+        <section>
+          <header>
+            <Nav_Admin />
+          </header>
+          <main>
+            <div className="Form">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="nome">
+                  <label htmlFor="nome">Nome</label>
+                  <input
+                    type="text"
+                    placeholder="Pacote X"
+                    {...register("nome")}
+                  />
                 </div>
-                <div className="produtos">
-                  <Dropdown>
-                    <Dropdown.Toggle id="dropdown-custom-components">
-                      <>Adicionar produtos</>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Form.Control
-                        aria-label="Text input with dropdown button"
-                        onChange={(e) => searchItems(e.target.value)}
-                        placeholder="Nome do produto..."
+                <div className="descricao">
+                  <label htmlFor="descricao">Descrição</label>
+                  <textarea
+                    {...register("descricao")}
+                    placeholder="Descrição que o pacote irá ter"
+                  />
+                </div>
+                <div className="position">
+                  <div className="imgs">
+                    <div className="img1">
+                      <label htmlFor="url">Img1</label>
+                      <input
+                        {...register("images.0.url")}
+                        type="text"
+                        placeholder="https://exemple.com/image1.jpg"
                       />
-                      {searchInput.length > 1
-                        ? filteredResults.map((item) => {
-                            return (
-                              <Dropdown.ItemText key={item.id}>
-                                <Form.Check
-                                  key={item.id}
-                                  label={item?.nome}
-                                  value={item.id}
-                                  {...register("produtos.0.id")}
-                                />
-                              </Dropdown.ItemText>
-                            );
-                          })
-                        : produtos &&
-                          produtos.map((prod) => {
-                            return (
-                              <Dropdown.ItemText key={prod.id}>
-                                <Form.Check
-                                  key={prod.id}
-                                  label={prod?.nome}
-                                  value={prod.id}
-                                  {...register("produtos.0.id")}
-                                />
-                              </Dropdown.ItemText>
-                            );
-                          })}
-                    </Dropdown.Menu>
-                  </Dropdown>
+                    </div>
+                    <div className="img2">
+                      <label htmlFor="url">Img2</label>
+                      <input
+                        {...register("images.1.url")}
+                        type="text"
+                        placeholder="https://exemple.com/image2.jpg"
+                      />
+                    </div>
+                    <div className="img3">
+                      <label htmlFor="url">Img3</label>
+                      <input
+                        {...register("images.2.url")}
+                        type="text"
+                        placeholder="https://exemple.com/image3.jpg"
+                      />
+                    </div>
+                  </div>
+                  <div className="produtos">
+                    <Dropdown>
+                      <Dropdown.Toggle id="dropdown-custom-components">
+                        <>Adicionar produtos</>
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Form.Control
+                          aria-label="Text input with dropdown button"
+                          onChange={(e) => searchItems(e.target.value)}
+                          placeholder="Nome do produto..."
+                        />
+                        {searchInput.length > 1
+                          ? filteredResults.map((item) => {
+                              return (
+                                <Dropdown.ItemText key={item.id}>
+                                  <Form.Check
+                                    key={item.id}
+                                    label={item?.nome}
+                                    value={item.id}
+                                    {...register("produtos.0.id")}
+                                  />
+                                </Dropdown.ItemText>
+                              );
+                            })
+                          : produtos &&
+                            produtos.map((prod) => {
+                              return (
+                                <Dropdown.ItemText key={prod.id}>
+                                  <Form.Check
+                                    key={prod.id}
+                                    label={prod?.nome}
+                                    value={prod.id}
+                                    {...register("produtos.0.id")}
+                                  />
+                                </Dropdown.ItemText>
+                              );
+                            })}
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
                 </div>
-              </div>
-              <div className="preço">
-                <label htmlFor="preco">Preço</label>
-                <input
-                  {...register("preco")}
-                  type="number"
-                  placeholder="R$ 00.00"
-                />
-                <Button
-                  color={"#ffff"}
-                  width={"8"}
-                  height={"3"}
-                  fontSize={"20"}
-                  backgroundColor={"#3a4ad9"}
-                  text={"Cadastrar"}
-                  type="submit"
-                />
-              </div>
-            </form>
-          </div>
-        </main>
+                <div className="preço">
+                  <label htmlFor="preco">Preço</label>
+                  <input
+                    {...register("preco")}
+                    type="number"
+                    placeholder="R$ 00.00"
+                  />
+                  <Button
+                    color={"#ffff"}
+                    width={"8"}
+                    height={"3"}
+                    fontSize={"20"}
+                    backgroundColor={"#3a4ad9"}
+                    text={"Cadastrar"}
+                    type="submit"
+                  />
+                </div>
+              </form>
+            </div>
+          </main>
+        </section>
       </S.Cadastro>
-    </section>
+    </>
   );
 }
 export default cadastro;

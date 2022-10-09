@@ -92,69 +92,73 @@ function Cadastro() {
   }
 
   return (
-    <section>
-      <Nav_Admin />
+    <>
       <S.Cadastro>
-        <main>
-          {stateView.validacao(status.type, status.mensagem)}
-          <div className="contentMain">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="porcentagem">
-                <label htmlFor="nomeCategoria">Porcentagem</label>
-                <input required {...register("desconto")} type="number" />
-              </div>
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-custom-components">
-                  <>Adicionar produtos</>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Form.Control
-                    aria-label="Text input with dropdown button"
-                    onChange={(e) => searchItems(e.target.value)}
-                    placeholder="Nome do produto..."
-                  />
-                  {searchInput.length > 1
-                    ? filteredResults.map((item) => {
-                        return (
-                          <Dropdown.ItemText key={item.id}>
-                            <Form.Check
-                              key={item.id}
-                              label={item?.nome}
-                              value={item.id}
-                              {...register("produtos.0.id")}
-                            />
-                          </Dropdown.ItemText>
-                        );
-                      })
-                    : produtos &&
-                      produtos.map((prod) => {
-                        return (
-                          <Dropdown.ItemText key={prod.id}>
-                            <Form.Check
-                              key={prod.id}
-                              label={prod?.nome}
-                              value={prod.id}
-                              {...register("produtos.0.id")}
-                            />
-                          </Dropdown.ItemText>
-                        );
-                      })}
-                </Dropdown.Menu>
-              </Dropdown>
-              <Button
-                color={"#ffff"}
-                width={"8"}
-                height={"3"}
-                fontSize={"20"}
-                backgroundColor={"#3a4ad9"}
-                text={"Cadastrar"}
-                type="submit"
-              />
-            </form>
-          </div>
-        </main>
+        <section>
+          <header>
+            <Nav_Admin /> 
+          </header>
+          <main>
+            {stateView.validacao(status.type, status.mensagem)}
+            <div className="contentMain">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="porcentagem">
+                  <label htmlFor="nomeCategoria">Porcentagem</label>
+                  <input required {...register("desconto")} type="number" />
+                </div>
+                <Dropdown>
+                  <Dropdown.Toggle id="dropdown-custom-components">
+                    <>Adicionar produtos</>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Form.Control
+                      aria-label="Text input with dropdown button"
+                      onChange={(e) => searchItems(e.target.value)}
+                      placeholder="Nome do produto..."
+                    />
+                    {searchInput.length > 1
+                      ? filteredResults.map((item) => {
+                          return (
+                            <Dropdown.ItemText key={item.id}>
+                              <Form.Check
+                                key={item.id}
+                                label={item?.nome}
+                                value={item.id}
+                                {...register("produtos.0.id")}
+                              />
+                            </Dropdown.ItemText>
+                          );
+                        })
+                      : produtos &&
+                        produtos.map((prod) => {
+                          return (
+                            <Dropdown.ItemText key={prod.id}>
+                              <Form.Check
+                                key={prod.id}
+                                label={prod?.nome}
+                                value={prod.id}
+                                {...register("produtos.0.id")}
+                              />
+                            </Dropdown.ItemText>
+                          );
+                        })}
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Button
+                  color={"#ffff"}
+                  width={"8"}
+                  height={"3"}
+                  fontSize={"20"}
+                  backgroundColor={"#3a4ad9"}
+                  text={"Cadastrar"}
+                  type="submit"
+                />
+              </form>
+            </div>
+          </main>
+        </section>
       </S.Cadastro>
-    </section>
+    </>
   );
 }
 
