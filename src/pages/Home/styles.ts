@@ -39,7 +39,6 @@ export const Container = styled(Flex)`
             .produtosmap{
                 margin: auto;
                 display: flex ;
-                justify-content: center;
                 align-items: center;
                 overflow-x: scroll;
                 width: 100%;
@@ -47,6 +46,7 @@ export const Container = styled(Flex)`
                 gap: 1vw;
     
                 .disposicaoItem{
+                  
                 }
             }
             
