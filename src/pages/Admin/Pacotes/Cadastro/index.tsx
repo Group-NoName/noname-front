@@ -144,15 +144,6 @@ function cadastro() {
                         type="number"
                         placeholder="R$ 00.00"
                       />
-                      <Button
-                        color={"#ffff"}
-                        width={"8"}
-                        height={"3"}
-                        fontSize={"20"}
-                        backgroundColor={"#3a4ad9"}
-                        text={"Cadastrar"}
-                        type="submit"
-                      />
                     </div>
                   </div>
                   

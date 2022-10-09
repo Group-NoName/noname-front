@@ -123,8 +123,7 @@ function visualizar() {
                     return <h1></h1>;
                   } else {
                     return (
-                      <>
-                        <div className="produto">
+                        <div className="produto" key={item.id}>
                           <p>{item?.nome}</p>
                           <div className="buttons">
                             <Button
@@ -143,7 +142,6 @@ function visualizar() {
                             </Link>
                           </div>
                         </div>
-                      </>
                     );
                   }
                 })}
