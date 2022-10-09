@@ -42,4 +42,29 @@ section{
     }
 }
 
+.produtosSearch{
+    margin-top: 15px;
+    display: flex;
+    width: 100%;
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid;
+    border-radius: 15px;
+    
+
+    .checkform{
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        justify-content: left;
+        align-items: left;
+
+        .check{
+            display: flex;
+            left: 0;
+            float: left;
+        }
+    }
+}
+
 `

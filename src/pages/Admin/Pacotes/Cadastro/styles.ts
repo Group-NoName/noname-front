@@ -43,6 +43,8 @@ export const Cadastro = styled.div`
         margin-top: 10px;
         display: flex;
         flex-direction: row;
+        gap: 20px;
+
         .imgs{      
             width: 25vw;
             height: 30vh;
@@ -53,14 +55,25 @@ export const Cadastro = styled.div`
                 flex-direction: column;
             }
         }
-        .produtos{
-            display: flex;
-            flex-direction: column;
-            margin: 20px auto;
-            gap: 12px;
-            input{
-                width: 15vw;
-            }
+    }
+    
+    .produtos{
+        padding: 1em;
+        border: 1px solid;
+        border-radius: 15px;
+        width: 100%;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        margin: 20px auto;
+        gap: 12px;
+        overflow-y: scroll;
+        input{
+            width: 25px;
+        }
+
+        .search{
+            width: 300px;
         }
     }
 
