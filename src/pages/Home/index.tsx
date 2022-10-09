@@ -10,12 +10,13 @@ import Carousel from "react-bootstrap/Carousel";
 import ICategoria from "../../interfaces/categoria";
 import CardPacote from "../../components/CardPacote";
 import Ipacote from "../../interfaces/pacote";
+import PrecoValidador from "../../validators/precoValidador";
 
 function Home() {
   useEffect(() => {
     getAllCategoria(), getAllPacote();
   });
-
+  const validacaoPreco = new PrecoValidador();
   const [categorias, setCategoria] = useState<ICategoria[]>([]);
   const [pacotes, setpacote] = useState<Ipacote[]>([]);
 
@@ -36,7 +37,7 @@ function Home() {
       <S.Container>
         <section>
           <header>
-            <Nav_/>
+            <Nav_ />
           </header>
           <main>
             <div className="categorias">
@@ -45,33 +46,21 @@ function Home() {
                   if (itemCategoria.produtos.length > 0) {
                     return (
                       <div key={itemCategoria.id}>
-                        <div className="listCategorias" >
+                        <div className="listCategorias">
                           <h1>Categoria: {itemCategoria.nome}</h1>
                           <div className="produtosmap">
                             {itemCategoria.produtos.map((i) => {
-                              if (i?.desconto === 0) {
-                                return (
-                                  <div className="disposicaoItem" key={i.id}>
-                                    <CardProds
-                                      imageURL={`${i?.images[0].url}`}
-                                      name={`${i?.nome}`}
-                                      produtoID={`${i?.id}`}
-                                      preco={i?.preco}
-                                    />
-                                  </div>
-                                );
-                              } else {
-                                return (
-                                  <div className="disposicaoItem" key={i.id}>
-                                    <CardProds
-                                      imageURL={`${i?.images[0].url}`}
-                                      name={`${i?.nome}`}
-                                      produtoID={`${i?.id}`}
-                                      preco={i?.desconto?.toFixed(2)}
-                                    />
-                                  </div>
-                                );
-                              }
+                              return (
+                                <div className="disposicaoItem" key={i.id}>
+                                  <CardProds
+                                    imageURL={`${i?.images[0].url}`}
+                                    name={`${i?.nome}`}
+                                    produtoID={`${i?.id}`}
+                                    preco={i?.preco}
+                                    produtos={i}
+                                  />
+                                </div>
+                              );
                             })}
                           </div>
                         </div>
