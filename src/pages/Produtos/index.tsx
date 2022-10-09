@@ -34,12 +34,12 @@ function Produtos() {
                                 {produtos && produtos.map(i => {
                                     if (i.desconto == 0) {
                                         return (
-                                            <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
+                                            <CardProds key={i.id} imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={i.preco} />
                                         )
                                     }
                                     else {
                                         return (
-                                            <CardProds imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={String(i.desconto.toFixed(2))} />
+                                            <CardProds key={i.id} imageURL={`${i.images[0].url}`} name={`${i.nome}`} produtoID={`${i.id}`} preco={String(i.desconto.toFixed(2))} />
                                         )
                                     }
                                 })}

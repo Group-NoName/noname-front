@@ -22,72 +22,53 @@ function Nav_Admin() {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
                             <NavDropdown className='navdrops' title="Produtos" id="collasible-nav-dropdown">
-
-                                <NavDropdown.Item>
-                                    <Link className='link' to={'/admin/produtos'}>
-                                        <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
-                                    </Link>
-                                </NavDropdown.Item>
-
-                                <NavDropdown.Item>
-                                    <Link className='link' to={'/admin/produtos/cadastro'}>
-                                        <Navbar.Brand className='texto'>Cadastrar</Navbar.Brand>
-                                    </Link>
-                                </NavDropdown.Item>
+                                <Link className='link' to={'/admin/produtos'}>
+                                    <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
+                                </Link>
+                                <br></br>
+                                <Link className='link' to={'/admin/produtos/cadastro'}>
+                                    <Navbar.Brand className='texto'>Cadastrar</Navbar.Brand>
+                                </Link>
                             </NavDropdown>
 
                             <NavDropdown className='navdrops' title="Categorias" id="collasible-nav-dropdown">
-                                <NavDropdown.Item>
-                                    <Link className='link' to={'/admin/categorias'}>
-                                        <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
-                                    </Link>
-                                </NavDropdown.Item>
-                                <NavDropdown.Item>
-                                    <Link className='link' to={'/admin/categorias/cadastro'}>
-                                        <Navbar.Brand className='texto'>Cadastrar</Navbar.Brand>
-                                    </Link>
-                                </NavDropdown.Item>
+                                <Link className='link' to={'/admin/categorias'}>
+                                    <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
+                                </Link>
+                                <br></br>
+                                <Link className='link' to={'/admin/categorias/cadastro'}>
+                                    <Navbar.Brand className='texto'>Cadastrar</Navbar.Brand>
+                                </Link>
                             </NavDropdown>
 
                             <NavDropdown className='navdrops' title="Tags" id="collasible-nav-dropdown">
-                                <NavDropdown.Item>
-                                    <Link className='link' to={'/admin/tags'}>
-                                        <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
-                                    </Link>
-                                </NavDropdown.Item>
-                                <NavDropdown.Item>
-                                    <Link className='link' to={'/admin/tags/cadastro'}>
-                                        <Navbar.Brand className='texto'>Cadastrar</Navbar.Brand>
-                                    </Link>
-                                </NavDropdown.Item>
+                                <Link className='link' to={'/admin/tags'}>
+                                    <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
+                                </Link>
+                                <br></br>
+                                <Link className='link' to={'/admin/tags/cadastro'}>
+                                    <Navbar.Brand className='texto'>Cadastrar</Navbar.Brand>
+                                </Link>
                             </NavDropdown>
 
                             <NavDropdown className='navdrops' title="Pacotes" id="collasible-nav-dropdown">
-                                <NavDropdown.Item>
-                                    <Link className='link' to={'/admin/pacotes'}>
-                                        <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
-                                    </Link>
-                                </NavDropdown.Item>
-
-                                <NavDropdown.Item>
-                                    <Link className='link' to={'/admin/pacotes/cadastro'}>
-                                        <Navbar.Brand className='texto'>Cadastrar</Navbar.Brand>
-                                    </Link>
-                                </NavDropdown.Item>
+                                <Link className='link' to={'/admin/pacotes'}>
+                                    <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
+                                </Link>
+                                <br></br>
+                                <Link className='link' to={'/admin/pacotes/cadastro'}>
+                                    <Navbar.Brand className='texto'>Cadastrar</Navbar.Brand>
+                                </Link>
                             </NavDropdown>
 
                             <NavDropdown className='navdrops' title="Ofertas" id="collasible-nav-dropdown">
-                                <NavDropdown.Item>
-                                    <Link className='link' to={'/admin/ofertas'}>
-                                        <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
-                                    </Link>
-                                </NavDropdown.Item>
-
-                                <NavDropdown.Item>
-                                    <Link className='link' to={'/admin/ofertas/cadastro'}>
-                                        <Navbar.Brand className='texto'>Criar ofertas</Navbar.Brand>
-                                    </Link>
-                                </NavDropdown.Item>
+                                <Link className='link' to={'/admin/ofertas'}>
+                                    <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
+                                </Link>
+                                <br></br>
+                                <Link className='link' to={'/admin/ofertas/cadastro'}>
+                                    <Navbar.Brand className='texto'>Criar ofertas</Navbar.Brand>
+                                </Link>
                             </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>

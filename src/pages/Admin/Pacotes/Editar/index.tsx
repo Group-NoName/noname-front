@@ -206,67 +206,69 @@ function editar() {
                       {...register("preco")}
                       defaultValue={pacote?.preco}
                     />
+                    <Button
+                      color={"#ffff"}
+                      width={"8"}
+                      height={"3"}
+                      fontSize={"20"}
+                      backgroundColor={"#3a4ad9"}
+                      text={"Editar"}
+                      type="submit"
+                    />
                   </div>
                 </div>
-                <Button
-                  color={"#ffff"}
-                  width={"8"}
-                  height={"3"}
-                  fontSize={"20"}
-                  backgroundColor={"#3a4ad9"}
-                  text={"Editar"}
-                  type="submit"
-                />
               </form>
-              <form onSubmit={handleSubmit(onSubmitProduto)}>
-                <Dropdown>
-                  <Dropdown.Toggle id="dropdown-custom-components">
-                    <>Adicionar produtos</>
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Form.Control
-                      aria-label="Text input with dropdown button"
-                      onChange={(e) => searchItems(e.target.value)}
-                      placeholder="Nome do produto..."
-                    />
-                    {searchInput.length > 1
-                      ? filteredResults.map((item) => {
-                          return (
-                            <Dropdown.ItemText key={item.id || item?.nome}>
-                              <Form.Check
-                                key={item.id || item?.nome}
-                                label={item?.nome}
-                                value={item.id || item?.nome}
-                                {...register("produtos.0.id")}
-                              />
-                            </Dropdown.ItemText>
-                          );
-                        })
-                      : produtos &&
-                        produtos.map((prod) => {
-                          return (
-                            <Dropdown.ItemText key={prod.id || prod.nome}>
-                              <Form.Check
-                                key={prod.id || prod.nome}
-                                label={prod.nome}
-                                value={prod.id || prod.nome}
-                                {...register("produtos.0.id")}
-                              />
-                            </Dropdown.ItemText>
-                          );
-                        })}
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Button
-                  color={"#ffff"}
-                  width={"8"}
-                  height={"3"}
-                  fontSize={"20"}
-                  backgroundColor={"#3a4ad9"}
-                  text={"Adicionar Produto"}
-                  type="submit"
-                />
-              </form>
+              <div>
+                <form className="addprodutos" onSubmit={handleSubmit(onSubmitProduto)}>
+                  <Dropdown>
+                    <Dropdown.Toggle id="dropdown-custom-components">
+                      <>Adicionar produtos</>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Form.Control
+                        aria-label="Text input with dropdown button"
+                        onChange={(e) => searchItems(e.target.value)}
+                        placeholder="Nome do produto..."
+                      />
+                      {searchInput.length > 1
+                        ? filteredResults.map((item) => {
+                            return (
+                              <Dropdown.ItemText key={item.id || item?.nome}>
+                                <Form.Check
+                                  key={item.id || item?.nome}
+                                  label={item?.nome}
+                                  value={item.id || item?.nome}
+                                  {...register("produtos.0.id")}
+                                />
+                              </Dropdown.ItemText>
+                            );
+                          })
+                        : produtos &&
+                          produtos.map((prod) => {
+                            return (
+                              <Dropdown.ItemText key={prod.id || prod.nome}>
+                                <Form.Check
+                                  key={prod.id || prod.nome}
+                                  label={prod.nome}
+                                  value={prod.id || prod.nome}
+                                  {...register("produtos.0.id")}
+                                />
+                              </Dropdown.ItemText>
+                            );
+                          })}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <Button
+                    color={"#ffff"}
+                    width={"8"}
+                    height={"3"}
+                    fontSize={"20"}
+                    backgroundColor={"#3a4ad9"}
+                    text={"Adicionar Produto"}
+                    type="submit"
+                  />
+                </form>
+              </div>
             </div>
           </main>
         </section>

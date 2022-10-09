@@ -23,7 +23,7 @@ section{
     width: 80%;
     display: flex;
     flex-direction: row;
-    
+    gap: 10px;
 }
 .left-content{
     margin: 8% 0;
@@ -71,14 +71,26 @@ section{
     margin: 8% 0;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     height: 50%;
-}
-.right-content img{
-    border: 1px solid pink;
-    border-radius: 10px;
-    width:15vw;
-    margin: 0 auto;
+
+    .produtoimg{
+        width: 300px;
+        height: 150px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        border-radius: 20px;
+        border: 1px solid pink;
+    }
+
+    .buttons{
+        display: flex;
+        gap: 5px;
+    }
 }
 Button{
     width: 150px;

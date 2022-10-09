@@ -44,14 +44,14 @@ function Home() {
                 categorias.map((itemCategoria) => {
                   if (itemCategoria.produtos.length > 0) {
                     return (
-                      <>
-                        <div className="listCategorias">
+                      <div key={itemCategoria.id}>
+                        <div className="listCategorias" >
                           <h1>Categoria: {itemCategoria.nome}</h1>
                           <div className="produtosmap">
                             {itemCategoria.produtos.map((i) => {
                               if (i?.desconto === 0) {
                                 return (
-                                  <div className="disposicaoItem">
+                                  <div className="disposicaoItem" key={i.id}>
                                     <CardProds
                                       imageURL={`${i?.images[0].url}`}
                                       name={`${i?.nome}`}
@@ -62,7 +62,7 @@ function Home() {
                                 );
                               } else {
                                 return (
-                                  <div className="disposicaoItem">
+                                  <div className="disposicaoItem" key={i.id}>
                                     <CardProds
                                       imageURL={`${i?.images[0].url}`}
                                       name={`${i?.nome}`}
@@ -75,7 +75,7 @@ function Home() {
                             })}
                           </div>
                         </div>
-                      </>
+                      </div>
                     );
                   }
                 })}
@@ -87,7 +87,7 @@ function Home() {
                 {pacotes &&
                   pacotes.map((i) => {
                     return (
-                      <div className="pacote">
+                      <div className="pacote" key={i.id}>
                         <CardPacote
                           imageURL={`${i?.images[0].url}`}
                           name={`${i?.nome}`}

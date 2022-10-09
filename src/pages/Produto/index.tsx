@@ -38,7 +38,7 @@ function Produto() {
 
   return (
     <>
-      <S.Container>
+      <S.Container key={produto?.id}>
         <section>
           <header>
             <Nav_ />
@@ -49,8 +49,8 @@ function Produto() {
                 {produto?.images.map(i => {
                   return (
                     <>
-                      <div className="imgsLateral">
-                        <div className="imgs">
+                      <div className="imgsLateral" key={produto.id}>
+                        <div className="imgs" >
                           <img className='tamanho' src={`${i.url}`} alt="" />
                         </div>
                       </div>

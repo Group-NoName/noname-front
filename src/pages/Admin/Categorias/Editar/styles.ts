@@ -22,6 +22,8 @@ section{
     margin-top: 15px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     .nome{
         align-items: center;
@@ -46,6 +48,13 @@ section{
     }
 }
 
+.contentProd{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
     .produtosSearch::-webkit-scrollbar {
         height:  8px;

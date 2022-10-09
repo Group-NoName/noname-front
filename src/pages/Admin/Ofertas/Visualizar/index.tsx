@@ -238,7 +238,7 @@ function Visualizar() {
                   })}
               </div>
               <h1>Adicionar Produto</h1>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form className="form" onSubmit={handleSubmit(onSubmit)}>
                 <Dropdown>
                   <Dropdown.Toggle id="dropdown-custom-components">
                     <>Adicionar produtos</>

@@ -63,4 +63,11 @@ export const Cadastro = styled.div`
             }
         }
     }
+
+    .preço{
+        width: 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 `

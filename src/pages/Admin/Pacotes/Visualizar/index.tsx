@@ -132,21 +132,25 @@ function cadastro() {
                 </div>
               </div>
               <div className="right-content">
-                <img src={`${pacote?.images[0].url}`} alt="" />
-                <Button
-                  variant="outline-primary"
-                  onClick={() =>
-                    navigate(`/admin/pacotes/editar/${pacote?.id}`)
-                  }
-                >
-                  Editar
-                </Button>
-                <Button
-                  variant="outline-danger"
-                  onClick={() => deletePacote(String(pacote?.id))}
-                >
-                  Deletar
-                </Button>
+                <div className="pacoteimg">
+                  <img src={`${pacote?.images[0].url}`} alt="" />
+                </div>
+                <div className="buttons">
+                  <Button
+                    variant="outline-primary"
+                    onClick={() =>
+                      navigate(`/admin/pacotes/editar/${pacote?.id}`)
+                    }
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    variant="outline-danger"
+                    onClick={() => deletePacote(String(pacote?.id))}
+                  >
+                    Deletar
+                  </Button>
+                </div>
               </div>
             </div>
           </main>

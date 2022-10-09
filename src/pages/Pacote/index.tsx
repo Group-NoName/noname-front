@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Button from '../../components/Button';
 import CardPacote from '../../components/CardPacote';
 import Nav_ from '../../components/Nav';
@@ -42,7 +42,7 @@ function Pacote() {
                     <h3>Itens inclusos</h3>
                     {pacote?.produtos.map(itens => {
                       return (
-                        <a href="">{itens.nome}<br /></a>
+                        <Link to={`/produto/${itens.id}`} key={itens.id}>{itens.nome}<br></br></Link>
                       )
                     })}
                   </div>

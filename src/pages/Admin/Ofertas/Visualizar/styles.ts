@@ -40,6 +40,7 @@ export const Visu = styled.div`
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            
 
             .produto{
                 display: flex;
@@ -53,6 +54,12 @@ export const Visu = styled.div`
                     gap: 5px;
                 }
             }
+        }
+
+        .form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     }
 `

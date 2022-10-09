@@ -150,21 +150,25 @@ function Visualizar() {
                 </div>
               </div>
               <div className="right-content">
-                <img src={`${produto?.images[0].url}`} alt="" />
-                <Button
-                  variant="outline-primary"
-                  onClick={() =>
-                    navigate(`/admin/produtos/editar/${produto?.id}`)
-                  }
-                >
-                  Editar
-                </Button>
-                <Button
-                  variant="outline-danger"
-                  onClick={() => deleteProduto(String(produto?.id))}
-                >
-                  Deletar
-                </Button>
+                <div className="produtoimg">
+                  <img src={`${produto?.images[0].url}`} alt="" />
+                </div>
+                <div className="buttons">
+                  <Button
+                    variant="outline-primary"
+                    onClick={() =>
+                      navigate(`/admin/produtos/editar/${produto?.id}`)
+                    }
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    variant="outline-danger"
+                    onClick={() => deleteProduto(String(produto?.id))}
+                  >
+                    Deletar
+                  </Button>
+                </div>
               </div>
             </div>
           </main>

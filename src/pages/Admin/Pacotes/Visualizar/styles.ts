@@ -52,7 +52,8 @@ export const Visualizar = styled.div`
             .tag{
             width: 200px;
             display: flex;
-            font-size: 25px;
+            font-size: 15px;
+            text-align: center;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -66,19 +67,33 @@ export const Visualizar = styled.div`
         }
         }
     }
+    
     .right-content{
-        margin: 8% 0;
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        height: 50%;
-    }
-    .right-content img{
+    margin: 8% 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 50%;
+    
+    .pacoteimg{
+        width: 300px;
         border: 1px solid pink;
-        border-radius: 10px;
-        width:15vw;
-        margin: 0 auto;
+        height: 150px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        border-radius: 20px;
+        
     }
+
+    .buttons{
+        display: flex;
+        gap: 5px;
+    }
+}
     Button{
         width: 150px;
         margin-top: 5px;

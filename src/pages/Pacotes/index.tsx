@@ -33,7 +33,7 @@ function Pacotes(){
                             <div className="pacotesmap">
                                 {pacotes && pacotes.map(i => {
                                 return (
-                                    <CardPacote imageURL={`${i.images[0].url}`} name={`${i.nome}`} pacoteID={`${i.id}`} preco={i.preco} />
+                                    <CardPacote key={i.id} imageURL={`${i.images[0].url}`} name={`${i.nome}`} pacoteID={`${i.id}`} preco={i.preco} />
                                 )
                                 })}
                             </div>

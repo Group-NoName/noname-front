@@ -24,22 +24,24 @@ export const Container = styled(Flex)`
         flex-direction: column;
         width: 75vw;
         .listCategorias{
-            width: 70vw;
-            height: 70vh;
+            width: 90%;
+            height: 80%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             margin: 1em auto;
             box-shadow: 0 0 10px black;
             border-radius: 20px;
+            
             h1{
                 margin: 2px auto;
             }
             .produtosmap{
+                margin: auto;
                 display: flex ;
                 justify-content: center;
                 overflow-x: scroll;
-                width: 100%;
+                width: 80%;
                 gap: 1vw;
     
                 .disposicaoItem{

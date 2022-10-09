@@ -158,8 +158,8 @@ function editar() {
                 />
               </form>
             </div>
-            <div className="contentProd">
-              <form onSubmit={handleSubmit(onSubmitProduto)}>
+            <div>
+              <form className="contentProd" onSubmit={handleSubmit(onSubmitProduto)}>
                 <Form.Control
                   aria-label="Text input with dropdown button"
                   onChange={(e) => searchItems(e.target.value)}
@@ -191,15 +191,15 @@ function editar() {
                         })}
                   </Form>
                 </div>
-                <Button
-                  color={"#ffff"}
-                  width={"8"}
-                  height={"3"}
-                  fontSize={"20"}
-                  backgroundColor={"#3a4ad9"}
-                  text={"Adicionar Produto"}
-                  type="submit"
-                />
+                  <Button
+                    color={"#ffff"}
+                    width={"8"}
+                    height={"3"}
+                    fontSize={"20"}
+                    backgroundColor={"#3a4ad9"}
+                    text={"Adicionar Produto"}
+                    type="submit"
+                  />
               </form>
             </div>
           </main>

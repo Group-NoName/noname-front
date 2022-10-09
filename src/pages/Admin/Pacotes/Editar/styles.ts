@@ -83,4 +83,9 @@ export const Editar = styled.div`
             flex-direction: column;
         }
     }
+
+    .addprodutos{
+        display: flex;
+        gap: 10px;
+    }
 `
