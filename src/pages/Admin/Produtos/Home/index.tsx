@@ -82,8 +82,8 @@ function Home() {
           </header>
           <main>
             {statesView.validacao(
-              stateViewLocation.status,
-              stateViewLocation.data
+              stateViewLocation?.status,
+              stateViewLocation?.data
             )}
             {statesView.validacao(status.type, status.mensagem)}
             <div className="Form">

@@ -98,8 +98,8 @@ function visualizar() {
           <main>
             {stateView.validacao(status.type, status.type)}
             {stateView.validacao(
-              stateViewLocation.status,
-              stateViewLocation.data
+              stateViewLocation?.status,
+              stateViewLocation?.data
             )}
             <div className="categoria">
               <h1>Categoria: {categoria?.nome}</h1>

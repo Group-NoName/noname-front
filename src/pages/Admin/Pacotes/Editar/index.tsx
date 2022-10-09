@@ -29,6 +29,7 @@ function editar() {
   const [produtos, setProduto] = useState<Iproduto[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState<Iproduto[]>([]);
+  const stateView = new useStateView();
 
   const [status, setStatus] = useState({
     type: "",
@@ -37,8 +38,6 @@ function editar() {
 
   const navigate = useNavigate();
   const { id } = useParams();
-
-  const stateView = new useStateView();
 
   const atualizarDadosPacote = useCallback(async (data: AtualizarPacote) => {
     await api

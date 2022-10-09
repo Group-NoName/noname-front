@@ -77,8 +77,8 @@ function cadastro() {
           </header>
           <main>
             {stateView.validacao(
-              stateViewLocation.status,
-              stateViewLocation.data
+              stateViewLocation?.status,
+              stateViewLocation?.data
             )}
             <div className="mainContent">
               <AiOutlineArrowLeft

@@ -185,8 +185,8 @@ function Visualizar() {
           <header></header>
           <main>
             {stateView.validacao(
-              stateViewLocation.status,
-              stateViewLocation.data
+              stateViewLocation?.status,
+              stateViewLocation?.data
             )}
             {stateView.validacao(status.type, status.mensagem)}
             <div className="porcentagem">
