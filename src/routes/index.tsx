@@ -24,6 +24,7 @@ import HomeOferta from '../pages/Admin/Ofertas/Home'
 import CadastroOferta from '../pages/Admin/Ofertas/Cadastro'
 import VisualizarOferta from '../pages/Admin/Ofertas/Visualizar'
 import Pacotes from '../pages/Pacotes';
+import Login from '../pages/Admin/Login';
 
 function Routes() {
     return (
@@ -35,6 +36,7 @@ function Routes() {
         <Route path="/pacotes" element={<Pacotes />} />
         <Route path="/pacote/:id" element={<Pacote />} />
         <Route path="admin" >
+          <Route path="login" element={<Login />}/>
           <Route index element={<HomeAdmin/>}/> 
           <Route path="produtos">
             <Route index element={ <HomeProduto/> } />
