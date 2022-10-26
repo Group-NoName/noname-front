@@ -120,23 +120,23 @@ function cadastro() {
                     {...register("nome")}
                   />
                 </div>
-                <div className="descricao">
+                {/* <div className="descricao">
                   <label htmlFor="descricao">Descrição</label>
                   <textarea
                     {...register("descricao")}
                     placeholder="Descrição que o pacote irá ter"
                   />
-                </div>
+                </div> */}
                 <div className="position">
                   <div className="imgs">
-                    <div className="img1">
+                    {/* <div className="img1">
                       <label htmlFor="url">Img1</label>
                       <input
                         {...register("images.0.url")}
                         type="text"
                         placeholder="https://exemple.com/image1.jpg"
                       />
-                    </div>
+                    </div> */}
                     <div className="preço">
                       <label htmlFor="preco">Preço</label>
                       <input

@@ -91,7 +91,7 @@ function cadastro() {
                     {...register("nome")}
                   />
                 </div>
-                <div className="descricao">
+                {/* <div className="descricao">
                   <label htmlFor="descricao">Descrição</label>
                   <textarea
                     {...register("descricao")}
@@ -99,9 +99,9 @@ function cadastro() {
                     required
                     value={produto?.descricao}
                   />
-                </div>
-                <div className="position">
-                  <div className="imgs">
+                </div> */}
+                 <div className="position">
+                  {/*<div className="imgs">
                     <div className="img1">
                       <label htmlFor="url">Img1</label>
                       <input
@@ -129,7 +129,7 @@ function cadastro() {
                         {...register("images.2.url")}
                       />
                     </div>
-                  </div>
+                  </div> */}
                   <div className="preco">
                     <label htmlFor="preco">Preço</label>
                     <input
