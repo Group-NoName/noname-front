@@ -54,6 +54,14 @@ section{
             flex-direction: column;
         }
     }
+    .categoria{      
+        width: 25vw;
+        height: 30vh;
+        .cate{
+            display: flex;
+            flex-direction: column;
+        }
+    }
     .preco{
         display: flex;
         flex-direction: column;

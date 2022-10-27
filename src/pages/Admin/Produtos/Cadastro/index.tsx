@@ -1,8 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../../components/Button";
 import Nav_Admin from "../../../../components/Nav_Admin";
+import ICategoria from "../../../../interfaces/categoria";
 import { api } from "../../../../service/api";
 import useStateView from "../../../../validators/useStateView";
 import * as S from "./styles";
@@ -17,6 +19,9 @@ interface CadastroProduto {
 function cadastro() {
   const navigate = useNavigate();
   const [produto, setProduto] = useState<CadastroProduto>();
+  const [filteredResults, setFilteredResults] = useState<ICategoria[]>([]);
+  const [categoria, searchCategoria] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -57,6 +62,24 @@ function cadastro() {
         }
       });
   }, []);
+
+  const searchItems = (searchValue: any) => {
+    setSearchInput(searchValue);
+    const filteredData = categoria?.filter((item) => {
+      return Object.values(item)
+        .join("")
+        .toLowerCase()
+        .includes(searchInput.toLowerCase());
+    });
+    setFilteredResults(filteredData);
+  };
+
+  useEffect(() => {
+    api.get(`/categoria/categorias`).then((response) => {
+      searchCategoria(response.data);
+    });
+  }, []);
+
 
   const onSubmit = useCallback(async (data: CadastroProduto) => {
     cadastroProduto(data);
@@ -130,6 +153,39 @@ function cadastro() {
                       />
                     </div>
                   </div> */}
+                  <div className="categoria">
+                    <div className="cate">
+                      <Form.Control
+                        className="search"
+                        aria-label="Text input with dropdown button"
+                        onChange={(e) => searchItems(e.target.value)}
+                        placeholder="Nome da categoria..."
+                      />
+                      <Form aria-label="Default select">
+                        {searchInput.length > 1
+                              ? filteredResults.map((categoria) => {
+                                  return (
+                                      <Form.Check
+                                        key={categoria.id}
+                                        label={categoria?.nome}
+                                        value={categoria.id}
+                                      />
+                                  );
+                                })
+                              : categoria &&
+                                categoria.map((cat) => {
+                                  return (
+                                      <Form.Check
+                                        key={cat.id}
+                                        label={cat?.nome}
+                                        value={cat.id}
+                                      />
+                                  );
+                                })
+                        }
+                      </Form>
+                    </div>
+                  </div>
                   <div className="preco">
                     <label htmlFor="preco">Preço</label>
                     <input
