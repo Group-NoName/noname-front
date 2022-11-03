@@ -25,6 +25,7 @@ import CadastroOferta from '../pages/Admin/Ofertas/Cadastro'
 import VisualizarOferta from '../pages/Admin/Ofertas/Visualizar'
 import Pacotes from '../pages/Pacotes';
 import Login from '../pages/Admin/Login';
+import CadastroPromo from '../pages/Admin/Promoção/Cadastro'
 
 function Routes() {
     return (
@@ -66,7 +67,12 @@ function Routes() {
             <Route index element={ <HomeOferta/> } />
             <Route path="cadastro" element={<CadastroOferta/>} />
             <Route path="visualizar/:id" element={<VisualizarOferta/>} />
-          </Route>  
+          </Route> 
+          <Route path="promocao">
+            {/* <Route index element={ <HomePromocao/> } /> */}
+            <Route path="cadastro" element={<CadastroPromo/>} />
+            {/* <Route path="visualizar/:id" element={<VisualizarPromo/>} /> */}
+          </Route>
         </Route>
       </RoutesWrapper>
       // </BrowserRouter>
