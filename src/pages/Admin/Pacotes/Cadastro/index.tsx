@@ -12,9 +12,6 @@ import useStateView from "../../../../validators/useStateView";
 
 interface CadastroPacote {
   nome: string;
-  descricao: string;
-  preco: number;
-  images: [{ url: string }];
   produtos: Array<{
     id: string[];
   }>;
@@ -47,11 +44,6 @@ function cadastro() {
     await api
       .post<CadastroPacote>(`/pacote/cadastro`, {
         nome: data.nome,
-        descricao: data.descricao,
-        preco: data.preco,
-        images: [
-          { url: data.images[0].url },
-        ],
         produtos: data.produtos[0].id.map((i) => ({ id: i })),
       })
       .then(function (response) {
@@ -126,18 +118,17 @@ function cadastro() {
                     {...register("descricao")}
                     placeholder="Descrição que o pacote irá ter"
                   />
-                </div> */}
-                <div className="position">
+                </div> <div className="position">
                   <div className="imgs">
-                    {/* <div className="img1">
+                    <div className="img1">
                       <label htmlFor="url">Img1</label>
                       <input
                         {...register("images.0.url")}
                         type="text"
                         placeholder="https://exemple.com/image1.jpg"
                       />
-                    </div> */}
-                    <div className="preço">
+                    </div> 
+                     <div className="preço">
                       <label htmlFor="preco">Preço</label>
                       <input
                         {...register("preco")}
@@ -145,9 +136,8 @@ function cadastro() {
                         placeholder="R$ 00.00"
                       />
                     </div>
-                  </div>
-                  
-                </div>
+                  </div> 
+               </div> */}
                 
                 <div className="produtos">
                     <Form.Control

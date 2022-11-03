@@ -8,10 +8,11 @@ import { useForm } from "react-hook-form";
 import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
 import useStateView from "../../../../validators/useStateView";
+import Ipacote from "../../../../interfaces/pacote";
 
 interface CadastroOferta {
-  desconto: number;
-  produtos: Array<{
+  preco: number;
+  pacotes: Array<{
     id: string[];
   }>;
 }
@@ -27,8 +28,8 @@ function Cadastro() {
   const cadastroOferta = useCallback(async (data: CadastroOferta) => {
     await api
       .post<CadastroOferta>(`oferta/cadastro`, {
-        desconto: data.desconto,
-        produtos: data.produtos[0].id.map((i) => ({ id: i })),
+        preco: data.preco,
+        pacotes: data.pacotes[0].id.map((i) => ({ id: i })),
       })
       .then(function (response) {
         navigate(`/admin/ofertas`, {
@@ -42,7 +43,7 @@ function Cadastro() {
         if (error.response) {
           setStatus({
             type: "error",
-            mensagem: `Produtos - ${error.response.data} - Já estão em alguma oferta.`,
+            mensagem: `Pacote - ${error.response.data} - Já estão em alguma oferta.`,
           });
         }
       });
@@ -60,14 +61,17 @@ function Cadastro() {
     mode: "onBlur",
   });
 
-  const [produto, searchProduto] = useState([]);
-  const [produtos, setProduto] = useState<Iproduto[]>([]);
+  /* const [produto, searchProduto] = useState([]); */
+  const [pacote, searchPacote] = useState([]);
+  /* const [produtos, setProduto] = useState<Iproduto[]>([]); */
+  const [pacotes, setPacote] = useState<Ipacote[]>([]);
   const [searchInput, setSearchInput] = useState("");
-  const [filteredResults, setFilteredResults] = useState<Iproduto[]>([]);
+  /* const [filteredResults, setFilteredResults] = useState<Iproduto[]>([]); */
+  const [filteredResults, setFilteredResults] = useState<Ipacote[]>([]);
 
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
-    const filteredData = produto?.filter((item) => {
+    const filteredData = pacote?.filter((item) => {
       return Object.values(item)
         .join("")
         .toLowerCase()
@@ -76,19 +80,32 @@ function Cadastro() {
     setFilteredResults(filteredData);
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     getProduto();
+  }); */
+  useEffect(() => {
+    getPacote();
   });
 
-  useEffect(() => {
+  /* useEffect(() => {
     api.get(`/produto/produtos`).then((response) => {
       searchProduto(response.data);
     });
+  }, []); */
+
+  useEffect(() => {
+    api.get(`/pacote/pacotes`).then((response) => {
+      searchPacote(response.data);
+    });
   }, []);
 
-  async function getProduto() {
+  /* async function getProduto() {
     const response = await api.get<Iproduto[]>(`/produto/produtos`);
     setProduto(response.data);
+  } */
+  async function getPacote() {
+    const response = await api.get<Ipacote[]>(`/pacote/pacotes`);
+    setPacote(response.data);
   }
 
   return (
@@ -98,7 +115,7 @@ function Cadastro() {
           <header>
             <Nav_Admin /> 
           </header>
-          <main>
+          {/* <main>
             {stateView.validacao(status.type, status.mensagem)}
             <div className="contentMain">
               <form onSubmit={handleSubmit(onSubmit)}>
@@ -153,6 +170,72 @@ function Cadastro() {
                   text={"Cadastrar"}
                   type="submit"
                 />
+              </form>
+            </div>
+          </main> */}
+          <main>
+            <div className="contentMain">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="porcentagem">
+                  <label htmlFor="nomeCategoria">Pacotes</label>
+                  <Form.Control
+                  aria-label="Text input with dropdown button"
+                  onChange={(e) => searchItems(e.target.value)}
+                  placeholder="Buscar Pacotes"
+                />
+                <div className="produtosSearch">
+                  <Form className='checkform' aria-label="Default select">
+                    {searchInput.length > 1
+                      ? filteredResults.map((item) => {
+                          return (
+                            <Form.Check
+                              className="check"
+                              required
+                              key={item.id || item?.nome}
+                              label={item?.nome}
+                              value={item.id || item?.nome}
+                              {...register("pacotes.0.id")}
+                            />
+                          );
+                        })
+                      : pacotes &&
+                        pacotes.map((pacote) => {
+                          return (
+                            <Form.Check
+                              className="check"
+                              required
+                              key={pacote.id || pacote?.nome}
+                              label={pacote?.nome}
+                              value={pacote.id || pacote?.nome}
+                              {...register("pacotes.0.id")}
+                            />
+                          );
+                        })}
+                  </Form>
+                </div>
+
+                </div>
+
+                <div className="preco">
+                    <label htmlFor="preco">Preço</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      required
+                      {...register("preco")}
+                      placeholder="R$ 00.00"
+                      value={ofertas?.preco}
+                    />
+                    <Button
+                      color={"#ffff"}
+                      width={"8"}
+                      height={"3"}
+                      fontSize={"20"}
+                      backgroundColor={"#3a4ad9"}
+                      text={"Cadastrar"}
+                      type="submit"
+                    />
+                  </div>
               </form>
             </div>
           </main>
