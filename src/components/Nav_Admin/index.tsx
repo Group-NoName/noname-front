@@ -70,6 +70,16 @@ function Nav_Admin() {
                                     <Navbar.Brand className='texto'>Criar ofertas</Navbar.Brand>
                                 </Link>
                             </NavDropdown>
+
+                            <NavDropdown className='navdrops' title="Promoção" id="collasible-nav-dropdown">
+                                {/* <Link className='link' to={'/admin/promocao'}>
+                                    <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
+                                </Link> */}
+                                <br></br>
+                                <Link className='link' to={'/admin/promocao/cadastro'}>
+                                    <Navbar.Brand className='texto'>Cadastrar Promoção</Navbar.Brand>
+                                </Link>
+                            </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

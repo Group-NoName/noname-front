@@ -34,7 +34,7 @@ function CadastroPromo() {
         ofertas: data.ofertas[0].id.map((i) => ({ id: i })),
       })
       .then(function (response) {
-        navigate(`/admin/promocoes`, {
+        navigate(`/admin`, {
           state: {
             data: response.data,
             status: response.status,
@@ -63,10 +63,10 @@ function CadastroPromo() {
     mode: "onBlur",
   });
 
-  const [oferta, searchPacote] = useState([]);
-  const [ofertas, setPacote] = useState<Ioferta[]>([]);
+  const [oferta, searchOferta] = useState<Ioferta[]>([]);
+  const [ofertas, setOferta] = useState<Ioferta[]>([]);
   const [searchInput, setSearchInput] = useState("");
-  const [filteredResults, setFilteredResults] = useState<Ipacote[]>([]);
+  const [filteredResults, setFilteredResults] = useState<Ioferta[]>([]);
 
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
@@ -85,13 +85,13 @@ function CadastroPromo() {
   
     useEffect(() => {
       api.get(`/oferta/ofertas`).then((response) => {
-        searchPacote(response.data);
+        searchOferta(response.data);
       });
     }, []);
     
     async function getOferta() {
       const response = await api.get<Ioferta[]>(`/oferta/ofertas`);
-      setPacote(response.data);
+      setOferta(response.data);
     }
 
   return (
@@ -104,16 +104,24 @@ function CadastroPromo() {
           <main>
             <div className="contentMain">
               <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="nome">
+                  <label htmlFor="nome">Nome</label>
+                  <input
+                    type="text"
+                    placeholder="Ex.: Promoção dia das mães"
+                    {...register("nome")}
+                  />
+                </div>
                 <div className="porcentagem">
-                  <label htmlFor="nomeCategoria">Pacotes</label>
+                  <label htmlFor="nomeCategoria">Ofertas</label>
                   <Form.Control
                   aria-label="Text input with dropdown button"
                   onChange={(e) => searchItems(e.target.value)}
-                  placeholder="Buscar Pacotes"
+                  placeholder="Buscar Ofertas"
                 />
                 <div className="produtosSearch">
                   <Form className='checkform' aria-label="Default select">
-                    {/* {searchInput.length > 1
+                    {searchInput.length > 1
                       ? filteredResults.map((item) => {
                           return (
                             <Form.Check
@@ -122,38 +130,27 @@ function CadastroPromo() {
                               key={item.id || item?.nome}
                               label={item?.nome}
                               value={item.id || item?.nome}
-                              {...register("pacotes.0.id")}
+                              {...register("ofertas.0.id")}
                             />
                           );
                         })
-                      : pacotes &&
-                        pacotes.map((pacote) => {
+                      : oferta &&
+                        oferta.map((oferta) => {
                           return (
                             <Form.Check
                               className="check"
                               required
-                              key={pacote.id || pacote?.nome}
-                              label={pacote?.nome}
-                              value={pacote.id || pacote?.nome}
-                              {...register("pacotes.0.id")}
+                              key={oferta.id || oferta?.nome}
+                              label={oferta?.nome}
+                              value={oferta.id || oferta?.nome}
+                              {...register("ofertas.0.id")}
                             />
                           );
-                        })} */}
+                        })} 
                   </Form>
                 </div>
-
                 </div>
-
                 <div className="preco">
-                    <label htmlFor="preco">Preço</label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      required
-                      {...register("preco")}
-                      placeholder="R$ 00.00"
-                      value={ofertas?.preco}
-                    />
                     <Button
                       color={"#ffff"}
                       width={"8"}
