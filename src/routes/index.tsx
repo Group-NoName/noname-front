@@ -10,6 +10,7 @@ import CadastroCategoria from '../pages/Admin/Categorias/Cadastro'
 import HomeCategoria from '../pages/Admin/Categorias/Home'
 import VisualizarCategoria from '../pages/Admin/Categorias/Visualizar'
 import EditarCategoria from '../pages/Admin/Categorias/Editar'
+import CadastroProdutos from '../pages/Admin/Categorias/AdicionarProduto'
 import HomeTags from '../pages/Admin/Tags/Home'
 import CadastroTags from '../pages/Admin/Tags/Cadastro'
 import VisualizarTag from '../pages/Admin/Tags/Visualizar'
@@ -50,6 +51,7 @@ function Routes() {
             <Route path="cadastro" element={<CadastroCategoria/>} />
             <Route path="visualizar/:id" element={<VisualizarCategoria/>} />       
             <Route path="editar/:id" element={<EditarCategoria/>} />
+            <Route path="cadastrar-produtos/:id" element={<CadastroProdutos/>} />
           </Route>
           <Route path="tags">
             <Route index element={ <HomeTags/> } />
