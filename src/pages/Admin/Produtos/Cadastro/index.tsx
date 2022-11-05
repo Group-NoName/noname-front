@@ -1,27 +1,23 @@
 import { useState, useCallback, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm, Control } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-
+/* import Button from "../../../../components/Button"; */
 import Nav_Admin from "../../../../components/Nav_Admin";
 import ICategoria from "../../../../interfaces/categoria";
 import { api } from "../../../../service/api";
 import useStateView from "../../../../validators/useStateView";
 import * as S from "./styles";
 
-interface CadastroProduto {
-  idServico: string,
-  produto: Array<{
-    nome: string[]
-  }>;
-}
+type CadastroProduto = {
+  idServico: string;
+  produtos: {
+    nome: string;
+  }[];
+};
 
 function cadastro() {
   const navigate = useNavigate();
-  const [produto, setProduto] = useState<CadastroProduto>();
-  const [filteredResults, setFilteredResults] = useState<ICategoria[]>([]);
-  const [categoria, searchCategoria] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -29,9 +25,10 @@ function cadastro() {
   const stateView = new useStateView();
   const cadastroProduto = useCallback(async (data: CadastroProduto) => {
     await api
-      .post(`/produto/cadastro/${data.idServico}`, {
-        nome: data.produto[0].nome
-      })
+      .post<CadastroProduto>(
+        `/produto/cadastro/${data.idServico}`,
+        data.produtos
+      )
       .then(function (response) {
         if (response) {
           setStatus({
@@ -56,6 +53,34 @@ function cadastro() {
       });
   }, []);
 
+  const onSubmit = useCallback(async (data: CadastroProduto) => {
+    cadastroProduto(data);
+  }, []);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm<CadastroProduto>({
+    mode: "onBlur",
+    defaultValues: {
+      produtos: [{ nome: "" }],
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    name: "produtos",
+    control,
+    rules: {
+      required: "Por favor, adicionar 1 ou vários produtos",
+    },
+  });
+
+  const [filteredResults, setFilteredResults] = useState<ICategoria[]>([]);
+  const [categoria, searchCategoria] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
     const filteredData = categoria?.filter((item) => {
@@ -73,20 +98,6 @@ function cadastro() {
     });
   }, []);
 
-
-  const onSubmit = useCallback(async (data: CadastroProduto) => {
-    console.log(data.idServico),
-      console.log(data.produto[0].nome),
-      cadastroProduto(data);
-  }, []);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CadastroProduto>({
-    mode: "onBlur",
-  });
   return (
     <>
       <S.Cadastro>
@@ -98,42 +109,61 @@ function cadastro() {
             {stateView.validacao(status.type, status.mensagem)}
             <div className="Form">
               <form onSubmit={handleSubmit(onSubmit)}>
-                {searchInput.length > 1
-                  ? filteredResults.map((categoria) => {
+                <div className="nome">
+                  {searchInput.length > 1
+                    ? filteredResults.map((categoria) => {
+                        return (
+                          <Form.Check
+                            type="radio"
+                            key={categoria.id}
+                            label={categoria?.nome}
+                            value={categoria.id}
+                            {...register("idServico")}
+                          />
+                        );
+                      })
+                    : categoria &&
+                      categoria.map((cat) => {
+                        return (
+                          <Form.Check
+                            type="radio"
+                            key={cat.id}
+                            label={cat?.nome}
+                            value={cat.id}
+                            {...register("idServico")}
+                          />
+                        );
+                      })}
+                  {fields.map((item, index) => {
                     return (
-                      <Form.Check
-                        type="radio"
-                        key={categoria.id}
-                        label={categoria?.nome}
-                        value={categoria.id}
-                        {...register('idServico')}
-                      />
+                      <>
+                        <label htmlFor="nome">Nome</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="Produto X"
+                          {...register(`produtos.${index}.nome`)}
+                        />
+                        <button type="button" onClick={() => remove(index)}>
+                          Delete
+                        </button>
+                      </>
                     );
-                  })
-                  : categoria &&
-                  categoria.map((cat) => {
-                    return (
-                      <Form.Check
-                        type="radio"
-                        key={cat.id}
-                        label={cat?.nome}
-                        value={cat.id}
-                        {...register('idServico')}
-                      />
-                    );
-                  })
-                }
-                <label htmlFor="nome">Nome</label>
-                <input
-                  type="text"
-                  value={produto?.produto[0].nome.map((i) => ({ nome: i }))}
-                  required
-                  {...register('produto.0.nome')}
-                  placeholder="Produto X"
-                />
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
+                  })}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      append({
+                        nome: "",
+                      });
+                    }}
+                  >
+                    Append
+                  </button>
+                  <Button variant="primary" type="submit">
+                    Submit
+                  </Button>
+                </div>
               </form>
             </div>
           </main>
