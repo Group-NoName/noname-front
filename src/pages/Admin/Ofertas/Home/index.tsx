@@ -26,7 +26,7 @@ function Home() {
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
     const filteredData = oferta?.filter((item) => {
-      return Object.values(String(item.desconto))
+      return Object.values(String(item.preco))
         .join("")
         .includes(searchInput);
     });
@@ -92,8 +92,8 @@ function Home() {
               <Table striped bordered hover>
                 <thead>
                   <tr>
-                    <th>Porcentagem</th>
-                    <th>Quantidade</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
@@ -103,8 +103,8 @@ function Home() {
                     ? filteredResults.map((item) => {
                         return (
                           <tr key={item?.id}>
-                            <td>{item?.desconto}</td>
-                            <td>{item?.produtos.length}</td>
+                            <td>{item?.nome}</td>
+                            <td>{item?.preco}</td>
                             <td className="tdbuttons">
                               <div className="buttons">
                                 <Button
@@ -132,8 +132,8 @@ function Home() {
                       oferta.map((item) => {
                         return (
                           <tr key={item.id}>
-                            <td>{item?.desconto}</td>
-                            <td>{item?.produtos.length}</td>
+                            <td>{item?.nome}</td>
+                            <td>{item?.preco}</td>
                             <td className="tdbuttons">
                               <div className="buttons">
                                 <Button

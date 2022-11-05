@@ -11,10 +11,9 @@ import useStateView from "../../../../validators/useStateView";
 import Ipacote from "../../../../interfaces/pacote";
 
 interface CadastroOferta {
+  nome: string;
   preco: number;
-  pacotes: Array<{
-    id: string[];
-  }>;
+  pacotes: string;
 }
 function Cadastro() {
   const [ofertas, setOferta] = useState<CadastroOferta>();
@@ -27,9 +26,12 @@ function Cadastro() {
 
   const cadastroOferta = useCallback(async (data: CadastroOferta) => {
     await api
-      .post<CadastroOferta>(`oferta/cadastro`, {
+      .post<CadastroOferta>(`/oferta/cadastro`, {
+        nome: data.nome,
         preco: data.preco,
-        pacotes: data.pacotes[0].id.map((i) => ({ id: i })),
+        pacotes: {
+          id: data.pacotes
+        }
       })
       .then(function (response) {
         navigate(`/admin/ofertas`, {
@@ -50,7 +52,9 @@ function Cadastro() {
   }, []);
 
   const onSubmit = useCallback(async (data: CadastroOferta) => {
-    cadastroOferta(data);
+    cadastroOferta(data), 
+    console.log(data.pacotes);
+    
   }, []);
 
   const {
@@ -115,67 +119,17 @@ function Cadastro() {
           <header>
             <Nav_Admin /> 
           </header>
-          {/* <main>
-            {stateView.validacao(status.type, status.mensagem)}
-            <div className="contentMain">
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="porcentagem">
-                  <label htmlFor="nomeCategoria">Porcentagem</label>
-                  <input required {...register("desconto")} type="number" />
-                </div>
-                <Dropdown>
-                  <Dropdown.Toggle id="dropdown-custom-components">
-                    <>Adicionar produtos</>
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Form.Control
-                      aria-label="Text input with dropdown button"
-                      onChange={(e) => searchItems(e.target.value)}
-                      placeholder="Nome do produto..."
-                    />
-                    {searchInput.length > 1
-                      ? filteredResults.map((item) => {
-                          return (
-                            <Dropdown.ItemText key={item.id}>
-                              <Form.Check
-                                key={item.id}
-                                label={item?.nome}
-                                value={item.id}
-                                {...register("produtos.0.id")}
-                              />
-                            </Dropdown.ItemText>
-                          );
-                        })
-                      : produtos &&
-                        produtos.map((prod) => {
-                          return (
-                            <Dropdown.ItemText key={prod.id}>
-                              <Form.Check
-                                key={prod.id}
-                                label={prod?.nome}
-                                value={prod.id}
-                                {...register("produtos.0.id")}
-                              />
-                            </Dropdown.ItemText>
-                          );
-                        })}
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Button
-                  color={"#ffff"}
-                  width={"8"}
-                  height={"3"}
-                  fontSize={"20"}
-                  backgroundColor={"#3a4ad9"}
-                  text={"Cadastrar"}
-                  type="submit"
-                />
-              </form>
-            </div>
-          </main> */}
           <main>
             <div className="contentMain">
               <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="nome">
+                  <label htmlFor="nome">Nome</label>
+                  <input
+                    type="text"
+                    placeholder="Oferta X"
+                    {...register("nome")}
+                  />
+                </div>
                 <div className="porcentagem">
                   <label htmlFor="nomeCategoria">Pacotes</label>
                   <Form.Control
@@ -191,10 +145,11 @@ function Cadastro() {
                             <Form.Check
                               className="check"
                               required
-                              key={item.id || item?.nome}
+                              type="radio"
+                              key={item.id }
                               label={item?.nome}
-                              value={item.id || item?.nome}
-                              {...register("pacotes.0.id")}
+                              value={item.id }
+                              {...register("pacotes")}
                             />
                           );
                         })
@@ -204,10 +159,11 @@ function Cadastro() {
                             <Form.Check
                               className="check"
                               required
-                              key={pacote.id || pacote?.nome}
+                              type="radio"
+                              key={pacote.id }
                               label={pacote?.nome}
-                              value={pacote.id || pacote?.nome}
-                              {...register("pacotes.0.id")}
+                              value={pacote.id }
+                              {...register("pacotes")}
                             />
                           );
                         })}
