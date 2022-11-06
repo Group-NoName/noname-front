@@ -8,11 +8,13 @@ import { api } from "../../../../service/api";
 import { Button } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
 import LocationStateView from "../../../../interfaces/useLocationsState";
+import Ioferta from "../../../../interfaces/oferta";
 
 function cadastro() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [pacote, getPacote] = useState<Ipacote>();
+  const [oferta, getOferta] = useState<Ioferta>();
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -88,10 +90,7 @@ function cadastro() {
               <div className="left-content">
                 <div className="content">
                   <h1>{pacote?.nome}</h1>
-                  <h3>R$ {pacote?.preco}</h3>
-                  <div className="description">
-                    <p>{pacote?.descricao}</p>
-                  </div>
+                  <h3>R$ {oferta?.preco}</h3>
                   <div className="tags">
                     <h2>Produtos</h2>
                     <div className="tagscards">
@@ -132,9 +131,6 @@ function cadastro() {
                 </div>
               </div>
               <div className="right-content">
-                <div className="pacoteimg">
-                  <img src={`${pacote?.images[0].url}`} alt="" />
-                </div>
                 <div className="buttons">
                   <Button
                     variant="outline-primary"
