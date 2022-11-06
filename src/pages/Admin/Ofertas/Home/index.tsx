@@ -35,7 +35,7 @@ function Home() {
 
   const deleteOferta = useCallback(async (id: string) => {
     await api
-      .delete(`/oferta/excluir/${id}`)
+      .delete(`/oferta/deletar/${id}`)
       .then(function (response) {
         if (response) {
           navigate(`/admin/ofertas`, {

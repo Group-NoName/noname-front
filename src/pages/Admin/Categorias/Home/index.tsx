@@ -28,7 +28,7 @@ function Home() {
 
   const deletarCategoria = useCallback(async (id: string) => {
     await api
-      .delete(`/categoria/excluir/${id}`)
+      .delete(`/servico/deletar/${id}`)
       .then(function (response) {
         if (response) {
           setStatus({

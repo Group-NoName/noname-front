@@ -40,7 +40,11 @@ function visualizar() {
 
   const deletarRelacao = useCallback(async (idCat: string, idProd: string) => {
     await api
-      .delete(`servico/categorias-produtos/${idCat}/${idProd}`)
+      .put(`servico/deletar-produto/${idCat}`,{
+        produtos: [{
+          id: `${idProd}`
+        }]
+      })
       .then(function (response) {
         if (response) {
           navigate(`/admin/categorias/visualizar/${id}`, {
@@ -65,7 +69,7 @@ function visualizar() {
 
   const deletarCategoria = useCallback(async (id: string) => {
     await api
-      .delete(`/categoria/excluir/${id}`)
+      .delete(`/servico/deletar/${id}`)
       .then(function (response) {
         if (response) {
           navigate(`/admin/categorias`, {

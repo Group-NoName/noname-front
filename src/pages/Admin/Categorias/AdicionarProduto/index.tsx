@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useFieldArray, useForm, Control } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-/* import Button from "../../../../components/Button"; */
 import Nav_Admin from "../../../../components/Nav_Admin";
 import ICategoria from "../../../../interfaces/categoria";
 import { api } from "../../../../service/api";
@@ -26,14 +25,14 @@ function cadastroProduto() {
   const { id } = useParams();
   const cadastroProduto = useCallback(async (data: CadastroProduto) => {
     await api
-      .post<CadastroProduto>(`/produto/cadastro/${id}`, data.produtos)
+      .post<CadastroProduto>(`/produto/cadastro-servico/${id}`, data.produtos)
       .then(function (response) {
         if (response) {
           setStatus({
             type: "sucesso",
             mensagem: `${response.data}`,
           }),
-            navigate("/admin/produtos", {
+            navigate("/admin/categoria", {
               state: {
                 data: response.data,
                 status: response.status,
