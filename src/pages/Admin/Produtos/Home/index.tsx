@@ -96,8 +96,6 @@ function Home() {
                 <thead>
                   <tr>
                     <th>Nome</th>
-                    <th>Preço</th>
-                    <th>Desconto</th>
                     <th>Ações</th>
                   </tr>
                 </thead>

@@ -34,7 +34,7 @@ function CadastroPromo() {
         ofertas: data.ofertas[0].id.map((i) => ({ id: i })),
       })
       .then(function (response) {
-        navigate(`/admin`, {
+        navigate(`/admin/promocao`, {
           state: {
             data: response.data,
             status: response.status,
