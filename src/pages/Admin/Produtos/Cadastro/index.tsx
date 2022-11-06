@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useFieldArray, useForm, Control } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-/* import Button from "../../../../components/Button"; */
 import Nav_Admin from "../../../../components/Nav_Admin";
 import ICategoria from "../../../../interfaces/categoria";
 import { api } from "../../../../service/api";
@@ -10,7 +9,6 @@ import useStateView from "../../../../validators/useStateView";
 import * as S from "./styles";
 
 type CadastroProduto = {
-  idServico: string;
   produtos: {
     nome: string;
   }[];
@@ -26,7 +24,7 @@ function cadastro() {
   const cadastroProduto = useCallback(async (data: CadastroProduto) => {
     await api
       .post<CadastroProduto>(
-        `/produto/cadastro/${data.idServico}`,
+        `/produto/cadastro`,
         data.produtos
       )
       .then(function (response) {
@@ -77,27 +75,6 @@ function cadastro() {
     },
   });
 
-  const [filteredResults, setFilteredResults] = useState<ICategoria[]>([]);
-  const [categoria, searchCategoria] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
-
-  const searchItems = (searchValue: any) => {
-    setSearchInput(searchValue);
-    const filteredData = categoria?.filter((item) => {
-      return Object.values(item)
-        .join("")
-        .toLowerCase()
-        .includes(searchInput.toLowerCase());
-    });
-    setFilteredResults(filteredData);
-  };
-
-  useEffect(() => {
-    api.get(`/servico/servicos`).then((response) => {
-      searchCategoria(response.data);
-    });
-  }, []);
-
   return (
     <>
       <S.Cadastro>
@@ -110,30 +87,6 @@ function cadastro() {
             <div className="Form">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
-                  {searchInput.length > 1
-                    ? filteredResults.map((categoria) => {
-                        return (
-                          <Form.Check
-                            type="radio"
-                            key={categoria.id}
-                            label={categoria?.nome}
-                            value={categoria.id}
-                            {...register("idServico")}
-                          />
-                        );
-                      })
-                    : categoria &&
-                      categoria.map((cat) => {
-                        return (
-                          <Form.Check
-                            type="radio"
-                            key={cat.id}
-                            label={cat?.nome}
-                            value={cat.id}
-                            {...register("idServico")}
-                          />
-                        );
-                      })}
                   {fields.map((item, index) => {
                     return (
                       <>
@@ -144,13 +97,14 @@ function cadastro() {
                           placeholder="Produto X"
                           {...register(`produtos.${index}.nome`)}
                         />
-                        <button type="button" onClick={() => remove(index)}>
+                        <button className="delete" type="button" onClick={() => remove(index)}>
                           Delete
                         </button>
                       </>
                     );
                   })}
                   <button
+                    className="append"
                     type="button"
                     onClick={() => {
                       append({

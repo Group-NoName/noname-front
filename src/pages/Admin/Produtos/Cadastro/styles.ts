@@ -29,48 +29,26 @@ section{
     input{
         width: 100%;
     }
-}
-.descricao{
-    width: 50vw;
-    height: 30vh;
-    display: flex;
-    flex-direction: column;
-    textarea{
-        height: 100%;
-        resize: none;
+    button{
+        width: 100px;
+        height: 40px;
+        margin-top: 10px;
+        border: 0px;
+    }
+    .append{
+        background-color: green;
+        color: white;
+        border-radius: 5px;
+    }
+    .delete{
+        background-color: red;
+        color: white;
+        border-radius: 5px;
     }
 }
 .position{
     margin-top: 10px;
     display: flex;
     flex-direction: row;
-    .imgs{      
-        width: 25vw;
-        height: 30vh;
-        .img1,
-        .img2,
-        .img3{
-            display: flex;
-            flex-direction: column;
-        }
-    }
-    .categoria{      
-        width: 25vw;
-        height: 30vh;
-        .cate{
-            display: flex;
-            flex-direction: column;
-        }
-    }
-    .preco{
-        display: flex;
-        flex-direction: column;
-        margin: 0 auto;
-        gap: 12px;
-        input{
-            width: 15vw;
-        }
-    }
 }
-
 `
