@@ -5,7 +5,6 @@ import { api } from "../../../../service/api";
 import { Button, Form, Table } from "react-bootstrap";
 import Ipacote from "../../../../interfaces/pacote";
 import { useLocation, useNavigate } from "react-router-dom";
-import { type } from "jquery";
 import useStateView from "../../../../validators/useStateView";
 import LocationStateView from "../../../../interfaces/useLocationsState";
 

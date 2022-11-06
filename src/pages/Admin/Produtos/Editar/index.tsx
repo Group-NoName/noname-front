@@ -161,67 +161,6 @@ function editar() {
                     {...register("nome")}
                   />
                 </div>
-                <div className="descricao">
-                  <label htmlFor="descricao">Descrição</label>
-                  <textarea
-                    {...register("descricao")}
-                    required
-                    defaultValue={produto?.descricao}
-                  />
-                </div>
-                <div className="position">
-                  <div className="imgs">
-                    <div className="img1">
-                      <label htmlFor="url">Img1</label>
-                      <input
-                        type="text"
-                        required
-                        defaultValue={produto?.images[0].url}
-                        {...register("images.0.url")}
-                      />
-                      {/*                                         <img src={produto?.images[0].url} alt="" /> */}
-                    </div>
-                    <div className="img2">
-                      <label htmlFor="url">Img2</label>
-                      <input
-                        type="text"
-                        required
-                        defaultValue={produto?.images[1].url}
-                        {...register("images.1.url")}
-                      />
-                      {/* <img src={produto?.images[1].url} alt="" /> */}
-                    </div>
-                    <div className="img3">
-                      <label htmlFor="url">Img3</label>
-                      <input
-                        type="text"
-                        required
-                        defaultValue={produto?.images[2].url}
-                        {...register("images.2.url")}
-                      />
-                      {/* <img src={produto?.images[2].url} alt="" /> */}
-                    </div>
-                  </div>
-                  <div className="preco">
-                    <label htmlFor="preco">Preço</label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      required
-                      {...register("preco")}
-                      defaultValue={produto?.preco}
-                    />
-                    <Button
-                      color={"#ffff"}
-                      width={"8"}
-                      height={"3"}
-                      fontSize={"20"}
-                      backgroundColor={"#3a4ad9"}
-                      text={"Editar"}
-                      type="submit"
-                    />
-                  </div>
-                </div>
               </form>
             </div>
             <form className="formTags" onSubmit={handleSubmit(onSubmitTags)}>
