@@ -32,7 +32,7 @@ function cadastroProduto() {
             type: "sucesso",
             mensagem: `${response.data}`,
           }),
-            navigate("/admin/categoria", {
+            navigate("/admin/categorias", {
               state: {
                 data: response.data,
                 status: response.status,

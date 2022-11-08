@@ -21,7 +21,7 @@ function Home() {
                                 <p>Produtos</p>
                             </Link>
                             <Link to='/admin/categorias' className="link">
-                                <p>Categorias</p>
+                                <p>Serviços</p>
                             </Link>
                             <Link to='/admin/tags' className="link">
                                 <p>Tags</p>
