@@ -96,25 +96,32 @@ function cadastroProduto() {
                           placeholder="Produto X"
                           {...register(`produtos.${index}.nome`)}
                         />
-                        <button type="button" onClick={() => remove(index)}>
-                          Delete
+                        <button
+                          className="delete"
+                          type="button"
+                          onClick={() => remove(index)}
+                        >
+                          Remover
                         </button>
                       </>
                     );
                   })}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      append({
-                        nome: "",
-                      });
-                    }}
-                  >
-                    Append
-                  </button>
-                  <Button variant="primary" type="submit">
-                    Submit
-                  </Button>
+                  <div className="controller-btn">
+                    <button
+                      className="append"
+                      type="button"
+                      onClick={() => {
+                        append({
+                          nome: "",
+                        });
+                      }}
+                    >
+                      Novo
+                    </button>
+                    <Button variant="primary" type="submit">
+                      Cadastrar
+                    </Button>
+                  </div>
                 </div>
               </form>
             </div>

@@ -45,6 +45,11 @@ section{
         color: white;
         border-radius: 5px;
     }
+    .controller-btn{
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+    }
 }
 .position{
     margin-top: 10px;

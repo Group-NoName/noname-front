@@ -23,10 +23,7 @@ function cadastro() {
   const stateView = new useStateView();
   const cadastroProduto = useCallback(async (data: CadastroProduto) => {
     await api
-      .post<CadastroProduto>(
-        `/produto/cadastro`,
-        data.produtos
-      )
+      .post<CadastroProduto>(`/produto/cadastro`, data.produtos)
       .then(function (response) {
         if (response) {
           setStatus({
@@ -97,26 +94,32 @@ function cadastro() {
                           placeholder="Produto X"
                           {...register(`produtos.${index}.nome`)}
                         />
-                        <button className="delete" type="button" onClick={() => remove(index)}>
-                          Delete
+                        <button
+                          className="delete"
+                          type="button"
+                          onClick={() => remove(index)}
+                        >
+                          Remover
                         </button>
                       </>
                     );
                   })}
-                  <button
-                    className="append"
-                    type="button"
-                    onClick={() => {
-                      append({
-                        nome: "",
-                      });
-                    }}
-                  >
-                    Append
-                  </button>
-                  <Button variant="primary" type="submit">
-                    Submit
-                  </Button>
+                  <div className="controller-btn">
+                    <button
+                      className="append"
+                      type="button"
+                      onClick={() => {
+                        append({
+                          nome: "",
+                        });
+                      }}
+                    >
+                      Novo
+                    </button>
+                    <Button variant="primary" type="submit">
+                      Cadastrar
+                    </Button>
+                  </div>
                 </div>
               </form>
             </div>
