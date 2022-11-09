@@ -106,7 +106,7 @@ function visualizar() {
               stateViewLocation?.data
             )}
             <div className="categoria">
-              <h1>Categoria: {categoria?.nome}</h1>
+              <h1>Serviço: {categoria?.nome}</h1>
               <div className="bottons">
                 <Link to={`/admin/categorias/editar/${categoria?.id}`}>
                   <Button variant="success">Editar</Button>

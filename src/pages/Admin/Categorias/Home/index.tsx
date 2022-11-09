@@ -86,7 +86,7 @@ function Home() {
               <Form.Control
                 aria-label="Text input with dropdown button"
                 onChange={(e) => searchItems(e.target.value)}
-                placeholder="Buscar Categoria"
+                placeholder="Buscar Serviço"
               />
               <Table striped bordered hover>
                 <thead>

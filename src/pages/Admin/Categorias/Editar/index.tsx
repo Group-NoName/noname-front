@@ -140,7 +140,7 @@ function editar() {
             <div className="contentMain">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
-                  <label htmlFor="nomeCategoria">Nome da Categoria</label>
+                  <label htmlFor="nomeCategoria">Nome do Serviço</label>
                   <input
                     type="text"
                     defaultValue={categoria?.nome}

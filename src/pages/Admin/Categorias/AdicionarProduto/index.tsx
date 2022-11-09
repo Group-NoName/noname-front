@@ -15,6 +15,7 @@ type CadastroProduto = {
 };
 
 function cadastroProduto() {
+  const [categoria, setCategoria] = useState<ICategoria>();
   const navigate = useNavigate();
   const [status, setStatus] = useState({
     type: "",
@@ -66,6 +67,15 @@ function cadastroProduto() {
     },
   });
 
+  useEffect(() => {
+    getCategorias();
+  }, [id]);
+
+  async function getCategorias() {
+    const response = await api.get<ICategoria>(`/servico/servicos/${id}`);
+    setCategoria(response.data);
+  }
+
   const { fields, append, remove } = useFieldArray({
     name: "produtos",
     control,
@@ -86,6 +96,7 @@ function cadastroProduto() {
             <div className="Form">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
+                <h1>Serviço: {categoria?.nome}</h1>
                   {fields.map((item, index) => {
                     return (
                       <>
