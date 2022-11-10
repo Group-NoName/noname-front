@@ -1,5 +1,5 @@
-import { useState, useCallback, useEffect } from "react";
-import { Button, Form } from "react-bootstrap";
+import { useState, useCallback, useEffect, KeyboardEvent } from "react";
+import { Button, Form, InputGroup } from "react-bootstrap";
 import { useFieldArray, useForm, Control } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
@@ -72,6 +72,33 @@ function cadastro() {
     },
   });
 
+  const duplicarTab = (event: KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Tab") {
+      let newfield = { nome: "" };
+      [...fields, newfield];
+    }
+  };
+
+  function filedCont(index: number) {
+    if (index <= 9) {
+      return (
+        <button
+          className="append"
+          type="button"
+          onKeyDown={(event) => duplicarTab(event)}
+          onClick={() => {
+            append({
+              nome: "",
+            });
+          }}
+        >
+          Novo
+        </button>
+      );
+    } else {
+      return <h1>Quantidade maxima de produtos para cadastrar</h1>;
+    }
+  }
   return (
     <>
       <S.Cadastro>
@@ -105,17 +132,7 @@ function cadastro() {
                     );
                   })}
                   <div className="controller-btn">
-                    <button
-                      className="append"
-                      type="button"
-                      onClick={() => {
-                        append({
-                          nome: "",
-                        });
-                      }}
-                    >
-                      Novo
-                    </button>
+                    {filedCont(fields.length)}
                     <Button variant="primary" type="submit">
                       Cadastrar
                     </Button>
