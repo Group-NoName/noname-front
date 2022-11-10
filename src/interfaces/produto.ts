@@ -3,8 +3,9 @@ import tags from "./tags"
 interface Iproduto {
     id: string,
     nome: string,
+    descricao: string
     /*     desconto: number,
-        descricao: string,
+        
         preco: number,
         images: image[],
         tags: tags[]   */

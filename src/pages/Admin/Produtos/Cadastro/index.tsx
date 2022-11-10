@@ -11,6 +11,7 @@ import * as S from "./styles";
 type CadastroProduto = {
   produtos: {
     nome: string;
+    descricao: string;
   }[];
 };
 
@@ -60,7 +61,7 @@ function cadastro() {
   } = useForm<CadastroProduto>({
     mode: "onBlur",
     defaultValues: {
-      produtos: [{ nome: "" }],
+      produtos: [{ nome: "", descricao: "" }],
     },
   });
 
@@ -94,6 +95,12 @@ function cadastro() {
                           placeholder="Produto X"
                           {...register(`produtos.${index}.nome`)}
                         />
+                        <label htmlFor="descricao">Descrição</label>
+                        <textarea
+                          rows={3}
+                          placeholder="Descrição X"
+                          {...register(`produtos.${index}.descricao`)}
+                        />
                         <button
                           className="delete"
                           type="button"
@@ -111,6 +118,7 @@ function cadastro() {
                       onClick={() => {
                         append({
                           nome: "",
+                          descricao: ""
                         });
                       }}
                     >

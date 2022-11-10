@@ -1,4 +1,3 @@
-import { Checkbox, Stack } from "@chakra-ui/react";
 import { useState, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,17 +8,13 @@ import tags from "../../../../interfaces/tags";
 import { api } from "../../../../service/api";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import * as S from "./styles";
-import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
-import { ButtonGroup, InputGroup, ToggleButton } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
 
 interface CadastroProduto {
   nome: string;
   descricao: string;
-  preco: number;
-  images: [{ url: string }, { url: string }, { url: string }];
   tags: Array<{
     id: string[];
   }>;
@@ -73,13 +68,7 @@ function editar() {
     await api
       .put<CadastroProduto>(`/produto/atualizar/${id}`, {
         nome: data.nome,
-        descricao: data.descricao,
-        preco: data.preco,
-        images: [
-          { url: data.images[0].url },
-          { url: data.images[1].url },
-          { url: data.images[2].url },
-        ],
+        descricao: data.descricao
       })
       .then(function (response) {
         if (response) {
@@ -126,7 +115,6 @@ function editar() {
 
   const onSubmit = useCallback(async (data: CadastroProduto) => {
     editarProduto(data);
-    console.log(`vini puta ${data.descricao}`);
   }, []);
   const onSubmitTags = useCallback(async (data: CadastroProduto) => {
     adicionarTag(data);
@@ -160,6 +148,12 @@ function editar() {
                     required
                     {...register("nome")}
                   />
+                  <label htmlFor="descricao">Descrição</label>
+                  <textarea
+                    rows={3}
+                    defaultValue={produto?.descricao}
+                    {...register("descricao")}
+                  />
                 </div>
               </form>
             </div>
@@ -176,30 +170,30 @@ function editar() {
                   />
                   {searchInput.length > 1
                     ? filteredResults.map((item) => {
-                        return (
-                          <Dropdown.ItemText key={item.id}>
-                            <Form.Check
-                              key={item.id}
-                              label={item?.nome}
-                              value={item.id}
-                              {...register("tags.0.id")}
-                            />
-                          </Dropdown.ItemText>
-                        );
-                      })
+                      return (
+                        <Dropdown.ItemText key={item.id}>
+                          <Form.Check
+                            key={item.id}
+                            label={item?.nome}
+                            value={item.id}
+                            {...register("tags.0.id")}
+                          />
+                        </Dropdown.ItemText>
+                      );
+                    })
                     : tags &&
-                      tags.map((tags) => {
-                        return (
-                          <Dropdown.ItemText key={tags.id}>
-                            <Form.Check
-                              key={tags.id}
-                              label={tags?.nome}
-                              value={tags.id}
-                              {...register("tags.0.id")}
-                            />
-                          </Dropdown.ItemText>
-                        );
-                      })}
+                    tags.map((tags) => {
+                      return (
+                        <Dropdown.ItemText key={tags.id}>
+                          <Form.Check
+                            key={tags.id}
+                            label={tags?.nome}
+                            value={tags.id}
+                            {...register("tags.0.id")}
+                          />
+                        </Dropdown.ItemText>
+                      );
+                    })}
                 </Dropdown.Menu>
               </Dropdown>
               <Button
