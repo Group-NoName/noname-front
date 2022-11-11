@@ -117,7 +117,7 @@ function cadastro() {
                 <div className="nome">
                   {fields.map((item, index) => {
                     return (
-                      <>
+                      <div key={item.id}>
                         <label htmlFor="nome">Nome</label>
                         <input
                           type="text"
@@ -132,7 +132,7 @@ function cadastro() {
                         >
                           Remover
                         </button>
-                      </>
+                      </div>
                     );
                   })}
                   <div className="controller-btn">
