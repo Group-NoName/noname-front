@@ -15,7 +15,9 @@ import useStateView from "../../../../validators/useStateView";
 interface CadastroProduto {
   nome: string;
   descricao: string;
-  preco: number;
+  tags: Array<{
+    id: string[];
+  }>;
 }
 
 function editar() {
@@ -77,7 +79,6 @@ function editar() {
 
   const onSubmit = useCallback(async (data: CadastroProduto) => {
     editarProduto(data);
-    console.log(`vini puta ${data.descricao}`);
   }, []);
 
   const {
@@ -107,6 +108,12 @@ function editar() {
                     defaultValue={produto?.nome}
                     required
                     {...register("nome")}
+                  />
+                  <label htmlFor="descricao">Descrição</label>
+                  <textarea
+                    rows={3}
+                    defaultValue={produto?.descricao}
+                    {...register("descricao")}
                   />
                 </div>
               </form>

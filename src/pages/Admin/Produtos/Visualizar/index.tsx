@@ -98,6 +98,7 @@ function Visualizar() {
               <div className="left-content">
                 <div className="content">
                   <h1>{produto?.nome}</h1>
+                  <h2>{produto?.descricao}</h2>
                 </div>
               </div>
               <div className="right-content">

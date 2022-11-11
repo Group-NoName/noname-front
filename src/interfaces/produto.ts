@@ -1,11 +1,10 @@
-import tags from "./tags"
-
 interface Iproduto {
-    id: string,
-    nome: string,
+  id: string;
+  nome: string;
+  descricao: string;
 }
 interface image {
-    url: string
+  url: string;
 }
 
-export default Iproduto
+export default Iproduto;
