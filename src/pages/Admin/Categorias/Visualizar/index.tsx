@@ -40,10 +40,12 @@ function visualizar() {
 
   const deletarRelacao = useCallback(async (idCat: string, idProd: string) => {
     await api
-      .put(`servico/deletar-produto/${idCat}`,{
-        produtos: [{
-          id: `${idProd}`
-        }]
+      .put(`servico/deletar-produto/${idCat}`, {
+        produtos: [
+          {
+            id: `${idProd}`,
+          },
+        ],
       })
       .then(function (response) {
         if (response) {

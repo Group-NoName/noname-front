@@ -1,4 +1,3 @@
-import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import Button from "../../../../components/Button";
 import Nav_Admin from "../../../../components/Nav_Admin";
@@ -18,7 +17,6 @@ interface CadastroPacote {
 }
 
 function cadastro() {
-  const [pacote, setPacote] = useState<CadastroPacote>();
   const [produto, searchProduto] = useState([]);
   const [produtos, setProduto] = useState<Iproduto[]>([]);
   const [searchInput, setSearchInput] = useState("");
@@ -112,75 +110,47 @@ function cadastro() {
                     {...register("nome")}
                   />
                 </div>
-                {/* <div className="descricao">
-                  <label htmlFor="descricao">Descrição</label>
-                  <textarea
-                    {...register("descricao")}
-                    placeholder="Descrição que o pacote irá ter"
-                  />
-                </div> <div className="position">
-                  <div className="imgs">
-                    <div className="img1">
-                      <label htmlFor="url">Img1</label>
-                      <input
-                        {...register("images.0.url")}
-                        type="text"
-                        placeholder="https://exemple.com/image1.jpg"
-                      />
-                    </div> 
-                     <div className="preço">
-                      <label htmlFor="preco">Preço</label>
-                      <input
-                        {...register("preco")}
-                        type="number"
-                        placeholder="R$ 00.00"
-                      />
-                    </div>
-                  </div> 
-               </div> */}
-                
                 <div className="produtos">
-                    <Form.Control
-                      className="search"
-                      aria-label="Text input with dropdown button"
-                      onChange={(e) => searchItems(e.target.value)}
-                      placeholder="Nome do produto..."
-                    />
-                    <Form aria-label="Default select">
-                      {searchInput.length > 1
-                            ? filteredResults.map((item) => {
-                                return (
-                                    <Form.Check
-                                      key={item.id}
-                                      label={item?.nome}
-                                      value={item.id}
-                                      {...register("produtos.0.id")}
-                                    />
-                                );
-                              })
-                            : produtos &&
-                              produtos.map((prod) => {
-                                return (
-                                    <Form.Check
-                                      key={prod.id}
-                                      label={prod?.nome}
-                                      value={prod.id}
-                                      {...register("produtos.0.id")}
-                                    />
-                                );
-                              })
-                      }
-                    </Form>
-                  </div>
-                    <Button
-                      color={"#ffff"}
-                      width={"8"}
-                      height={"3"}
-                      fontSize={"20"}
-                      backgroundColor={"#3a4ad9"}
-                      text={"Cadastrar"}
-                      type="submit"
-                    />
+                  <Form.Control
+                    className="search"
+                    aria-label="Text input with dropdown button"
+                    onChange={(e) => searchItems(e.target.value)}
+                    placeholder="Nome do produto..."
+                  />
+                  <Form aria-label="Default select">
+                    {searchInput.length > 1
+                      ? filteredResults.map((item) => {
+                          return (
+                            <Form.Check
+                              key={item.id}
+                              label={item?.nome}
+                              value={item.id}
+                              {...register("produtos.0.id")}
+                            />
+                          );
+                        })
+                      : produtos &&
+                        produtos.map((prod) => {
+                          return (
+                            <Form.Check
+                              key={prod.id}
+                              label={prod?.nome}
+                              value={prod.id}
+                              {...register("produtos.0.id")}
+                            />
+                          );
+                        })}
+                  </Form>
+                </div>
+                <Button
+                  color={"#ffff"}
+                  width={"8"}
+                  height={"3"}
+                  fontSize={"20"}
+                  backgroundColor={"#3a4ad9"}
+                  text={"Cadastrar"}
+                  type="submit"
+                />
               </form>
             </div>
           </main>

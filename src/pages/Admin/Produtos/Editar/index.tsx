@@ -1,4 +1,3 @@
-import { Checkbox, Stack } from "@chakra-ui/react";
 import { useState, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,28 +8,20 @@ import tags from "../../../../interfaces/tags";
 import { api } from "../../../../service/api";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import * as S from "./styles";
-import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
-import { ButtonGroup, InputGroup, ToggleButton } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
 
 interface CadastroProduto {
   nome: string;
   descricao: string;
   preco: number;
-  images: [{ url: string }, { url: string }, { url: string }];
-  tags: Array<{
-    id: string[];
-  }>;
 }
 
 function editar() {
   const [produto, setProduto] = useState<Iproduto>();
   const [tags, setTags] = useState<tags[]>([]);
   const [tag, searchTag] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
-  const [filteredResults, setFilteredResults] = useState<tags[]>([]);
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -38,16 +29,6 @@ function editar() {
   const { id } = useParams();
   const navigate = useNavigate();
   const stateView = new useStateView();
-  const searchItems = (searchValue: any) => {
-    setSearchInput(searchValue);
-    const filteredData = tag?.filter((item) => {
-      return Object.values(item)
-        .join("")
-        .toLowerCase()
-        .includes(searchInput.toLowerCase());
-    });
-    setFilteredResults(filteredData);
-  };
 
   useEffect(() => {
     getProduto(), getTags();
@@ -74,12 +55,6 @@ function editar() {
       .put<CadastroProduto>(`/produto/atualizar/${id}`, {
         nome: data.nome,
         descricao: data.descricao,
-        preco: data.preco,
-        images: [
-          { url: data.images[0].url },
-          { url: data.images[1].url },
-          { url: data.images[2].url },
-        ],
       })
       .then(function (response) {
         if (response) {
@@ -100,36 +75,9 @@ function editar() {
       });
   }, []);
 
-  const adicionarTag = useCallback(async (data: CadastroProduto) => {
-    await api
-      .put<CadastroProduto>(`/produto/adicionar-tag/${id}`, {
-        tags: data.tags[0].id.map((i) => ({ id: i })),
-      })
-      .then(function (response) {
-        if (response) {
-          setStatus({
-            type: "sucesso",
-            mensagem: `${response.data}`,
-          }),
-            navigate(`/admin/produtos/visualizar/${id}`);
-        }
-      })
-      .catch(function (error) {
-        if (error.response) {
-          setStatus({
-            type: "error",
-            mensagem: `Esse produto já possue a Tag: ${error.response.data}`,
-          });
-        }
-      });
-  }, []);
-
   const onSubmit = useCallback(async (data: CadastroProduto) => {
     editarProduto(data);
     console.log(`vini puta ${data.descricao}`);
-  }, []);
-  const onSubmitTags = useCallback(async (data: CadastroProduto) => {
-    adicionarTag(data);
   }, []);
 
   const {
@@ -163,55 +111,6 @@ function editar() {
                 </div>
               </form>
             </div>
-            <form className="formTags" onSubmit={handleSubmit(onSubmitTags)}>
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-custom-components">
-                  <>Adicionar Tags</>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Form.Control
-                    aria-label="Text input with dropdown button"
-                    onChange={(e) => searchItems(e.target.value)}
-                    placeholder="Nome da tag..."
-                  />
-                  {searchInput.length > 1
-                    ? filteredResults.map((item) => {
-                        return (
-                          <Dropdown.ItemText key={item.id}>
-                            <Form.Check
-                              key={item.id}
-                              label={item?.nome}
-                              value={item.id}
-                              {...register("tags.0.id")}
-                            />
-                          </Dropdown.ItemText>
-                        );
-                      })
-                    : tags &&
-                      tags.map((tags) => {
-                        return (
-                          <Dropdown.ItemText key={tags.id}>
-                            <Form.Check
-                              key={tags.id}
-                              label={tags?.nome}
-                              value={tags.id}
-                              {...register("tags.0.id")}
-                            />
-                          </Dropdown.ItemText>
-                        );
-                      })}
-                </Dropdown.Menu>
-              </Dropdown>
-              <Button
-                color={"#ffff"}
-                width={"8"}
-                height={"3"}
-                fontSize={"20"}
-                backgroundColor={"#3a4ad9"}
-                text={"Adicionar tags"}
-                type="submit"
-              />
-            </form>
           </main>
         </section>
       </S.Editar>

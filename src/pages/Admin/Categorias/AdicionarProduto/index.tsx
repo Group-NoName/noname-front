@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, KeyboardEvent } from "react";
-import { Button, Form } from "react-bootstrap";
-import { useFieldArray, useForm, Control } from "react-hook-form";
+import { Button } from "react-bootstrap";
+import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import ICategoria from "../../../../interfaces/categoria";

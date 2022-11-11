@@ -1,6 +1,5 @@
-import { AxiosError } from "axios";
-import { useCallback, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import CardProds from "../../components/CardProds";
 import Nav_ from "../../components/Nav";
 import Iproduto from "../../interfaces/produto";
@@ -31,21 +30,7 @@ function Produtos() {
           <main>
             <div className="produtos">
               <h1>Produtos</h1>
-              <div className="produtosmap">
-                {produtos &&
-                  produtos.map((i) => {
-                    return (
-                      <CardProds
-                        key={i.id}
-                        imageURL={`${i.images[0].url}`}
-                        name={`${i.nome}`}
-                        produtoID={`${i.id}`}
-                        preco={i.preco}
-                        produtos={i}
-                      />
-                    );
-                  })}
-              </div>
+              <div className="produtosmap"></div>
             </div>
           </main>
         </section>
