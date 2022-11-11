@@ -43,7 +43,7 @@ function Produto() {
 
   return (
     <>
-      <S.Container key={produto?.id}>
+      <S.Container>
         <section>
           <header>
             <Nav_ />
@@ -53,13 +53,11 @@ function Produto() {
               <div className="imgLateral">
                 {produto?.images.map((i) => {
                   return (
-                    <>
-                      <div className="imgsLateral" key={produto.id}>
-                        <div className="imgs">
-                          <img className="tamanho" src={`${i.url}`} alt="" />
-                        </div>
+                    <div className="imgsLateral" key={i.url}>
+                      <div className="imgs">
+                        <img className="tamanho" src={`${i.url}`} alt="" />
                       </div>
-                    </>
+                    </div>
                   );
                 })}
               </div>
@@ -105,17 +103,15 @@ function Produto() {
                       if (!(i.tags.length == 0)) {
                         if (i.id != id) {
                           return (
-                            <>
-                              <div className="card" key={i.id}>
-                                <CardProds
-                                  imageURL={`${i.images[0].url}`}
-                                  name={`${i.nome}`}
-                                  produtoID={`${i.id}`}
-                                  preco={i.preco}
-                                  produtos={i}
-                                />
-                              </div>
-                            </>
+                            <div className="card" key={i.id}>
+                              <CardProds
+                                imageURL={`${i.images[0].url}`}
+                                name={`${i.nome}`}
+                                produtoID={`${i.id}`}
+                                preco={i.preco}
+                                produtos={i}
+                              />
+                            </div>
                           );
                         }
                       }

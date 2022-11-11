@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Ioferta from "../../../../interfaces/oferta";
-import Iproduto from "../../../../interfaces/produto";
+import Ipacote from "../../../../interfaces/pacote";
 import LocationStateView from "../../../../interfaces/useLocationsState";
 import { api } from "../../../../service/api";
 import useStateView from "../../../../validators/useStateView";
@@ -50,14 +50,14 @@ function Visualizar() {
       });
   }, []);
 
-  const [produto, searchProduto] = useState([]);
-  const [produtos, setProduto] = useState<Iproduto[]>([]);
+  const [pacote, searchPacote] = useState([]);
+  const [pacotes, setPacote] = useState<Ipacote[]>([]);
   const [searchInput, setSearchInput] = useState("");
-  const [filteredResults, setFilteredResults] = useState<Iproduto[]>([]);
+  const [filteredResults, setFilteredResults] = useState<Ipacote[]>([]);
 
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
-    const filteredData = produto?.filter((item) => {
+    const filteredData = pacotes?.filter((item) => {
       return Object.values(item)
         .join("")
         .toLowerCase()
@@ -67,23 +67,23 @@ function Visualizar() {
   };
 
   useEffect(() => {
-    getProduto();
+    getPacote();
   });
 
   useEffect(() => {
-    api.get(`/produto/produtos`).then((response) => {
-      searchProduto(response.data);
+    api.get(`/pacote/pacotes`).then((response) => {
+      searchPacote(response.data);
     });
   }, []);
 
-  async function getProduto() {
-    const response = await api.get<Iproduto[]>(`/produto/produtos`);
-    setProduto(response.data);
+  async function getPacote() {
+    const response = await api.get<Ipacote[]>(`/pacote/pacotes`);
+    setPacote(response.data);
   }
 
-  const limparTodosProdutos = useCallback(async (id: String) => {
+  const limparTodosPacotes = useCallback(async (id: String) => {
     await api
-      .put(`/oferta/retirar-todos-produtos/${id}`)
+      .put(`/oferta/retirar-todos-pacotes/${id}`)
       .then(function (response) {
         if (response) {
           navigate(`/admin/ofertas/visualizar/${id}`, {
@@ -105,12 +105,12 @@ function Visualizar() {
         }
       });
   }, []);
-  const removerProduto = useCallback(async (id: string, idProduto: string) => {
+  const removerPacote = useCallback(async (id: string, idPacote: string) => {
     await api
-      .put(`/oferta/remover-produto/${id}`, {
+      .put(`/oferta/remover-pacote/${id}`, {
         produtos: [
           {
-            id: `${idProduto}`,
+            id: `${idPacote}`,
           },
         ],
       })
@@ -134,16 +134,16 @@ function Visualizar() {
       });
   }, []);
 
-  interface AdicionarProduto {
-    produtos: Array<{
+  interface AdicionarPacote {
+    pacotes: Array<{
       id: string[];
     }>;
   }
 
-  const cadastrarNovoProduto = useCallback(async (data: AdicionarProduto) => {
+  const cadastrarNovoPacote = useCallback(async (data: AdicionarPacote) => {
     await api
-      .put<AdicionarProduto>(`/oferta/adicionar-produto/${id}`, {
-        produtos: data.produtos[0].id.map((i) => ({ id: i })),
+      .put<AdicionarPacote>(`/oferta/adicionar-pacote/${id}`, {
+        pacotes: data.pacotes[0].id.map((i) => ({ id: i })),
       })
       .then(function (response) {
         navigate(`/admin/ofertas/visualizar/${id}`, {
@@ -165,15 +165,15 @@ function Visualizar() {
       });
   }, []);
 
-  const onSubmit = useCallback(async (data: AdicionarProduto) => {
-    cadastrarNovoProduto(data);
+  const onSubmit = useCallback(async (data: AdicionarPacote) => {
+    cadastrarNovoPacote(data);
   }, []);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AdicionarProduto>({
+  } = useForm<AdicionarPacote>({
     mode: "onBlur",
   });
 
@@ -190,8 +190,8 @@ function Visualizar() {
               stateViewLocation?.data
             )}
             {stateView.validacao(status.type, status.mensagem)}
-            <div className="porcentagem">
-              <h1>Porcentagem: {oferta?.desconto}</h1>
+            <div className="preco">
+              <h1>Preço: {oferta?.preco}</h1>
               <div className="buttons">
                 <Button
                   variant="danger"
@@ -201,53 +201,28 @@ function Visualizar() {
                 </Button>
                 <Button
                   variant="danger"
-                  onClick={() => limparTodosProdutos(String(oferta?.id))}
+                  onClick={() => limparTodosPacotes(String(oferta?.id))}
                 >
                   Remover todos os Produtos
                 </Button>
               </div>
             </div>
-            <div className="produtosPorcent">
-              <h1>Produtos</h1>
-              <div className="produtos">
-                {oferta &&
-                  oferta.produtos?.map((item) => {
-                    return (
-                      <>
-                        <div className="produto">
-                          <p>{item?.nome}</p>
-                          <div className="buttons">
-                            <Button
-                              variant="danger"
-                              onClick={() =>
-                                removerProduto(
-                                  String(oferta.id),
-                                  String(item?.id)
-                                )
-                              }
-                            >
-                              Remover
-                            </Button>
-                            <Link to={`/admin/produtos/visualizar/${item?.id}`}>
-                              <Button variant="primary">Visualizar</Button>
-                            </Link>
-                          </div>
-                        </div>
-                      </>
-                    );
-                  })}
+            <div className="pacotesPreco">
+              <h1>Pacotes</h1>
+              <div className="pacotes">
+                <h1>{oferta?.pacotes.nome}</h1>
               </div>
-              <h1>Adicionar Produto</h1>
+              <h1>Adicionar Pacote</h1>
               <form className="form" onSubmit={handleSubmit(onSubmit)}>
                 <Dropdown>
                   <Dropdown.Toggle id="dropdown-custom-components">
-                    <>Adicionar produtos</>
+                    <>Adicionar pacotes</>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Form.Control
                       aria-label="Text input with dropdown button"
                       onChange={(e) => searchItems(e.target.value)}
-                      placeholder="Nome do produto..."
+                      placeholder="Nome do pacote..."
                     />
                     {searchInput.length > 1
                       ? filteredResults.map((item) => {
@@ -257,20 +232,20 @@ function Visualizar() {
                                 key={item.id || item?.nome}
                                 label={item?.nome}
                                 value={item.id || item?.nome}
-                                {...register("produtos.0.id")}
+                                {...register("pacotes.0.id")}
                               />
                             </Dropdown.ItemText>
                           );
                         })
-                      : produtos &&
-                        produtos.map((prod) => {
+                      : pacotes &&
+                        pacotes.map((pac) => {
                           return (
-                            <Dropdown.ItemText key={prod.id || prod.nome}>
+                            <Dropdown.ItemText key={pac.id || pac.nome}>
                               <Form.Check
-                                key={prod.id || prod.nome}
-                                label={prod.nome}
-                                value={prod.id || prod.nome}
-                                {...register("produtos.0.id")}
+                                key={pac.id || pac.nome}
+                                label={pac.nome}
+                                value={pac.id || pac.nome}
+                                {...register("pacotes.0.id")}
                               />
                             </Dropdown.ItemText>
                           );

@@ -14,21 +14,26 @@ import PrecoValidador from "../../validators/precoValidador";
 
 function Home() {
   useEffect(() => {
-    getAllCategoria(), getAllPacote();
+    getAllProdutos();
   });
   const validacaoPreco = new PrecoValidador();
   const [categorias, setCategoria] = useState<ICategoria[]>([]);
   const [pacotes, setpacote] = useState<Ipacote[]>([]);
+  const [produtos, setprodutos] = useState<Iproduto[]>([]);
 
-  async function getAllCategoria() {
-    const response = await api.get<ICategoria[]>("/categoria/categorias");
-    setCategoria(response.data);
+  /*   async function getAllCategoria() {
+      const response = await api.get<ICategoria[]>("/categoria/categorias");
+      setCategoria(response.data);
+    } */
+  async function getAllProdutos() {
+    const response = await api.get<Iproduto[]>("/produto/produtos");
+    setprodutos(response.data);
   }
 
-  async function getAllPacote() {
-    const response = await api.get<Ipacote[]>("/pacote/pacotes");
-    setpacote(response.data);
-  }
+  /*   async function getAllPacote() {
+      const response = await api.get<Ipacote[]>("/pacote/pacotes");
+      setpacote(response.data);
+    } */
 
   const navigate = useNavigate();
 
@@ -40,8 +45,14 @@ function Home() {
             <Nav_ />
           </header>
           <main>
+            {produtos && produtos.map(i => {
+              return (
+                <p>{i.nome}</p>
+              )
+            })}
             <div className="categorias">
-              {categorias &&
+
+              {/* {categorias &&
                 categorias.map((itemCategoria) => {
                   if (itemCategoria.produtos.length > 0) {
                     return (
@@ -67,7 +78,7 @@ function Home() {
                       </div>
                     );
                   }
-                })}
+                })} */}
             </div>
             {/* DEIXAR OS CARDS DO PACOTE DO LADO DIREITO DAS CATEGORIAS */}
             <div className="pacotes">

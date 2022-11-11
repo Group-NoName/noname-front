@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useFieldArray, useForm, Control } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import ICategoria from "../../../../interfaces/categoria";
 import { api } from "../../../../service/api";
@@ -11,27 +11,29 @@ import * as S from "./styles";
 type CadastroProduto = {
   produtos: {
     nome: string;
-    descricao: string;
   }[];
 };
 
-function cadastro() {
+function cadastroProduto() {
+  const [categoria, setCategoria] = useState<ICategoria>();
   const navigate = useNavigate();
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
   });
   const stateView = new useStateView();
+
+  const { id } = useParams();
   const cadastroProduto = useCallback(async (data: CadastroProduto) => {
     await api
-      .post<CadastroProduto>(`/produto/cadastro`, data.produtos)
+      .post<CadastroProduto>(`/produto/cadastro-servico/${id}`, data.produtos)
       .then(function (response) {
         if (response) {
           setStatus({
             type: "sucesso",
             mensagem: `${response.data}`,
           }),
-            navigate("/admin/produtos", {
+            navigate("/admin/categorias", {
               state: {
                 data: response.data,
                 status: response.status,
@@ -61,9 +63,18 @@ function cadastro() {
   } = useForm<CadastroProduto>({
     mode: "onBlur",
     defaultValues: {
-      produtos: [{ nome: "", descricao: "" }],
+      produtos: [{ nome: "" }],
     },
   });
+
+  useEffect(() => {
+    getCategorias();
+  }, [id]);
+
+  async function getCategorias() {
+    const response = await api.get<ICategoria>(`/servico/servicos/${id}`);
+    setCategoria(response.data);
+  }
 
   const { fields, append, remove } = useFieldArray({
     name: "produtos",
@@ -85,6 +96,7 @@ function cadastro() {
             <div className="Form">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
+                <h1>Serviço: {categoria?.nome}</h1>
                   {fields.map((item, index) => {
                     return (
                       <>
@@ -94,12 +106,6 @@ function cadastro() {
                           required
                           placeholder="Produto X"
                           {...register(`produtos.${index}.nome`)}
-                        />
-                        <label htmlFor="descricao">Descrição</label>
-                        <textarea
-                          rows={3}
-                          placeholder="Descrição X"
-                          {...register(`produtos.${index}.descricao`)}
                         />
                         <button
                           className="delete"
@@ -118,7 +124,6 @@ function cadastro() {
                       onClick={() => {
                         append({
                           nome: "",
-                          descricao: ""
                         });
                       }}
                     >
@@ -137,4 +142,4 @@ function cadastro() {
     </>
   );
 }
-export default cadastro;
+export default cadastroProduto;

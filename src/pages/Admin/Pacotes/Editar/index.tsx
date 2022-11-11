@@ -154,26 +154,8 @@ function editar() {
                     {...register("nome")}
                   />
                 </div>
-                <div className="descricao">
-                  <label htmlFor="descricao">Descrição</label>
-                  <textarea
-                    {...register("descricao")}
-                    required
-                    defaultValue={pacote?.descricao}
-                  />
-                </div>
                 <div className="position">
                   <div className="imgs">
-                    <div className="img1">
-                      <label htmlFor="url">Img1</label>
-                      <input
-                        type="text"
-                        required
-                        defaultValue={pacote?.images[0]?.url}
-                        {...register("images.0.url")}
-                      />
-                      {/*                                         <img src={produto?.images[0].url} alt="" /> */}
-                    </div>
                     <div className="preco">
                       <label htmlFor="preco">Preço</label>
                       <input

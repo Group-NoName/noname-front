@@ -1,9 +1,10 @@
-import produto from "./produto"
+import pacote from "./pacote"
 
 interface Ioferta{
     id : string,
-    desconto : number,
-    produtos : produto[]
+    nome : string;
+    preco : number,
+    pacotes : pacote,
 }
 
 export default Ioferta

@@ -31,7 +31,7 @@ function Nav_Admin() {
                                 </Link>
                             </NavDropdown>
 
-                            <NavDropdown className='navdrops' title="Categorias" id="collasible-nav-dropdown">
+                            <NavDropdown className='navdrops' title="Serviços" id="collasible-nav-dropdown">
                                 <Link className='link' to={'/admin/categorias'}>
                                     <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
                                 </Link>
@@ -68,6 +68,16 @@ function Nav_Admin() {
                                 <br></br>
                                 <Link className='link' to={'/admin/ofertas/cadastro'}>
                                     <Navbar.Brand className='texto'>Criar ofertas</Navbar.Brand>
+                                </Link>
+                            </NavDropdown>
+
+                            <NavDropdown className='navdrops' title="Promoção" id="collasible-nav-dropdown">
+                                <Link className='link' to={'/admin/promocao'}>
+                                    <Navbar.Brand className='texto'>Visualizar</Navbar.Brand>
+                                </Link>
+                                <br></br>
+                                <Link className='link' to={'/admin/promocao/cadastro'}>
+                                    <Navbar.Brand className='texto'>Cadastrar Promoção</Navbar.Brand>
                                 </Link>
                             </NavDropdown>
                         </Nav>

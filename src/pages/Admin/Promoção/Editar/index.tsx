@@ -3,29 +3,28 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../../components/Button";
 import Nav_Admin from "../../../../components/Nav_Admin";
-import Iproduto from "../../../../interfaces/produto";
-import tags from "../../../../interfaces/tags";
 import { api } from "../../../../service/api";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import * as S from "./styles";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
 import useStateView from "../../../../validators/useStateView";
+import Ipromocao from "../../../../interfaces/promocao";
+import Ioferta from "../../../../interfaces/oferta";
 
-interface CadastroProduto {
+interface CadastroPromocao {
   nome: string;
-  descricao: string;
-  tags: Array<{
+  ofertas: Array<{
     id: string[];
   }>;
 }
 
-function editar() {
-  const [produto, setProduto] = useState<Iproduto>();
-  const [tags, setTags] = useState<tags[]>([]);
-  const [tag, searchTag] = useState([]);
+function EditarPromo() {
+  const [promocao, setPromocao] = useState<Ipromocao>();
+  const [ofertas, setOfertas] = useState<Ioferta[]>([]);
+  const [oferta, searchOferta] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [filteredResults, setFilteredResults] = useState<tags[]>([]);
+  const [filteredResults, setFilteredResults] = useState<Ioferta[]>([]);
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -35,7 +34,7 @@ function editar() {
   const stateView = new useStateView();
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
-    const filteredData = tag?.filter((item) => {
+    const filteredData = oferta?.filter((item) => {
       return Object.values(item)
         .join("")
         .toLowerCase()
@@ -45,30 +44,29 @@ function editar() {
   };
 
   useEffect(() => {
-    getProduto(), getTags();
+    getPromocao(), getOfertas();
   }, [id]);
 
-  async function getProduto() {
-    const response = await api.get<Iproduto>(`/produto/produtos/${id}`);
-    setProduto(response.data);
+  async function getPromocao() {
+    const response = await api.get<Ipromocao>(`/promocao/promocoes/${id}`);
+    setPromocao(response.data);
   }
 
-  async function getTags() {
-    const response = await api.get<tags[]>("/tag/tags");
-    setTags(response.data);
+  async function getOfertas() {
+    const response = await api.get<Ioferta[]>("/oferta/ofertas");
+    setOfertas(response.data);
   }
 
   useEffect(() => {
-    api.get(`/tag/tags`).then((response) => {
-      searchTag(response.data);
+    api.get(`/oferta/ofertas`).then((response) => {
+      searchOferta(response.data);
     });
   }, []);
 
-  const editarProduto = useCallback(async (data: CadastroProduto) => {
+  const editarPromocao = useCallback(async (data: CadastroPromocao) => {
     await api
-      .put<CadastroProduto>(`/produto/atualizar/${id}`, {
-        nome: data.nome,
-        descricao: data.descricao
+      .put<CadastroPromocao>(`/promocao/atualizar/${id}`, {
+        nome: data.nome
       })
       .then(function (response) {
         if (response) {
@@ -76,7 +74,7 @@ function editar() {
             type: "sucesso",
             mensagem: `${response.data}`,
           }),
-            navigate(`/admin/produtos/visualizar/${id}`);
+            navigate(`/admin/promocoes/visualizar/${id}`);
         }
       })
       .catch(function (error) {
@@ -89,10 +87,10 @@ function editar() {
       });
   }, []);
 
-  const adicionarTag = useCallback(async (data: CadastroProduto) => {
+  const adicionarOferta = useCallback(async (data: CadastroPromocao) => {
     await api
-      .put<CadastroProduto>(`/produto/adicionar-tag/${id}`, {
-        tags: data.tags[0].id.map((i) => ({ id: i })),
+      .put<CadastroPromocao>(`/promocao/adicionar-oferta/${id}`, {
+        ofertas: data.ofertas[0].id.map((i) => ({ id: i })),
       })
       .then(function (response) {
         if (response) {
@@ -100,31 +98,31 @@ function editar() {
             type: "sucesso",
             mensagem: `${response.data}`,
           }),
-            navigate(`/admin/produtos/visualizar/${id}`);
+            navigate(`/admin/promocoes/visualizar/${id}`);
         }
       })
       .catch(function (error) {
         if (error.response) {
           setStatus({
             type: "error",
-            mensagem: `Esse produto já possue a Tag: ${error.response.data}`,
+            mensagem: `Essa promoção já possue a Oferta: ${error.response.data}`,
           });
         }
       });
   }, []);
 
-  const onSubmit = useCallback(async (data: CadastroProduto) => {
-    editarProduto(data);
+  const onSubmit = useCallback(async (data: CadastroPromocao) => {
+    editarPromocao(data);
   }, []);
-  const onSubmitTags = useCallback(async (data: CadastroProduto) => {
-    adicionarTag(data);
+  const onSubmitOfertas = useCallback(async (data: CadastroPromocao) => {
+    adicionarOferta(data);
   }, []);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CadastroProduto>({
+  } = useForm<CadastroPromocao>({
     mode: "onBlur",
   });
 
@@ -144,56 +142,50 @@ function editar() {
                   <label htmlFor="nome">Nome</label>
                   <input
                     type="text"
-                    defaultValue={produto?.nome}
+                    defaultValue={promocao?.nome}
                     required
                     {...register("nome")}
-                  />
-                  <label htmlFor="descricao">Descrição</label>
-                  <textarea
-                    rows={3}
-                    defaultValue={produto?.descricao}
-                    {...register("descricao")}
                   />
                 </div>
               </form>
             </div>
-            <form className="formTags" onSubmit={handleSubmit(onSubmitTags)}>
+            <form className="formOfertas" onSubmit={handleSubmit(onSubmitOfertas)}>
               <Dropdown>
                 <Dropdown.Toggle id="dropdown-custom-components">
-                  <>Adicionar Tags</>
+                  <>Adicionar Ofertas</>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Form.Control
                     aria-label="Text input with dropdown button"
                     onChange={(e) => searchItems(e.target.value)}
-                    placeholder="Nome da tag..."
+                    placeholder="Nome da oferta..."
                   />
                   {searchInput.length > 1
                     ? filteredResults.map((item) => {
-                      return (
-                        <Dropdown.ItemText key={item.id}>
-                          <Form.Check
-                            key={item.id}
-                            label={item?.nome}
-                            value={item.id}
-                            {...register("tags.0.id")}
-                          />
-                        </Dropdown.ItemText>
-                      );
-                    })
-                    : tags &&
-                    tags.map((tags) => {
-                      return (
-                        <Dropdown.ItemText key={tags.id}>
-                          <Form.Check
-                            key={tags.id}
-                            label={tags?.nome}
-                            value={tags.id}
-                            {...register("tags.0.id")}
-                          />
-                        </Dropdown.ItemText>
-                      );
-                    })}
+                        return (
+                          <Dropdown.ItemText key={item.id}>
+                            <Form.Check
+                              key={item.id}
+                              label={item?.nome}
+                              value={item.id}
+                              {...register("ofertas.0.id")}
+                            />
+                          </Dropdown.ItemText>
+                        );
+                      })
+                    : ofertas &&
+                      ofertas.map((ofertas) => {
+                        return (
+                          <Dropdown.ItemText key={ofertas.id}>
+                            <Form.Check
+                              key={ofertas.id}
+                              label={ofertas?.nome}
+                              value={ofertas.id}
+                              {...register("ofertas.0.id")}
+                            />
+                          </Dropdown.ItemText>
+                        );
+                      })}
                 </Dropdown.Menu>
               </Dropdown>
               <Button
@@ -212,4 +204,4 @@ function editar() {
     </>
   );
 }
-export default editar;
+export default EditarPromo;

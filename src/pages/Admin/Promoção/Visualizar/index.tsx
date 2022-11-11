@@ -1,18 +1,17 @@
-// Tela do admin que vai pegar os produtos especificos
+
 import { useCallback, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import Iproduto from "../../../../interfaces/produto";
-import { api } from "../../../../service/api";
 import * as S from "./styles";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { Button } from "react-bootstrap";
+import Ipromocao from "../../../../interfaces/promocao";
+import { api } from "../../../../service/api";
 import Nav_Admin from "../../../../components/Nav_Admin";
-import { Button, Dropdown } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
-import PrecoValidador from "../../../../validators/precoValidador";
 import LocationStateView from "../../../../interfaces/useLocationsState";
 
-function Visualizar() {
-  const [produto, setProduto] = useState<Iproduto>();
+function VisualizarPromo() {
+  const [promocao, setPromocao] = useState<Ipromocao>();
   const { id } = useParams();
   const [status, setStatus] = useState({
     type: "",
@@ -20,52 +19,27 @@ function Visualizar() {
   });
   const navigate = useNavigate();
   useEffect(() => {
-    getProduto();
+    getPromocao();
   }, [id]);
   const location = useLocation();
   const statesView = new useStateView();
 
   const stateViewLocation = location.state as LocationStateView;
-  const validadePrice = new PrecoValidador();
-  async function getProduto() {
-    const response = await api.get<Iproduto>(`/produto/produtos/${id}`);
-    setProduto(response.data);
+  async function getPromocao() {
+    const response = await api.get<Ipromocao>(`/promocao/promocoes/${id}`);
+    setPromocao(response.data);
   }
-  const deleteProduto = useCallback(async (id: string) => {
+  const deletePromocao = useCallback(async (id: string) => {
     await api
-      .delete(`/produto/excluir/${id}`)
+      .delete(`/promocao/deletar/${id}`)
       .then(function (response) {
         if (response) {
-          navigate("/admin/produtos", {
+          navigate("/admin/promocao", {
             state: {
               data: response.data,
               status: response.status,
             },
           });
-        }
-      })
-      .catch(function (error) {
-        if (error.response) {
-          setStatus({
-            type: "error",
-            mensagem: `${error.response.data}`,
-          });
-        }
-      });
-  }, []);
-
-  const deleteRelacao = useCallback(async (idTags: string, idProd: string) => {
-    await api
-      .delete(`/tag/tag-produtos/${idTags}/${idProd}`)
-      .then(function (response) {
-        if (response) {
-          navigate(`/admin/produtos/visualizar/${id}`, {
-            state: {
-              data: response.data,
-              status: response.status,
-            },
-          }),
-            navigate(0);
         }
       })
       .catch(function (error) {
@@ -98,8 +72,7 @@ function Visualizar() {
               />
               <div className="left-content">
                 <div className="content">
-                  <h1>{produto?.nome}</h1>
-                  <h2>{produto?.descricao}</h2>
+                  <h1>{promocao?.nome}</h1>
                 </div>
               </div>
               <div className="right-content">
@@ -107,14 +80,14 @@ function Visualizar() {
                   <Button
                     variant="outline-primary"
                     onClick={() =>
-                      navigate(`/admin/produtos/editar/${produto?.id}`)
+                      navigate(`/admin/promocao/editar/${promocao?.id}`)
                     }
                   >
                     Editar
                   </Button>
                   <Button
                     variant="outline-danger"
-                    onClick={() => deleteProduto(String(produto?.id))}
+                    onClick={() => deletePromocao(String(promocao?.id))}
                   >
                     Deletar
                   </Button>
@@ -127,4 +100,4 @@ function Visualizar() {
     </>
   );
 }
-export default Visualizar;
+export default VisualizarPromo;

@@ -10,6 +10,7 @@ import CadastroCategoria from '../pages/Admin/Categorias/Cadastro'
 import HomeCategoria from '../pages/Admin/Categorias/Home'
 import VisualizarCategoria from '../pages/Admin/Categorias/Visualizar'
 import EditarCategoria from '../pages/Admin/Categorias/Editar'
+import CadastroProdutos from '../pages/Admin/Categorias/AdicionarProduto'
 import HomeTags from '../pages/Admin/Tags/Home'
 import CadastroTags from '../pages/Admin/Tags/Cadastro'
 import VisualizarTag from '../pages/Admin/Tags/Visualizar'
@@ -24,6 +25,11 @@ import HomeOferta from '../pages/Admin/Ofertas/Home'
 import CadastroOferta from '../pages/Admin/Ofertas/Cadastro'
 import VisualizarOferta from '../pages/Admin/Ofertas/Visualizar'
 import Pacotes from '../pages/Pacotes';
+import Login from '../pages/Admin/Login';
+import CadastroPromo from '../pages/Admin/Promoção/Cadastro'
+import HomePromocao from '../pages/Admin/Promoção/Home';
+import VisualizarPromo from '../pages/Admin/Promoção/Visualizar';
+import EditarPromo from '../pages/Admin/Promoção/Editar';
 
 function Routes() {
     return (
@@ -35,6 +41,7 @@ function Routes() {
         <Route path="/pacotes" element={<Pacotes />} />
         <Route path="/pacote/:id" element={<Pacote />} />
         <Route path="admin" >
+          <Route path="login" element={<Login />}/>
           <Route index element={<HomeAdmin/>}/> 
           <Route path="produtos">
             <Route index element={ <HomeProduto/> } />
@@ -47,6 +54,7 @@ function Routes() {
             <Route path="cadastro" element={<CadastroCategoria/>} />
             <Route path="visualizar/:id" element={<VisualizarCategoria/>} />       
             <Route path="editar/:id" element={<EditarCategoria/>} />
+            <Route path="cadastrar-produtos/:id" element={<CadastroProdutos/>} />
           </Route>
           <Route path="tags">
             <Route index element={ <HomeTags/> } />
@@ -64,7 +72,13 @@ function Routes() {
             <Route index element={ <HomeOferta/> } />
             <Route path="cadastro" element={<CadastroOferta/>} />
             <Route path="visualizar/:id" element={<VisualizarOferta/>} />
-          </Route>  
+          </Route> 
+          <Route path="promocao">
+            <Route index element={ <HomePromocao/>} />
+            <Route path="cadastro" element={<CadastroPromo/>} />
+            <Route path="visualizar/:id" element={<VisualizarPromo/>} />
+            <Route path="editar/:id" element={<EditarPromo/>} />
+          </Route>
         </Route>
       </RoutesWrapper>
       // </BrowserRouter>

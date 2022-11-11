@@ -96,8 +96,6 @@ function Home() {
                 <thead>
                   <tr>
                     <th>Nome</th>
-                    <th>Preço</th>
-                    <th>Desconto</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
@@ -107,16 +105,7 @@ function Home() {
                         return (
                           <tr key={item.id}>
                             <td>{item.nome}</td>
-                            <td>{item.preco}</td>
-                            <td>
-                              {item.desconto === 0 ? (
-                                <p style={{ color: "green " }}>Sem desconto</p>
-                              ) : (
-                                <p style={{ color: "red", fontWeight: "bold" }}>
-                                  R${item.desconto}
-                                </p>
-                              )}
-                            </td>
+                            
                             <td className="tdbuttons">
                               <div className="buttons">
                                 <Button
@@ -155,8 +144,6 @@ function Home() {
                         return (
                           <tr key={i.id}>
                             <td>{i.nome}</td>
-                            <td>R${i.preco}</td>
-                            <td>{validadePrice.validar(i)}</td>
                             <td className="tdbuttons">
                               <div className="buttons">
                                 <Button

@@ -12,9 +12,6 @@ import useStateView from "../../../../validators/useStateView";
 
 interface CadastroPacote {
   nome: string;
-  descricao: string;
-  preco: number;
-  images: [{ url: string }];
   produtos: Array<{
     id: string[];
   }>;
@@ -47,11 +44,6 @@ function cadastro() {
     await api
       .post<CadastroPacote>(`/pacote/cadastro`, {
         nome: data.nome,
-        descricao: data.descricao,
-        preco: data.preco,
-        images: [
-          { url: data.images[0].url },
-        ],
         produtos: data.produtos[0].id.map((i) => ({ id: i })),
       })
       .then(function (response) {
@@ -120,14 +112,13 @@ function cadastro() {
                     {...register("nome")}
                   />
                 </div>
-                <div className="descricao">
+                {/* <div className="descricao">
                   <label htmlFor="descricao">Descrição</label>
                   <textarea
                     {...register("descricao")}
                     placeholder="Descrição que o pacote irá ter"
                   />
-                </div>
-                <div className="position">
+                </div> <div className="position">
                   <div className="imgs">
                     <div className="img1">
                       <label htmlFor="url">Img1</label>
@@ -136,27 +127,17 @@ function cadastro() {
                         type="text"
                         placeholder="https://exemple.com/image1.jpg"
                       />
-                    </div>
-                    <div className="preço">
+                    </div> 
+                     <div className="preço">
                       <label htmlFor="preco">Preço</label>
                       <input
                         {...register("preco")}
                         type="number"
                         placeholder="R$ 00.00"
                       />
-                      <Button
-                        color={"#ffff"}
-                        width={"8"}
-                        height={"3"}
-                        fontSize={"20"}
-                        backgroundColor={"#3a4ad9"}
-                        text={"Cadastrar"}
-                        type="submit"
-                      />
                     </div>
-                  </div>
-                  
-                </div>
+                  </div> 
+               </div> */}
                 
                 <div className="produtos">
                     <Form.Control

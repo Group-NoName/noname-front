@@ -22,6 +22,9 @@ section{
 .Form{
     margin: 45px auto;
 }
+h1{
+    font-size: 30px
+}
 .nome{
     width: 50vw;
     display: flex;

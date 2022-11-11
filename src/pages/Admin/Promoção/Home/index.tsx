@@ -1,30 +1,62 @@
-import * as S from "./styles";
 import { useCallback, useEffect, useState } from "react";
-import Nav_Admin from "../../../../components/Nav_Admin";
-import { api } from "../../../../service/api";
 import { Button, Form, Table } from "react-bootstrap";
-import Ipacote from "../../../../interfaces/pacote";
 import { useLocation, useNavigate } from "react-router-dom";
-import useStateView from "../../../../validators/useStateView";
+import Nav_Admin from "../../../../components/Nav_Admin";
+import Ipromocao from "../../../../interfaces/promocao";
 import LocationStateView from "../../../../interfaces/useLocationsState";
+import { api } from "../../../../service/api";
+import useStateView from "../../../../validators/useStateView";
+import * as S from "./styles";
 
-function home() {
-  const [pacotes, setPacotes] = useState<Ipacote[]>([]);
-  const [pacote, searchPacote] = useState<Ipacote[]>([]);
+function HomePromocao() {
+  const [promocoes, setPromocao] = useState<Ipromocao[]>([]);
+  const [promocao, searchPromocao] = useState<Ipromocao[]>([]);
   const [searchInput, setSearchInput] = useState("");
-  const [filteredResults, setFilteredResults] = useState<Ipacote[]>([]);
-  const navigate = useNavigate();
+  const [filteredResults, setFilteredResults] = useState<Ipromocao[]>([]);
+
+  const location = useLocation();
+  const statesView = new useStateView();
+  const stateViewLocation = location.state as LocationStateView;
+
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
   });
-  const location = useLocation();
-  const statusView = new useStateView();
-  const stateViewLocation = location.state as LocationStateView;
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    getAllPromocoes();
+  });
+
+  const deletePromocao = useCallback(async (id: string) => {
+    await api
+      .delete(`/promocao/deletar/${id}`)
+      .then(function (response) {
+        if (response) {
+          setStatus({
+            type: "sucesso",
+            mensagem: `${response.data}`,
+          });
+        }
+      })
+      .catch(function (error) {
+        if (error.response) {
+          setStatus({
+            type: "error",
+            mensagem: `${error.response.data}`,
+          });
+        }
+      });
+  }, []);
+
+  async function getAllPromocoes() {
+    const response = await api.get<Ipromocao[]>("/promocao/promocoes");
+    setPromocao(response.data);
+  }
 
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
-    const filteredData = pacote?.filter((item) => {
+    const filteredData = promocao?.filter((item) => {
       return Object.values(item.nome)
         .join("")
         .toLowerCase()
@@ -33,36 +65,10 @@ function home() {
     setFilteredResults(filteredData);
   };
 
-  async function getAllPacotes() {
-    const response = await api.get<Ipacote[]>(`/pacote/pacotes`);
-    setPacotes(response.data);
-  }
-
-  const deletePacote = useCallback(async (id: string) => {
-    await api
-      .delete(`/pacote/excluir/${id}`)
-      .then(function (response) {
-        navigate(`/admin/pacotes`, {
-          state: {
-            data: response.data,
-            status: response.status,
-          },
-        }),
-          navigate(0);
-      })
-      .catch((err) => {
-        setStatus({
-          type: "error",
-          mensagem: err.response.data,
-        });
-      });
-  }, []);
-
   useEffect(() => {
-    getAllPacotes(),
-      api.get(`/pacote/pacotes`).then((response) => {
-        searchPacote(response.data);
-      });
+    api.get(`/promocao/promocoes`).then((response) => {
+      searchPromocao(response.data);
+    });
   }, []);
 
   return (
@@ -73,39 +79,38 @@ function home() {
             <Nav_Admin />
           </header>
           <main>
-            {statusView.validacao(
+            {statesView.validacao(
               stateViewLocation?.status,
               stateViewLocation?.data
             )}
-            {statusView.validacao(status.type, status.mensagem)}
+            {statesView.validacao(status.type, status.mensagem)}
             <div className="Form">
               <Form.Control
                 aria-label="Text input with dropdown button"
                 onChange={(e) => searchItems(e.target.value)}
-                placeholder="Buscar pacote"
+                placeholder="Buscar Promoção"
               />
               <Table striped bordered hover>
                 <thead>
                   <tr>
                     <th>Nome</th>
-                    <th>Preço</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
                   {searchInput.length > 1
-                    ? filteredResults.map((pacotes) => {
+                    ? filteredResults.map((item) => {
                         return (
-                          <tr key={pacotes.id}>
-                            <td>{pacotes?.nome}</td>
-                            <td>{pacotes?.preco}</td>
+                          <tr key={item.id}>
+                            <td>{item.nome}</td>
+                            
                             <td className="tdbuttons">
                               <div className="buttons">
                                 <Button
                                   variant="outline-primary"
                                   onClick={() =>
                                     navigate(
-                                      `/admin/pacotes/editar/${pacotes.id}`
+                                      `/admin/promocoes/editar/${item.id}`
                                     )
                                   }
                                 >
@@ -115,7 +120,7 @@ function home() {
                                   variant="outline-success"
                                   onClick={() =>
                                     navigate(
-                                      `/admin/pacotes/visualizar/${pacotes.id}`
+                                      `/admin/promocoes/visualizar/${item.id}`
                                     )
                                   }
                                 >
@@ -123,7 +128,7 @@ function home() {
                                 </Button>
                                 <Button
                                   variant="outline-danger"
-                                  onClick={() => deletePacote(pacotes.id)}
+                                  onClick={() => deletePromocao(item.id)}
                                 >
                                   Deletar
                                 </Button>{" "}
@@ -132,20 +137,17 @@ function home() {
                           </tr>
                         );
                       })
-                    : pacotes &&
-                      pacotes?.map((pacotes) => {
+                    : promocoes &&
+                      promocoes.map((i) => {
                         return (
-                          <tr key={pacotes.id}>
-                            <td>{pacotes?.nome}</td>
-                            <td>{pacotes?.preco}</td>
+                          <tr key={i.id}>
+                            <td>{i.nome}</td>
                             <td className="tdbuttons">
                               <div className="buttons">
                                 <Button
                                   variant="outline-primary"
                                   onClick={() =>
-                                    navigate(
-                                      `/admin/pacotes/editar/${pacotes.id}`
-                                    )
+                                    navigate(`/admin/promocao/editar/${i.id}`)
                                   }
                                 >
                                   Editar
@@ -154,7 +156,7 @@ function home() {
                                   variant="outline-success"
                                   onClick={() =>
                                     navigate(
-                                      `/admin/pacotes/visualizar/${pacotes.id}`
+                                      `/admin/promocao/visualizar/${i.id}`
                                     )
                                   }
                                 >
@@ -162,7 +164,7 @@ function home() {
                                 </Button>
                                 <Button
                                   variant="outline-danger"
-                                  onClick={() => deletePacote(pacotes.id)}
+                                  onClick={() => deletePromocao(i.id)}
                                 >
                                   Deletar
                                 </Button>{" "}
@@ -180,4 +182,4 @@ function home() {
     </>
   );
 }
-export default home;
+export default HomePromocao;

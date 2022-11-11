@@ -49,7 +49,7 @@ function editar() {
   };
 
   async function getCategoria() {
-    const response = await api.get<ICategoria>(`/categoria/categorias/${id}`);
+    const response = await api.get<ICategoria>(`/servico/servicos/${id}`);
     setCategoria(response.data);
   }
 
@@ -66,7 +66,7 @@ function editar() {
 
   const atualizarNomeCategoria = useCallback(async (data: IUpdateCategoria) => {
     await api
-      .put<IUpdateCategoria>(`/categoria/atualizar/${id}`, {
+      .put<IUpdateCategoria>(`/servico/atualizar/${id}`, {
         nome: data.nome,
       })
       .then(function (response) {
@@ -87,7 +87,7 @@ function editar() {
   const adicionarCategoriaProduto = useCallback(
     async (data: IUpdateCategoria) => {
       await api
-        .put<IUpdateCategoria>(`/categoria/categorias-produtos/${id}`, {
+        .put<IUpdateCategoria>(`/servico/inserir-produtos/${id}`, {
           produtos: data.produtos[0].id.map((i) => ({ id: i })),
         })
         .then(function (response) {
@@ -140,7 +140,7 @@ function editar() {
             <div className="contentMain">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
-                  <label htmlFor="nomeCategoria">Nome da Categoria</label>
+                  <label htmlFor="nomeCategoria">Nome do Serviço</label>
                   <input
                     type="text"
                     defaultValue={categoria?.nome}

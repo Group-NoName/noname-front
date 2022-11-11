@@ -28,7 +28,7 @@ function Home() {
 
   const deletarCategoria = useCallback(async (id: string) => {
     await api
-      .delete(`/categoria/excluir/${id}`)
+      .delete(`/servico/deletar/${id}`)
       .then(function (response) {
         if (response) {
           setStatus({
@@ -59,7 +59,7 @@ function Home() {
   };
 
   async function getAllCategorias() {
-    const response = await api.get<ICategoria[]>("/categoria/categorias");
+    const response = await api.get<ICategoria[]>("/servico/servicos");
     setCategorias(response.data);
   }
 
@@ -86,7 +86,7 @@ function Home() {
               <Form.Control
                 aria-label="Text input with dropdown button"
                 onChange={(e) => searchItems(e.target.value)}
-                placeholder="Buscar Categoria"
+                placeholder="Buscar Serviço"
               />
               <Table striped bordered hover>
                 <thead>
@@ -124,6 +124,16 @@ function Home() {
                                   Visualizar
                                 </Button>
                                 <Button
+                                  variant="outline-success"
+                                  onClick={() =>
+                                    navigate(
+                                      `/admin/categorias/visualizar/${item.id}`
+                                    )
+                                  }
+                                >
+                                  Adicionar Produtos
+                                </Button>
+                                <Button
                                   variant="outline-danger"
                                   onClick={() => deletarCategoria(item.id)}
                                 >
@@ -158,6 +168,16 @@ function Home() {
                                   }
                                 >
                                   Visualizar
+                                </Button>
+                                <Button
+                                  variant="outline-success"
+                                  onClick={() =>
+                                    navigate(
+                                      `/admin/categorias/cadastrar-produtos/${i.id}`
+                                    )
+                                  }
+                                >
+                                  Cadastrar novos produtos
                                 </Button>
                                 <Button
                                   variant="outline-danger"

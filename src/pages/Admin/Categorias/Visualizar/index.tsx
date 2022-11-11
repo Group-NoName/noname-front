@@ -27,20 +27,24 @@ function visualizar() {
   }, [id]);
 
   async function getCategorias() {
-    const response = await api.get<Categoria>(`/categoria/categorias/${id}`);
+    const response = await api.get<Categoria>(`/servico/servicos/${id}`);
     setCategoria(response.data);
   }
 
   async function getCategoriasProdutos() {
     const response = await api.get<Iproduto[]>(
-      `categoria/categorias/${id}/produtos`
+      `servico/servicos/${id}/produtos`
     );
     setCategoriaProdutos(response.data);
   }
 
   const deletarRelacao = useCallback(async (idCat: string, idProd: string) => {
     await api
-      .delete(`categoria/categorias-produtos/${idCat}/${idProd}`)
+      .put(`servico/deletar-produto/${idCat}`,{
+        produtos: [{
+          id: `${idProd}`
+        }]
+      })
       .then(function (response) {
         if (response) {
           navigate(`/admin/categorias/visualizar/${id}`, {
@@ -65,7 +69,7 @@ function visualizar() {
 
   const deletarCategoria = useCallback(async (id: string) => {
     await api
-      .delete(`/categoria/excluir/${id}`)
+      .delete(`/servico/deletar/${id}`)
       .then(function (response) {
         if (response) {
           navigate(`/admin/categorias`, {
@@ -102,7 +106,7 @@ function visualizar() {
               stateViewLocation?.data
             )}
             <div className="categoria">
-              <h1>Categoria: {categoria?.nome}</h1>
+              <h1>Serviço: {categoria?.nome}</h1>
               <div className="bottons">
                 <Link to={`/admin/categorias/editar/${categoria?.id}`}>
                   <Button variant="success">Editar</Button>
@@ -118,32 +122,30 @@ function visualizar() {
             <div className="produtosRelacionados">
               <h3>Produtos</h3>
               <div className="produtos">
-                {categoriasProdutos.map((item) => {
+                {categoria?.produtos.map((item) => {
                   if (item == null) {
                     return <h1></h1>;
                   } else {
                     return (
-                      <>
-                        <div className="produto">
-                          <p>{item?.nome}</p>
-                          <div className="buttons">
-                            <Button
-                              variant="danger"
-                              onClick={() =>
-                                deletarRelacao(
-                                  String(categoria?.id),
-                                  String(item?.id)
-                                )
-                              }
-                            >
-                              Deletar
-                            </Button>
-                            <Link to={`/admin/produtos/visualizar/${item?.id}`}>
-                              <Button variant="primary">Visualizar</Button>
-                            </Link>
-                          </div>
+                      <div className="produto" key={item.id}>
+                        <p>{item?.nome}</p>
+                        <div className="buttons">
+                          <Button
+                            variant="danger"
+                            onClick={() =>
+                              deletarRelacao(
+                                String(categoria?.id),
+                                String(item?.id)
+                              )
+                            }
+                          >
+                            Deletar
+                          </Button>
+                          <Link to={`/admin/produtos/visualizar/${item?.id}`}>
+                            <Button variant="primary">Visualizar</Button>
+                          </Link>
                         </div>
-                      </>
+                      </div>
                     );
                   }
                 })}

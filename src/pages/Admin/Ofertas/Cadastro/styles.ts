@@ -23,6 +23,12 @@ export const Cadastro = styled.div`
         display: flex;
         flex-direction: column;
 
+        .preco{
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        gap: 12px;
+
         .porcentagem{
             align-items: center;
             display: flex;

@@ -9,14 +9,17 @@ import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
 import useStateView from "../../../../validators/useStateView";
 import Ipacote from "../../../../interfaces/pacote";
+import Ioferta from "../../../../interfaces/oferta";
 
-interface CadastroOferta {
+interface CadastroPromocao {
   nome: string;
-  preco: number;
-  pacotes: string;
+  ofertas: Array<{
+    id: string[];
+  }>;
 }
-function Cadastro() {
-  const [ofertas, setOferta] = useState<CadastroOferta>();
+
+function CadastroPromo() {
+  const [promocoes, setPromocao] = useState<CadastroPromocao>();
   const navigate = useNavigate();
   const stateView = new useStateView();
   const [status, setStatus] = useState({
@@ -24,17 +27,14 @@ function Cadastro() {
     mensagem: "",
   });
 
-  const cadastroOferta = useCallback(async (data: CadastroOferta) => {
+  const cadastroPromocao = useCallback(async (data: CadastroPromocao) => {
     await api
-      .post<CadastroOferta>(`/oferta/cadastro`, {
+      .post<CadastroPromocao>(`promocao/cadastro`, {
         nome: data.nome,
-        preco: data.preco,
-        pacotes: {
-          id: data.pacotes
-        }
+        ofertas: data.ofertas[0].id.map((i) => ({ id: i })),
       })
       .then(function (response) {
-        navigate(`/admin/ofertas`, {
+        navigate(`/admin/promocao`, {
           state: {
             data: response.data,
             status: response.status,
@@ -45,37 +45,32 @@ function Cadastro() {
         if (error.response) {
           setStatus({
             type: "error",
-            mensagem: `Pacote - ${error.response.data} - Já estão em alguma oferta.`,
+            mensagem: `Oferta - ${error.response.data} - Já estão em alguma oferta.`,
           });
         }
       });
   }, []);
 
-  const onSubmit = useCallback(async (data: CadastroOferta) => {
-    cadastroOferta(data), 
-    console.log(data.pacotes);
-    
+  const onSubmit = useCallback(async (data: CadastroPromocao) => {
+    cadastroPromocao(data);
   }, []);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CadastroOferta>({
+  } = useForm<CadastroPromocao>({
     mode: "onBlur",
   });
 
-  /* const [produto, searchProduto] = useState([]); */
-  const [pacote, searchPacote] = useState([]);
-  /* const [produtos, setProduto] = useState<Iproduto[]>([]); */
-  const [pacotes, setPacote] = useState<Ipacote[]>([]);
+  const [oferta, searchOferta] = useState<Ioferta[]>([]);
+  const [ofertas, setOferta] = useState<Ioferta[]>([]);
   const [searchInput, setSearchInput] = useState("");
-  /* const [filteredResults, setFilteredResults] = useState<Iproduto[]>([]); */
-  const [filteredResults, setFilteredResults] = useState<Ipacote[]>([]);
+  const [filteredResults, setFilteredResults] = useState<Ioferta[]>([]);
 
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
-    const filteredData = pacote?.filter((item) => {
+    const filteredData = oferta?.filter((item) => {
       return Object.values(item)
         .join("")
         .toLowerCase()
@@ -84,33 +79,20 @@ function Cadastro() {
     setFilteredResults(filteredData);
   };
 
-  /* useEffect(() => {
-    getProduto();
-  }); */
-  useEffect(() => {
-    getPacote();
-  });
-
-  /* useEffect(() => {
-    api.get(`/produto/produtos`).then((response) => {
-      searchProduto(response.data);
+    useEffect(() => {
+      getOferta();
     });
-  }, []); */
-
-  useEffect(() => {
-    api.get(`/pacote/pacotes`).then((response) => {
-      searchPacote(response.data);
-    });
-  }, []);
-
-  /* async function getProduto() {
-    const response = await api.get<Iproduto[]>(`/produto/produtos`);
-    setProduto(response.data);
-  } */
-  async function getPacote() {
-    const response = await api.get<Ipacote[]>(`/pacote/pacotes`);
-    setPacote(response.data);
-  }
+  
+    useEffect(() => {
+      api.get(`/oferta/ofertas`).then((response) => {
+        searchOferta(response.data);
+      });
+    }, []);
+    
+    async function getOferta() {
+      const response = await api.get<Ioferta[]>(`/oferta/ofertas`);
+      setOferta(response.data);
+    }
 
   return (
     <>
@@ -126,16 +108,16 @@ function Cadastro() {
                   <label htmlFor="nome">Nome</label>
                   <input
                     type="text"
-                    placeholder="Oferta X"
+                    placeholder="Ex.: Promoção dia das mães"
                     {...register("nome")}
                   />
                 </div>
                 <div className="porcentagem">
-                  <label htmlFor="nomeCategoria">Pacotes</label>
+                  <label htmlFor="nomeCategoria">Ofertas</label>
                   <Form.Control
                   aria-label="Text input with dropdown button"
                   onChange={(e) => searchItems(e.target.value)}
-                  placeholder="Buscar Pacotes"
+                  placeholder="Buscar Ofertas"
                 />
                 <div className="produtosSearch">
                   <Form className='checkform' aria-label="Default select">
@@ -145,43 +127,30 @@ function Cadastro() {
                             <Form.Check
                               className="check"
                               required
-                              type="radio"
-                              key={item.id }
+                              key={item.id || item?.nome}
                               label={item?.nome}
-                              value={item.id }
-                              {...register("pacotes")}
+                              value={item.id || item?.nome}
+                              {...register("ofertas.0.id")}
                             />
                           );
                         })
-                      : pacotes &&
-                        pacotes.map((pacote) => {
+                      : oferta &&
+                        oferta.map((oferta) => {
                           return (
                             <Form.Check
                               className="check"
                               required
-                              type="radio"
-                              key={pacote.id }
-                              label={pacote?.nome}
-                              value={pacote.id }
-                              {...register("pacotes")}
+                              key={oferta.id || oferta?.nome}
+                              label={oferta?.nome}
+                              value={oferta.id || oferta?.nome}
+                              {...register("ofertas.0.id")}
                             />
                           );
-                        })}
+                        })} 
                   </Form>
                 </div>
-
                 </div>
-
                 <div className="preco">
-                    <label htmlFor="preco">Preço</label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      required
-                      {...register("preco")}
-                      placeholder="R$ 00.00"
-                      value={ofertas?.preco}
-                    />
                     <Button
                       color={"#ffff"}
                       width={"8"}
@@ -201,4 +170,4 @@ function Cadastro() {
   );
 }
 
-export default Cadastro;
+export default CadastroPromo;

@@ -58,7 +58,7 @@ function cadastro() {
 
   const cadastroCategoria = useCallback(async (data: CadastroCategoria) => {
     await api
-      .post<CadastroCategoria>(`/categoria/cadastro`, {
+      .post<CadastroCategoria>(`/servico/cadastro`, {
         nome: data.nome,
         produtos: data.produtos[0].id.map((i) => ({ id: i })),
       })
@@ -112,7 +112,7 @@ function cadastro() {
                     type="text"
                     value={categorias?.nome}
                     required
-                    placeholder="Categoria X"
+                    placeholder="Serviço X"
                     {...register("nome")}
                   />
                 </div>
