@@ -1,6 +1,6 @@
-import { useState, useCallback, useEffect } from "react";
-import { Button, Form } from "react-bootstrap";
-import { useFieldArray, useForm, Control } from "react-hook-form";
+import { useState, useCallback, useEffect, KeyboardEvent } from "react";
+import { Button } from "react-bootstrap";
+import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import ICategoria from "../../../../interfaces/categoria";
@@ -84,6 +84,38 @@ function cadastroProduto() {
     },
   });
 
+  const duplicarTab = (event: KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Tab") {
+      [
+        ...fields,
+        append({
+          nome: "",
+        }),
+      ];
+    }
+  };
+
+  function filedCont(index: number) {
+    if (index <= 9) {
+      return (
+        <button
+          className="append"
+          type="button"
+          onKeyDown={(event) => duplicarTab(event)}
+          onClick={() => {
+            append({
+              nome: "",
+            });
+          }}
+        >
+          Novo
+        </button>
+      );
+    } else {
+      return <h1>Quantidade maxima de produtos para cadastrar</h1>;
+    }
+  }
+
   return (
     <>
       <S.Cadastro>
@@ -96,10 +128,10 @@ function cadastroProduto() {
             <div className="Form">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
-                <h1>Serviço: {categoria?.nome}</h1>
+                  <h1>Serviço: {categoria?.nome}</h1>
                   {fields.map((item, index) => {
                     return (
-                      <>
+                      <div key={item.id}>
                         <label htmlFor="nome">Nome</label>
                         <input
                           type="text"
@@ -114,21 +146,11 @@ function cadastroProduto() {
                         >
                           Remover
                         </button>
-                      </>
+                      </div>
                     );
                   })}
                   <div className="controller-btn">
-                    <button
-                      className="append"
-                      type="button"
-                      onClick={() => {
-                        append({
-                          nome: "",
-                        });
-                      }}
-                    >
-                      Novo
-                    </button>
+                    {filedCont(fields.length)}
                     <Button variant="primary" type="submit">
                       Cadastrar
                     </Button>

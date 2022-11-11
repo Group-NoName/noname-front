@@ -103,7 +103,7 @@ function HomePromocao() {
                         return (
                           <tr key={item.id}>
                             <td>{item.nome}</td>
-                            
+
                             <td className="tdbuttons">
                               <div className="buttons">
                                 <Button

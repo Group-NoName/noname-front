@@ -1,4 +1,3 @@
-import React from "react";
 import { ForwardRefRenderFunction } from "react";
 
 import * as S from './styles'

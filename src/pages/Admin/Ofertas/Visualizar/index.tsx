@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Dropdown, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Ioferta from "../../../../interfaces/oferta";
 import Ipacote from "../../../../interfaces/pacote";
@@ -182,7 +182,7 @@ function Visualizar() {
       <S.Visu>
         <section>
           <header>
-            <Nav_Admin/>
+            <Nav_Admin />
           </header>
           <main>
             {stateView.validacao(
@@ -253,7 +253,9 @@ function Visualizar() {
                   </Dropdown.Menu>
                 </Dropdown>
                 <br></br>
-                <Button type="submit" variant="primary">Editar</Button>
+                <Button type="submit" variant="primary">
+                  Editar
+                </Button>
               </form>
             </div>
           </main>

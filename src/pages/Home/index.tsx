@@ -1,12 +1,9 @@
-import { AxiosError } from "axios";
-import { useCallback, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import CardProds from "../../components/CardProds";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Nav_ from "../../components/Nav";
 import Iproduto from "../../interfaces/produto";
 import { api } from "../../service/api";
 import * as S from "./styles";
-import Carousel from "react-bootstrap/Carousel";
 import ICategoria from "../../interfaces/categoria";
 import CardPacote from "../../components/CardPacote";
 import Ipacote from "../../interfaces/pacote";
@@ -20,21 +17,10 @@ function Home() {
   const [categorias, setCategoria] = useState<ICategoria[]>([]);
   const [pacotes, setpacote] = useState<Ipacote[]>([]);
   const [produtos, setprodutos] = useState<Iproduto[]>([]);
-
-  /*   async function getAllCategoria() {
-      const response = await api.get<ICategoria[]>("/categoria/categorias");
-      setCategoria(response.data);
-    } */
   async function getAllProdutos() {
     const response = await api.get<Iproduto[]>("/produto/produtos");
     setprodutos(response.data);
   }
-
-  /*   async function getAllPacote() {
-      const response = await api.get<Ipacote[]>("/pacote/pacotes");
-      setpacote(response.data);
-    } */
-
   const navigate = useNavigate();
 
   return (
@@ -45,58 +31,14 @@ function Home() {
             <Nav_ />
           </header>
           <main>
-            {produtos && produtos.map(i => {
-              return (
-                <p>{i.nome}</p>
-              )
-            })}
-            <div className="categorias">
-
-              {/* {categorias &&
-                categorias.map((itemCategoria) => {
-                  if (itemCategoria.produtos.length > 0) {
-                    return (
-                      <div key={itemCategoria.id}>
-                        <div className="listCategorias">
-                          <h1>Categoria: {itemCategoria.nome}</h1>
-                          <div className="produtosmap">
-                            {itemCategoria.produtos.map((i) => {
-                              return (
-                                <div className="disposicaoItem" key={i.id}>
-                                  <CardProds
-                                    imageURL={`${i?.images[0].url}`}
-                                    name={`${i?.nome}`}
-                                    produtoID={`${i?.id}`}
-                                    preco={i?.preco}
-                                    produtos={i}
-                                  />
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  }
-                })} */}
-            </div>
-            {/* DEIXAR OS CARDS DO PACOTE DO LADO DIREITO DAS CATEGORIAS */}
+            {produtos &&
+              produtos.map((i) => {
+                return <p>{i.nome}</p>;
+              })}
+            <div className="categorias"></div>
             <div className="pacotes">
               <div className="listpacotes">
                 <h1>Pacotes</h1>
-                {pacotes &&
-                  pacotes.map((i) => {
-                    return (
-                      <div className="pacote" key={i.id}>
-                        <CardPacote
-                          imageURL={`${i?.images[0].url}`}
-                          name={`${i?.nome}`}
-                          pacoteID={`${i?.id}`}
-                          preco={i?.preco}
-                        />
-                      </div>
-                    );
-                  })}
               </div>
             </div>
           </main>

@@ -13,15 +13,16 @@ import Ioferta from "../../../../interfaces/oferta";
 
 interface CadastroPromocao {
   nome: string;
-  ofertas: Array<{
+  ofertasObrigatorias: Array<{
+    id: string[];
+  }>;
+  ofertasOpcionais: Array<{
     id: string[];
   }>;
 }
 
 function CadastroPromo() {
-  const [promocoes, setPromocao] = useState<CadastroPromocao>();
   const navigate = useNavigate();
-  const stateView = new useStateView();
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -31,7 +32,9 @@ function CadastroPromo() {
     await api
       .post<CadastroPromocao>(`promocao/cadastro`, {
         nome: data.nome,
-        ofertas: data.ofertas[0].id.map((i) => ({ id: i })),
+        ofertasObrigatorias: data.ofertasObrigatorias[0].id.map((i) => ({ id: i})),
+        ofertasOpcionais: data.ofertasOpcionais[0].id.map((i) => ({ id: i})),
+
       })
       .then(function (response) {
         navigate(`/admin/promocao`, {
@@ -79,32 +82,32 @@ function CadastroPromo() {
     setFilteredResults(filteredData);
   };
 
-    useEffect(() => {
-      getOferta();
+  useEffect(() => {
+    getOferta();
+  });
+
+  useEffect(() => {
+    api.get(`/oferta/ofertas`).then((response) => {
+      searchOferta(response.data);
     });
-  
-    useEffect(() => {
-      api.get(`/oferta/ofertas`).then((response) => {
-        searchOferta(response.data);
-      });
-    }, []);
-    
-    async function getOferta() {
-      const response = await api.get<Ioferta[]>(`/oferta/ofertas`);
-      setOferta(response.data);
-    }
+  }, []);
+
+  async function getOferta() {
+    const response = await api.get<Ioferta[]>(`/oferta/ofertas`);
+    setOferta(response.data);
+  }
 
   return (
     <>
       <S.Cadastro>
         <section>
           <header>
-            <Nav_Admin /> 
+            <Nav_Admin />
           </header>
           <main>
             <div className="contentMain">
               <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="nome">
+                <div className="nome">
                   <label htmlFor="nome">Nome</label>
                   <input
                     type="text"
@@ -115,14 +118,14 @@ function CadastroPromo() {
                 <div className="porcentagem">
                   <label htmlFor="nomeCategoria">Ofertas</label>
                   <Form.Control
-                  aria-label="Text input with dropdown button"
-                  onChange={(e) => searchItems(e.target.value)}
-                  placeholder="Buscar Ofertas"
-                />
-                <div className="produtosSearch">
-                  <Form className='checkform' aria-label="Default select">
-                    {searchInput.length > 1
-                      ? filteredResults.map((item) => {
+                    aria-label="Text input with dropdown button"
+                    onChange={(e) => searchItems(e.target.value)}
+                    placeholder="Buscar Ofertas"
+                  />
+                  <div className="produtosSearch">
+                    <Form className="checkform" aria-label="Default select">
+                      {searchInput.length > 1
+                        ? filteredResults.map((item) => {
                           return (
                             <Form.Check
                               className="check"
@@ -130,11 +133,11 @@ function CadastroPromo() {
                               key={item.id || item?.nome}
                               label={item?.nome}
                               value={item.id || item?.nome}
-                              {...register("ofertas.0.id")}
+                              {...register("ofertasObrigatorias.0.id")}
                             />
                           );
                         })
-                      : oferta &&
+                        : oferta &&
                         oferta.map((oferta) => {
                           return (
                             <Form.Check
@@ -143,24 +146,53 @@ function CadastroPromo() {
                               key={oferta.id || oferta?.nome}
                               label={oferta?.nome}
                               value={oferta.id || oferta?.nome}
-                              {...register("ofertas.0.id")}
+                              {...register("ofertasObrigatorias.0.id")}
                             />
                           );
-                        })} 
-                  </Form>
-                </div>
+                        })}
+                    </Form>
+                    {/* ------------------------------------------ */}
+                    <Form className="checkform" aria-label="Default select">
+                      {searchInput.length > 1
+                        ? filteredResults.map((item) => {
+                          return (
+                            <Form.Check
+                              className="check"
+                              required
+                              key={item.id || item?.nome}
+                              label={item?.nome}
+                              value={item.id || item?.nome}
+                              {...register("ofertasOpcionais.0.id")}
+                            />
+                          );
+                        })
+                        : oferta &&
+                        oferta.map((oferta) => {
+                          return (
+                            <Form.Check
+                              className="check"
+                              required
+                              key={oferta.id || oferta?.nome}
+                              label={oferta?.nome}
+                              value={oferta.id || oferta?.nome}
+                              {...register("ofertasOpcionais.0.id")}
+                            />
+                          );
+                        })}
+                    </Form>
+                  </div>
                 </div>
                 <div className="preco">
-                    <Button
-                      color={"#ffff"}
-                      width={"8"}
-                      height={"3"}
-                      fontSize={"20"}
-                      backgroundColor={"#3a4ad9"}
-                      text={"Cadastrar"}
-                      type="submit"
-                    />
-                  </div>
+                  <Button
+                    color={"#ffff"}
+                    width={"8"}
+                    height={"3"}
+                    fontSize={"20"}
+                    backgroundColor={"#3a4ad9"}
+                    text={"Cadastrar"}
+                    type="submit"
+                  />
+                </div>
               </form>
             </div>
           </main>

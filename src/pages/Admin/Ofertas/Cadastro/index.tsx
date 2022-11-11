@@ -1,11 +1,10 @@
-import { Dropdown, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import Button from "../../../../components/Button";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import { useNavigate } from "react-router-dom";
 import * as S from "./styles";
 import { useState, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
 import useStateView from "../../../../validators/useStateView";
 import Ipacote from "../../../../interfaces/pacote";
@@ -16,9 +15,7 @@ interface CadastroOferta {
   pacotes: string;
 }
 function Cadastro() {
-  const [ofertas, setOferta] = useState<CadastroOferta>();
   const navigate = useNavigate();
-  const stateView = new useStateView();
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -30,8 +27,8 @@ function Cadastro() {
         nome: data.nome,
         preco: data.preco,
         pacotes: {
-          id: data.pacotes
-        }
+          id: data.pacotes,
+        },
       })
       .then(function (response) {
         navigate(`/admin/ofertas`, {
@@ -52,9 +49,7 @@ function Cadastro() {
   }, []);
 
   const onSubmit = useCallback(async (data: CadastroOferta) => {
-    cadastroOferta(data), 
-    console.log(data.pacotes);
-    
+    cadastroOferta(data), console.log(data.pacotes);
   }, []);
 
   const {
@@ -65,12 +60,9 @@ function Cadastro() {
     mode: "onBlur",
   });
 
-  /* const [produto, searchProduto] = useState([]); */
   const [pacote, searchPacote] = useState([]);
-  /* const [produtos, setProduto] = useState<Iproduto[]>([]); */
   const [pacotes, setPacote] = useState<Ipacote[]>([]);
   const [searchInput, setSearchInput] = useState("");
-  /* const [filteredResults, setFilteredResults] = useState<Iproduto[]>([]); */
   const [filteredResults, setFilteredResults] = useState<Ipacote[]>([]);
 
   const searchItems = (searchValue: any) => {
@@ -84,18 +76,9 @@ function Cadastro() {
     setFilteredResults(filteredData);
   };
 
-  /* useEffect(() => {
-    getProduto();
-  }); */
   useEffect(() => {
     getPacote();
   });
-
-  /* useEffect(() => {
-    api.get(`/produto/produtos`).then((response) => {
-      searchProduto(response.data);
-    });
-  }, []); */
 
   useEffect(() => {
     api.get(`/pacote/pacotes`).then((response) => {
@@ -103,10 +86,6 @@ function Cadastro() {
     });
   }, []);
 
-  /* async function getProduto() {
-    const response = await api.get<Iproduto[]>(`/produto/produtos`);
-    setProduto(response.data);
-  } */
   async function getPacote() {
     const response = await api.get<Ipacote[]>(`/pacote/pacotes`);
     setPacote(response.data);
@@ -117,12 +96,12 @@ function Cadastro() {
       <S.Cadastro>
         <section>
           <header>
-            <Nav_Admin /> 
+            <Nav_Admin />
           </header>
           <main>
             <div className="contentMain">
               <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="nome">
+                <div className="nome">
                   <label htmlFor="nome">Nome</label>
                   <input
                     type="text"
@@ -133,65 +112,63 @@ function Cadastro() {
                 <div className="porcentagem">
                   <label htmlFor="nomeCategoria">Pacotes</label>
                   <Form.Control
-                  aria-label="Text input with dropdown button"
-                  onChange={(e) => searchItems(e.target.value)}
-                  placeholder="Buscar Pacotes"
-                />
-                <div className="produtosSearch">
-                  <Form className='checkform' aria-label="Default select">
-                    {searchInput.length > 1
-                      ? filteredResults.map((item) => {
-                          return (
-                            <Form.Check
-                              className="check"
-                              required
-                              type="radio"
-                              key={item.id }
-                              label={item?.nome}
-                              value={item.id }
-                              {...register("pacotes")}
-                            />
-                          );
-                        })
-                      : pacotes &&
-                        pacotes.map((pacote) => {
-                          return (
-                            <Form.Check
-                              className="check"
-                              required
-                              type="radio"
-                              key={pacote.id }
-                              label={pacote?.nome}
-                              value={pacote.id }
-                              {...register("pacotes")}
-                            />
-                          );
-                        })}
-                  </Form>
-                </div>
-
+                    aria-label="Text input with dropdown button"
+                    onChange={(e) => searchItems(e.target.value)}
+                    placeholder="Buscar Pacotes"
+                  />
+                  <div className="produtosSearch">
+                    <Form className="checkform" aria-label="Default select">
+                      {searchInput.length > 1
+                        ? filteredResults.map((item) => {
+                            return (
+                              <Form.Check
+                                className="check"
+                                required
+                                type="radio"
+                                key={item.id}
+                                label={item?.nome}
+                                value={item.id}
+                                {...register("pacotes")}
+                              />
+                            );
+                          })
+                        : pacotes &&
+                          pacotes.map((pacote) => {
+                            return (
+                              <Form.Check
+                                className="check"
+                                required
+                                type="radio"
+                                key={pacote.id}
+                                label={pacote?.nome}
+                                value={pacote.id}
+                                {...register("pacotes")}
+                              />
+                            );
+                          })}
+                    </Form>
+                  </div>
                 </div>
 
                 <div className="preco">
-                    <label htmlFor="preco">Preço</label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      required
-                      {...register("preco")}
-                      placeholder="R$ 00.00"
-                      value={ofertas?.preco}
-                    />
-                    <Button
-                      color={"#ffff"}
-                      width={"8"}
-                      height={"3"}
-                      fontSize={"20"}
-                      backgroundColor={"#3a4ad9"}
-                      text={"Cadastrar"}
-                      type="submit"
-                    />
-                  </div>
+                  <label htmlFor="preco">Preço</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    required
+                    placeholder="R$ 00.00"
+                    {...register("preco")}
+                  />
+                  <Button
+                    color={"#ffff"}
+                    width={"8"}
+                    height={"3"}
+                    fontSize={"20"}
+                    backgroundColor={"#3a4ad9"}
+                    text={"Cadastrar"}
+                    type="submit"
+                  />
+                </div>
               </form>
             </div>
           </main>
