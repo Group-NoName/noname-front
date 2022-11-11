@@ -13,7 +13,10 @@ import Ioferta from "../../../../interfaces/oferta";
 
 interface CadastroPromocao {
   nome: string;
-  ofertas: Array<{
+  ofertasObrigatorias: Array<{
+    id: string[];
+  }>;
+  ofertasOpcionais: Array<{
     id: string[];
   }>;
 }
@@ -29,7 +32,9 @@ function CadastroPromo() {
     await api
       .post<CadastroPromocao>(`promocao/cadastro`, {
         nome: data.nome,
-        ofertas: data.ofertas[0].id.map((i) => ({ id: i })),
+        ofertasObrigatorias: data.ofertasObrigatorias[0].id.map((i) => ({ id: i})),
+        ofertasOpcionais: data.ofertasOpcionais[0].id.map((i) => ({ id: i})),
+
       })
       .then(function (response) {
         navigate(`/admin/promocao`, {
@@ -121,30 +126,59 @@ function CadastroPromo() {
                     <Form className="checkform" aria-label="Default select">
                       {searchInput.length > 1
                         ? filteredResults.map((item) => {
-                            return (
-                              <Form.Check
-                                className="check"
-                                required
-                                key={item.id || item?.nome}
-                                label={item?.nome}
-                                value={item.id || item?.nome}
-                                {...register("ofertas.0.id")}
-                              />
-                            );
-                          })
+                          return (
+                            <Form.Check
+                              className="check"
+                              required
+                              key={item.id || item?.nome}
+                              label={item?.nome}
+                              value={item.id || item?.nome}
+                              {...register("ofertasObrigatorias.0.id")}
+                            />
+                          );
+                        })
                         : oferta &&
-                          oferta.map((oferta) => {
-                            return (
-                              <Form.Check
-                                className="check"
-                                required
-                                key={oferta.id || oferta?.nome}
-                                label={oferta?.nome}
-                                value={oferta.id || oferta?.nome}
-                                {...register("ofertas.0.id")}
-                              />
-                            );
-                          })}
+                        oferta.map((oferta) => {
+                          return (
+                            <Form.Check
+                              className="check"
+                              required
+                              key={oferta.id || oferta?.nome}
+                              label={oferta?.nome}
+                              value={oferta.id || oferta?.nome}
+                              {...register("ofertasObrigatorias.0.id")}
+                            />
+                          );
+                        })}
+                    </Form>
+                    {/* ------------------------------------------ */}
+                    <Form className="checkform" aria-label="Default select">
+                      {searchInput.length > 1
+                        ? filteredResults.map((item) => {
+                          return (
+                            <Form.Check
+                              className="check"
+                              required
+                              key={item.id || item?.nome}
+                              label={item?.nome}
+                              value={item.id || item?.nome}
+                              {...register("ofertasOpcionais.0.id")}
+                            />
+                          );
+                        })
+                        : oferta &&
+                        oferta.map((oferta) => {
+                          return (
+                            <Form.Check
+                              className="check"
+                              required
+                              key={oferta.id || oferta?.nome}
+                              label={oferta?.nome}
+                              value={oferta.id || oferta?.nome}
+                              {...register("ofertasOpcionais.0.id")}
+                            />
+                          );
+                        })}
                     </Form>
                   </div>
                 </div>
