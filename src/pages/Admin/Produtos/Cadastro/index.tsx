@@ -74,8 +74,12 @@ function cadastro() {
 
   const duplicarTab = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key === "Tab") {
-      let newfield = { nome: "" };
-      [...fields, newfield];
+      [
+        ...fields,
+        append({
+          nome: "",
+        }),
+      ];
     }
   };
 
