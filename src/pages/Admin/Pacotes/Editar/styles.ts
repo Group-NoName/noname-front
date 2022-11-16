@@ -36,7 +36,7 @@ export const Editar = styled.div`
         width: 50vw;
         height: 30vh;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         textarea{
             height: 100%;
             resize: none;
@@ -46,7 +46,8 @@ export const Editar = styled.div`
         margin-top: 10px;
         display: flex;
         flex-direction: row;
-        .imgs{      
+    }
+        /* .imgs{      
             width: 25vw;
             height: 30vh;
             .img1,
@@ -82,9 +83,10 @@ export const Editar = styled.div`
             display: flex;
             flex-direction: column;
         }
-    }
+    } */
 
     .addprodutos{
+        margin-top: 10px;
         display: flex;
         gap: 10px;
     }

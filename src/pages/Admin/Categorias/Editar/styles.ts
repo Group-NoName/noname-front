@@ -18,6 +18,12 @@ section{
     }
 }
 
+.icon{
+    font-size: 4vw;
+    margin: 1vw 0 0 2vw;
+    display: flex;
+}
+
 .contentMain form{
     margin-top: 15px;
     display: flex;
@@ -33,14 +39,14 @@ section{
         margin-bottom: 15px;
 
         input{
-            width: 350px;
+            width: 45vw;
         }
     }
     .produtosSearch{
         flex-wrap: nowrap;
         overflow-y: scroll;
         height: 40vh ;
-        width: 50vw ;
+        width: 45vw ;
 
     }
     Button{
@@ -54,6 +60,8 @@ section{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 45vw;
+    gap: 5px;
 }
 
     .produtosSearch::-webkit-scrollbar {

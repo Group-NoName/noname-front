@@ -17,8 +17,19 @@ section{
       }
   }
 
+  .contentMain{
+      .nome{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+          input{
+              width: 45vw;
+          }
+        }
+  }
+
   .contentMain form{
-      margin-top: 15px;
+      margin-top: 60px;
       display: flex;
       flex-direction: column;
 
@@ -36,7 +47,7 @@ section{
           margin-bottom: 15px;
 
           input{
-              width: 350px;
+              width: 450px;
           }
       }
       .produtosSearch{

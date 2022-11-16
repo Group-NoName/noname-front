@@ -21,11 +21,13 @@ export const Visualizar = styled.div`
         margin: auto;
         width: 80%;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         
     }
     .left-content{
-        margin: 8% 0;
+        margin-bottom: 3%;
+        display: flex;
+        align-self: center
     }
     .icon{
         font-size: 4vw;
@@ -69,7 +71,6 @@ export const Visualizar = styled.div`
     }
     
     .right-content{
-    margin: 8% 0;
     display: flex;
     flex-direction: column;
     justify-content: center;

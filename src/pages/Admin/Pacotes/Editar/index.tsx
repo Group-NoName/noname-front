@@ -140,8 +140,8 @@ function editar() {
           </header>
           <main>
             {stateView.validacao(status.type, status.mensagem)}
-            <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
             <div className="Form">
+            <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
                   <label htmlFor="nome">Nome</label>

@@ -19,8 +19,11 @@ section{
     }
 }
 
+.Form{
+    margin: 45px auto;
+}
+
 .Form form{
-    margin-top: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,11 +32,10 @@ section{
     .nome{
         display: flex;
         flex-direction: column;
-        gap: 15px;
         margin-bottom: 15px;
 
         input{
-            width: 350px;
+            width: 45vw;
         }
     }
 
@@ -45,7 +47,7 @@ section{
 .produtosSearch{
     margin-top: 15px;
     display: flex;
-    width: 100%;
+    width: 45vw;
     height: 300px;
     overflow-y: scroll;
     border: 1px solid;

@@ -111,7 +111,7 @@ function CadastroPromo() {
                   <label htmlFor="nome">Nome</label>
                   <input
                     type="text"
-                    placeholder="Ex.: Promoção dia das mães"
+                    placeholder="Ex.: Promoção X"
                     {...register("nome")}
                   />
                 </div>

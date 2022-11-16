@@ -98,8 +98,8 @@ function editar() {
           </header>
           <main>
             {stateView.validacao(status.type, status.mensagem)}
-            <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
             <div className="Form">
+            <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
                   <label htmlFor="nome">Nome</label>
@@ -116,6 +116,15 @@ function editar() {
                     {...register("descricao")}
                   />
                 </div>
+                <Button
+                    color={"#ffff"}
+                    width={"8"}
+                    height={"3"}
+                    fontSize={"20"}
+                    backgroundColor={"#3a4ad9"}
+                    text={"Editar"}
+                    type="submit"
+                  />
               </form>
             </div>
           </main>
