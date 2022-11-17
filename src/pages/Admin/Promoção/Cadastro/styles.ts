@@ -61,6 +61,24 @@ section{
           margin-top: 15px;
       }
   }
+  .estiloProdutos{
+    margin: 1em 0;
+    display: flex;
+    .obrigatorios{
+        h1{
+            text-align: center;
+        }
+        width: 50%;
+        border-right: 3px dashed black;
+    }
+    .opcionais {
+        h1{
+            text-align: center;
+        }
+        margin-left: 1em;
+        width: 50%;
+    }
+  }
 
 
   .produtosSearch::-webkit-scrollbar {
