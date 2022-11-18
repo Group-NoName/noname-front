@@ -8,7 +8,6 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import { Button } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
-import PrecoValidador from "../../../../validators/precoValidador";
 import LocationStateView from "../../../../interfaces/useLocationsState";
 
 function Visualizar() {
@@ -98,7 +97,7 @@ function Visualizar() {
               <div className="left-content">
                 <div className="content">
                   <h1>{produto?.nome}</h1>
-                  {/* <h2>{produto?.descricao}</h2> */}
+                  <h2>{produto?.descricao}</h2>
                 </div>
               </div>
               <div className="right-content">

@@ -102,7 +102,7 @@ function editar() {
             <div className="Form">
               <AiOutlineArrowLeft
                 className="icon"
-                /* onClick={() => navigate(-1)} */
+                onClick={() => navigate(-1)}
               />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
