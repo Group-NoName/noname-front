@@ -17,8 +17,19 @@ section{
       }
   }
 
+  .contentMain{
+      .nome{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+          input{
+              width: 45vw;
+          }
+        }
+  }
+
   .contentMain form{
-      margin-top: 15px;
+      margin-top: 60px;
       display: flex;
       flex-direction: column;
 
@@ -36,7 +47,7 @@ section{
           margin-bottom: 15px;
 
           input{
-              width: 350px;
+              width: 450px;
           }
       }
       .produtosSearch{
@@ -49,6 +60,24 @@ section{
       Button{
           margin-top: 15px;
       }
+  }
+  .estiloProdutos{
+    margin: 1em 0;
+    display: flex;
+    .obrigatorios{
+        h1{
+            text-align: center;
+        }
+        width: 50%;
+        border-right: 3px dashed black;
+    }
+    .opcionais {
+        h1{
+            text-align: center;
+        }
+        margin-left: 1em;
+        width: 50%;
+    }
   }
 
 

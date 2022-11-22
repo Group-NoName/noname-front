@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Dropdown, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import Ioferta from "../../../../interfaces/oferta";
@@ -191,20 +192,28 @@ function Visualizar() {
             )}
             {stateView.validacao(status.type, status.mensagem)}
             <div className="preco">
-              <h1>Preço: {oferta?.preco}</h1>
-              <div className="buttons">
-                <Button
-                  variant="danger"
-                  onClick={() => deleteOferta(String(oferta?.id))}
-                >
-                  Deletar
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => limparTodosPacotes(String(oferta?.id))}
-                >
-                  Remover todos os Produtos
-                </Button>
+              <AiOutlineArrowLeft
+                className="icon"
+                onClick={() => navigate(-1)}
+              />
+              <div className="left-content">
+                <div className="content">
+                  <h1>Preço: {oferta?.preco}</h1>
+                  <div className="buttons">
+                    <Button
+                      variant="danger"
+                      onClick={() => deleteOferta(String(oferta?.id))}
+                    >
+                      Deletar
+                    </Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => limparTodosPacotes(String(oferta?.id))}
+                    >
+                      Remover todos os Produtos
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="pacotesPreco">

@@ -25,6 +25,7 @@ section{
 .icon{
     font-size: 4vw;
     margin: 1vw 0 0 2vw;
+    display: flex;
 }
 .nome{
     width: 50vw;
@@ -84,6 +85,9 @@ img{
         display: flex;
         flex-direction: column;
     }
+}
+Button{
+    margin-top: 10px;
 }
 
 `

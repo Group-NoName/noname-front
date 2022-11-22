@@ -90,7 +90,7 @@ function cadastro() {
               <div className="left-content">
                 <div className="content">
                   <h1>{pacote?.nome}</h1>
-                  <h3>R$ {oferta?.preco}</h3>
+                  {/* <h3>R$ {oferta?.preco}</h3> */}
                   <div className="tags">
                     <h2>Produtos</h2>
                     <div className="tagscards">

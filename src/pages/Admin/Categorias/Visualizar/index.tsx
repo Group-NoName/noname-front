@@ -8,6 +8,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
 import LocationStateView from "../../../../interfaces/useLocationsState";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 function visualizar() {
   const [categoria, setCategoria] = useState<Categoria>();
@@ -108,17 +109,25 @@ function visualizar() {
               stateViewLocation?.data
             )}
             <div className="categoria">
-              <h1>Serviço: {categoria?.nome}</h1>
-              <div className="bottons">
-                <Link to={`/admin/categorias/editar/${categoria?.id}`}>
-                  <Button variant="success">Editar</Button>
-                </Link>
-                <Button
-                  variant="danger"
-                  onClick={() => deletarCategoria(String(categoria?.id))}
-                >
-                  Deletar
-                </Button>
+              <AiOutlineArrowLeft
+                className="icon"
+                onClick={() => navigate(-1)}
+              />
+              <div className="left-content">
+                <div className="content">
+                  <h1>Serviço: {categoria?.nome}</h1>
+                  <div className="bottons">
+                    <Link to={`/admin/categorias/editar/${categoria?.id}`}>
+                      <Button variant="success">Editar</Button>
+                    </Link>
+                    <Button
+                      variant="danger"
+                      onClick={() => deletarCategoria(String(categoria?.id))}
+                    >
+                      Deletar
+                    </Button>
+                  </div>     
+                </div>
               </div>
             </div>
             <div className="produtosRelacionados">

@@ -18,8 +18,23 @@ export const Cadastro = styled.div`
         }
     }
 
+    .contentMain{
+        .nome{
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 15px;
+            input{
+                width: 45vw;
+            }
+          }
+          .icon{
+            font-size: 4vw;
+            margin: 1vw 0 0 2vw;
+        }
+    }
+
     .contentMain form{
-        margin-top: 15px;
+        margin-top: 60px;
         display: flex;
         flex-direction: column;
 
@@ -69,4 +84,4 @@ export const Cadastro = styled.div`
     .produtosSearch::-webkit-scrollbar-thumb:hover{
         background-color:  #0b5ed7;
     }
-`
+}`

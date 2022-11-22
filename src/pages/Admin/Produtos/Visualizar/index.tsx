@@ -8,7 +8,6 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import Nav_Admin from "../../../../components/Nav_Admin";
 import { Button } from "react-bootstrap";
 import useStateView from "../../../../validators/useStateView";
-import PrecoValidador from "../../../../validators/precoValidador";
 import LocationStateView from "../../../../interfaces/useLocationsState";
 
 function Visualizar() {
