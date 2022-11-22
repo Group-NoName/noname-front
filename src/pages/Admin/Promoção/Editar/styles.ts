@@ -85,5 +85,8 @@ img{
         flex-direction: column;
     }
 }
+Button{
+    margin-top: 10px;
+}
 
 `

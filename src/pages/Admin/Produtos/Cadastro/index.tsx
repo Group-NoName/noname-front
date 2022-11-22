@@ -79,6 +79,7 @@ function cadastro() {
         ...fields,
         append({
           nome: "",
+          descricao: ""
         }),
       ];
     }

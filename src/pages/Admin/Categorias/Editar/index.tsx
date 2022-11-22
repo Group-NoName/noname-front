@@ -9,6 +9,7 @@ import Iproduto from "../../../../interfaces/produto";
 import { api } from "../../../../service/api";
 import * as S from "./styles";
 import useStateView from "../../../../validators/useStateView";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 interface IUpdateCategoria {
   nome: string;
@@ -138,6 +139,7 @@ function editar() {
           <main>
             {stateView.validacao(status.type, status.mensagem)}
             <div className="contentMain">
+            <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
                   <label htmlFor="nomeCategoria">Nome do Serviço</label>
