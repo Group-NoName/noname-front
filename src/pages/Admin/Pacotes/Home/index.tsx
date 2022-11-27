@@ -88,7 +88,6 @@ function home() {
                 <thead>
                   <tr>
                     <th>Nome</th>
-                    <th>Preço</th>
                     <th>Ações</th>
                   </tr>
                 </thead>
@@ -98,7 +97,6 @@ function home() {
                         return (
                           <tr key={pacotes.id}>
                             <td>{pacotes?.nome}</td>
-                            <td>{pacotes?.preco}</td>
                             <td className="tdbuttons">
                               <div className="buttons">
                                 <Button
@@ -137,7 +135,6 @@ function home() {
                         return (
                           <tr key={pacotes.id}>
                             <td>{pacotes?.nome}</td>
-                            <td>{pacotes?.preco}</td>
                             <td className="tdbuttons">
                               <div className="buttons">
                                 <Button

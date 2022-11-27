@@ -23,10 +23,13 @@ section{
     margin: 45px auto;
 }
 .nome{
-    width: 50vw;
+    width: 45vw;
     display: flex;
     flex-direction: column;
     input{
+        width: 100%;
+    }
+    textarea{
         width: 100%;
     }
     button{

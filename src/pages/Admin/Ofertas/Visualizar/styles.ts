@@ -18,6 +18,30 @@ export const Visu = styled.div`
         }
     }
 
+    .preco{
+        margin: auto;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        gap: 10px;
+    }
+
+    .left-content{
+        display: flex;
+        align-self: center;
+    }
+
+    .icon{
+        font-size: 4vw;
+        margin: 1vw 0 0 2vw;
+        
+    }
+
+    Button{
+        margin: 4px 1px;
+    }
+
     .porcentagem{
         display: flex;
         flex-direction: column;

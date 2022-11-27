@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { useState, useCallback, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -19,8 +18,6 @@ interface CadastroCategoria {
 
 function cadastro() {
   const navigate = useNavigate();
-  const [categorias, setCategoria] = useState<CadastroCategoria>();
-
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -110,7 +107,6 @@ function cadastro() {
                   <label htmlFor="nome">Nome</label>
                   <input
                     type="text"
-                    value={categorias?.nome}
                     required
                     placeholder="Serviço X"
                     {...register("nome")}
@@ -123,7 +119,7 @@ function cadastro() {
                   placeholder="Buscar Produto"
                 />
                 <div className="produtosSearch">
-                  <Form className='checkform' aria-label="Default select">
+                  <Form className="checkform" aria-label="Default select">
                     {searchInput.length > 1
                       ? filteredResults.map((item) => {
                           return (

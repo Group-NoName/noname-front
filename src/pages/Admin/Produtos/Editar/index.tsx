@@ -24,8 +24,6 @@ function editar() {
   const [produto, setProduto] = useState<Iproduto>();
   const [tags, setTags] = useState<tags[]>([]);
   const [tag, searchTag] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
-  const [filteredResults, setFilteredResults] = useState<tags[]>([]);
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -33,16 +31,6 @@ function editar() {
   const { id } = useParams();
   const navigate = useNavigate();
   const stateView = new useStateView();
-  const searchItems = (searchValue: any) => {
-    setSearchInput(searchValue);
-    const filteredData = tag?.filter((item) => {
-      return Object.values(item)
-        .join("")
-        .toLowerCase()
-        .includes(searchInput.toLowerCase());
-    });
-    setFilteredResults(filteredData);
-  };
 
   useEffect(() => {
     getProduto(), getTags();
@@ -68,7 +56,7 @@ function editar() {
     await api
       .put<CadastroProduto>(`/produto/atualizar/${id}`, {
         nome: data.nome,
-        descricao: data.descricao
+        descricao: data.descricao,
       })
       .then(function (response) {
         if (response) {
@@ -89,35 +77,9 @@ function editar() {
       });
   }, []);
 
-  const adicionarTag = useCallback(async (data: CadastroProduto) => {
-    await api
-      .put<CadastroProduto>(`/produto/adicionar-tag/${id}`, {
-        tags: data.tags[0].id.map((i) => ({ id: i })),
-      })
-      .then(function (response) {
-        if (response) {
-          setStatus({
-            type: "sucesso",
-            mensagem: `${response.data}`,
-          }),
-            navigate(`/admin/produtos/visualizar/${id}`);
-        }
-      })
-      .catch(function (error) {
-        if (error.response) {
-          setStatus({
-            type: "error",
-            mensagem: `Esse produto já possue a Tag: ${error.response.data}`,
-          });
-        }
-      });
-  }, []);
-
   const onSubmit = useCallback(async (data: CadastroProduto) => {
     editarProduto(data);
-  }, []);
-  const onSubmitTags = useCallback(async (data: CadastroProduto) => {
-    adicionarTag(data);
+    /* console.log(data); */
   }, []);
 
   const {
@@ -137,8 +99,11 @@ function editar() {
           </header>
           <main>
             {stateView.validacao(status.type, status.mensagem)}
-            <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
             <div className="Form">
+              <AiOutlineArrowLeft
+                className="icon"
+                onClick={() => navigate(-1)}
+              />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
                   <label htmlFor="nome">Nome</label>
@@ -155,57 +120,17 @@ function editar() {
                     {...register("descricao")}
                   />
                 </div>
+                <Button
+                  color={"#ffff"}
+                  width={"8"}
+                  height={"3"}
+                  fontSize={"20"}
+                  backgroundColor={"#3a4ad9"}
+                  text={"Editar"}
+                  type="submit"
+                />
               </form>
             </div>
-            <form className="formTags" onSubmit={handleSubmit(onSubmitTags)}>
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-custom-components">
-                  <>Adicionar Tags</>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Form.Control
-                    aria-label="Text input with dropdown button"
-                    onChange={(e) => searchItems(e.target.value)}
-                    placeholder="Nome da tag..."
-                  />
-                  {searchInput.length > 1
-                    ? filteredResults.map((item) => {
-                      return (
-                        <Dropdown.ItemText key={item.id}>
-                          <Form.Check
-                            key={item.id}
-                            label={item?.nome}
-                            value={item.id}
-                            {...register("tags.0.id")}
-                          />
-                        </Dropdown.ItemText>
-                      );
-                    })
-                    : tags &&
-                    tags.map((tags) => {
-                      return (
-                        <Dropdown.ItemText key={tags.id}>
-                          <Form.Check
-                            key={tags.id}
-                            label={tags?.nome}
-                            value={tags.id}
-                            {...register("tags.0.id")}
-                          />
-                        </Dropdown.ItemText>
-                      );
-                    })}
-                </Dropdown.Menu>
-              </Dropdown>
-              <Button
-                color={"#ffff"}
-                width={"8"}
-                height={"3"}
-                fontSize={"20"}
-                backgroundColor={"#3a4ad9"}
-                text={"Adicionar tags"}
-                type="submit"
-              />
-            </form>
           </main>
         </section>
       </S.Editar>

@@ -22,7 +22,7 @@ export const Cadastro = styled.div`
         margin: 45px auto;
     }
     .nome{
-        width: 50vw;
+        width: 45vw;
         display: flex;
         flex-direction: column;
         input{
@@ -30,7 +30,7 @@ export const Cadastro = styled.div`
         }
     }
     .descricao{
-        width: 50vw;
+        width: 45vw;
         height: 30vh;
         display: flex;
         flex-direction: column;

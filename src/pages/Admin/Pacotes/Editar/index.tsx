@@ -45,9 +45,7 @@ function editar() {
         nome: data.nome,
         descricao: data.descricao,
         preco: data.preco,
-        images: [
-          { url: data.images[0].url },
-        ],
+        images: [{ url: data.images[0].url }],
       })
       .then(function (response) {
         navigate(`/admin/pacotes/visualizar/${id}`, {
@@ -142,8 +140,8 @@ function editar() {
           </header>
           <main>
             {stateView.validacao(status.type, status.mensagem)}
-            <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
             <div className="Form">
+            <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
                   <label htmlFor="nome">Nome</label>
@@ -157,14 +155,6 @@ function editar() {
                 <div className="position">
                   <div className="imgs">
                     <div className="preco">
-                      <label htmlFor="preco">Preço</label>
-                      <input
-                        type="number"
-                        step="0.01"
-                        required
-                        {...register("preco")}
-                        defaultValue={pacote?.preco}
-                      />
                       <Button
                         color={"#ffff"}
                         width={"8"}
@@ -176,11 +166,13 @@ function editar() {
                       />
                     </div>
                   </div>
-                  
                 </div>
               </form>
               <div>
-                <form className="addprodutos" onSubmit={handleSubmit(onSubmitProduto)}>
+                <form
+                  className="addprodutos"
+                  onSubmit={handleSubmit(onSubmitProduto)}
+                >
                   <Dropdown>
                     <Dropdown.Toggle id="dropdown-custom-components">
                       <>Adicionar produtos</>

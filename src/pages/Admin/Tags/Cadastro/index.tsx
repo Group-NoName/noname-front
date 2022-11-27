@@ -11,8 +11,6 @@ interface CadastroTags {
   nome: string;
 }
 function cadastroTag() {
-  const [tag, setTag] = useState<CadastroTags>();
-
   const navigate = useNavigate();
   const stateView = new useStateView();
 
@@ -67,7 +65,6 @@ function cadastroTag() {
                 <label htmlFor="nome">Nome</label>
                 <input
                   type="text"
-                  value={tag?.nome}
                   required
                   placeholder="Tag X"
                   {...register("nome")}

@@ -22,11 +22,13 @@ section{
     margin: auto;
     width: 80%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-self: center;
     gap: 10px;
 }
 .left-content{
-    margin: 8% 0;
+    display: flex;
+    align-self: center;
 }
 .icon{
     font-size: 4vw;
@@ -34,7 +36,7 @@ section{
     
 }
 .right-content{
-    margin: 8% 0;
+    margin: 5% 0;
     display: flex;
     flex-direction: column;
     justify-content: center;

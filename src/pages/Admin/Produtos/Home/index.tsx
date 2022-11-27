@@ -19,7 +19,6 @@ function Home() {
   const statesView = new useStateView();
   const stateViewLocation = location.state as LocationStateView;
 
-  const validadePrice = new PrecoValidador();
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -105,7 +104,6 @@ function Home() {
                         return (
                           <tr key={item.id}>
                             <td>{item.nome}</td>
-                            
                             <td className="tdbuttons">
                               <div className="buttons">
                                 <Button

@@ -9,7 +9,7 @@ import useStateView from "../../../../validators/useStateView";
 import * as S from "./styles";
 
 function Home() {
-  const [ofetas, setOferta] = useState<Ioferta[]>([]);
+  const [ofertas, setOferta] = useState<Ioferta[]>([]);
   const [oferta, searchOferta] = useState<Ioferta[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState<Ioferta[]>([]);
@@ -26,9 +26,7 @@ function Home() {
   const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
     const filteredData = oferta?.filter((item) => {
-      return Object.values(String(item.preco))
-        .join("")
-        .includes(searchInput);
+      return Object.values(String(item.preco)).join("").includes(searchInput);
     });
     setFilteredResults(filteredData);
   };
@@ -98,7 +96,6 @@ function Home() {
                   </tr>
                 </thead>
                 <tbody>
-                  
                   {searchInput.length > 1
                     ? filteredResults.map((item) => {
                         return (

@@ -19,13 +19,25 @@ export const Visualizar = styled.div`
             justify-content: center;
         }
     }
+    .icon{
+        font-size: 4vw;
+        margin: 1vw 0 0 2vw;
+        
+    }
+    .left-content{
+        display: flex;
+        align-self: center;
+    }
     .categoria{
+        width: 80%;
+        margin: auto;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-self: center;
         justify-content: center;
 
         .bottons{
+            justify-content: center;
             display: flex;
             gap: 10px;
         }
