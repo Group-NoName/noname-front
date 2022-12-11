@@ -4,7 +4,7 @@ interface Ioferta{
     id : string,
     nome : string;
     preco : number,
-    pacotes : pacote,
+    pacote : pacote,
 }
 
 export default Ioferta

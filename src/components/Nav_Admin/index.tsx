@@ -47,7 +47,7 @@ function Nav_Admin() {
                 </Link>
               </NavDropdown>
 
-              <NavDropdown
+              {/* <NavDropdown
                 className="navdrops"
                 title="Tags"
                 id="collasible-nav-dropdown"
@@ -59,7 +59,7 @@ function Nav_Admin() {
                 <Link className="link" to={"/admin/tags/cadastro"}>
                   <Navbar.Brand className="texto">Cadastrar</Navbar.Brand>
                 </Link>
-              </NavDropdown>
+              </NavDropdown> */}
 
               <NavDropdown
                 className="navdrops"

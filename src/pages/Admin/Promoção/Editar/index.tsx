@@ -134,9 +134,9 @@ function EditarPromo() {
             <Nav_Admin />
           </header>
           <main>
-            {stateView.validacao(status.type, status.mensagem)}
+
             <div className="Form">
-            <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
+              <AiOutlineArrowLeft className="icon" onClick={() => navigate(-1)} />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="nome">
                   <label htmlFor="nome">Nome</label>
@@ -162,30 +162,30 @@ function EditarPromo() {
                   />
                   {searchInput.length > 1
                     ? filteredResults.map((item) => {
-                        return (
-                          <Dropdown.ItemText key={item.id}>
-                            <Form.Check
-                              key={item.id}
-                              label={item?.nome}
-                              value={item.id}
-                              {...register("ofertas.0.id")}
-                            />
-                          </Dropdown.ItemText>
-                        );
-                      })
+                      return (
+                        <Dropdown.ItemText key={item.id}>
+                          <Form.Check
+                            key={item.id}
+                            label={item?.nome}
+                            value={item.id}
+                            {...register("ofertas.0.id")}
+                          />
+                        </Dropdown.ItemText>
+                      );
+                    })
                     : ofertas &&
-                      ofertas.map((ofertas) => {
-                        return (
-                          <Dropdown.ItemText key={ofertas.id}>
-                            <Form.Check
-                              key={ofertas.id}
-                              label={ofertas?.nome}
-                              value={ofertas.id}
-                              {...register("ofertas.0.id")}
-                            />
-                          </Dropdown.ItemText>
-                        );
-                      })}
+                    ofertas.map((ofertas) => {
+                      return (
+                        <Dropdown.ItemText key={ofertas.id}>
+                          <Form.Check
+                            key={ofertas.id}
+                            label={ofertas?.nome}
+                            value={ofertas.id}
+                            {...register("ofertas.0.id")}
+                          />
+                        </Dropdown.ItemText>
+                      );
+                    })}
                 </Dropdown.Menu>
               </Dropdown>
               <Button

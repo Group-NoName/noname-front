@@ -38,13 +38,12 @@ function CadastroPromo() {
         ofertasOpcionais: data.ofertasOpcionais[0].id.map((i) => ({ id: i })),
       })
       .then(function (response) {
-        /* navigate(`/admin/promocao`, {
+         navigate(`/admin/promocao`, {
           state: {
             data: response.data,
             status: response.status,
           },
-        }); */
-        console.log(response.data);
+        }); 
       })
       .catch(function (error) {
         if (error.response) {

@@ -20,9 +20,9 @@ function Home() {
               <Link to="/admin/categorias" className="link">
                 <p>Serviços</p>
               </Link>
-              <Link to="/admin/tags" className="link">
+              {/* <Link to="/admin/tags" className="link">
                 <p>Tags</p>
-              </Link>
+              </Link> */}
               <Link to="/admin/pacotes" className="link">
                 <p>Pacotes</p>
               </Link>

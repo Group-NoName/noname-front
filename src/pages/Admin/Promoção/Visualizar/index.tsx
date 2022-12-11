@@ -59,11 +59,6 @@ function VisualizarPromo() {
             <Nav_Admin />
           </header>
           <main>
-            {statesView.validacao(
-              stateViewLocation?.status,
-              stateViewLocation?.data
-            )}
-            {statesView.validacao(status.type, status.mensagem)}
             <div className="mainContent">
               <AiOutlineArrowLeft
                 className="icon"
@@ -90,6 +85,24 @@ function VisualizarPromo() {
                   >
                     Deletar
                   </Button>
+                </div>
+              </div>
+              <div className="ofertas">
+                <div className="obrigatorias">
+                  <h1>Ofertas Obrigatorias</h1>
+                  {promocao && promocao?.ofertasObrigatorias?.map(p => {
+                    return (
+                      <h3 key={p.id}>{p.nome}</h3>
+                    )
+                  })}
+                </div>
+                <div className="opcionais">
+                  <h1>Ofertas Opcionais</h1>
+                  {promocao && promocao?.ofertasOpcionais?.map(p => {
+                    return (
+                      <h3 key={p.id}>{p.nome}</h3>
+                    )
+                  })}
                 </div>
               </div>
             </div>

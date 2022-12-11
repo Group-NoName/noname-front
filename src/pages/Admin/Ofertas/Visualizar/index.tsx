@@ -198,6 +198,7 @@ function Visualizar() {
               />
               <div className="left-content">
                 <div className="content">
+                  <h1>Oferta: {oferta?.nome}</h1>
                   <h1>Preço: {oferta?.preco}</h1>
                   <div className="buttons">
                     <Button
@@ -206,20 +207,23 @@ function Visualizar() {
                     >
                       Deletar
                     </Button>
-                    <Button
+                    {/* <Button
                       variant="danger"
                       onClick={() => limparTodosPacotes(String(oferta?.id))}
                     >
                       Remover todos os Produtos
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </div>
+              <div className="pacotes">
+                <h1>{oferta?.pacote?.nome}</h1>
+              </div>
             </div>
-            <div className="pacotesPreco">
+            {/* <div className="pacotesPreco">
               <h1>Pacotes</h1>
               <div className="pacotes">
-                <h1>{oferta?.pacotes.nome}</h1>
+                <h1>{oferta?.pacotes?.nome}</h1>
               </div>
               <h1>Adicionar Pacote</h1>
               <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -266,7 +270,7 @@ function Visualizar() {
                   Editar
                 </Button>
               </form>
-            </div>
+            </div> */}
           </main>
         </section>
       </S.Visu>

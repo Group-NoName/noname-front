@@ -54,4 +54,22 @@ Button{
     margin-top: 5px;
     border: 1px solid;
 }
+
+.ofertas{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .obrigatorias, .opcionais{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        h3{
+            color: orange;
+            font-size: 25px;
+        }
+    }
+}
 `
